@@ -1,0 +1,122 @@
+/*
+** Style Simple Ecommerce Theme for Bootstrap 4
+** Created by T-PHP https://t-php.fr/43-theme-ecommerce-bootstrap-4.html
+*/
+
+.bloc_left_price {
+    color: #c01508;
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}
+.category_block li:hover {
+    background-color: #007bff;
+}
+.category_block li:hover a {
+    color: #ffffff;
+}
+.category_block li a {
+    color: #343a40;
+}
+.navBtn{
+    border: solid 1px #85e1d5;
+}
+.navBtn:hover {
+    background-color: #85e1d5;
+    
+}
+.row {
+    padding-bottom: 20px;
+}
+
+.add_to_cart_block .price {
+    color: #c01508;
+    text-align: center;
+    font-weight: bold;
+    font-size: 300%;
+    margin-bottom: 0;
+}
+.add_to_cart_block .price_discounted {
+    color: #343a40;
+    text-align: center;
+    text-decoration: line-through;
+    font-size: 140%;
+}
+.product_rassurance {
+    padding: 10px;
+    margin-top: 15px;
+    background: #ffffff;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+.product_rassurance .list-inline {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    text-align: center;
+}
+.product_rassurance .list-inline li:hover {
+    color: #343a40;
+}
+.reviews_product .fa-star {
+    color: gold;
+}
+.pagination {
+    margin-top: 20px;
+}
+
+#homesearch{
+    background-color:rgb(231, 231, 231);
+
+}
+.nav-link{
+    color: #000000;
+    font-size: larger;
+    margin-left: 10px;
+}
+#homesearchdiv{
+    margin: 15px;
+}
+.carouselstyle{
+    margin: auto;
+    max-width: 2000px;
+    height: 500px;
+    
+}
+.carouselslick{
+    margin: auto;
+    max-width: 1050px;
+    
+}
+.slickCarousel{
+    margin: auto;
+    max-width: 1200px;
+    height: 200px;
+}
+.slick-prev:before,.slick-next:before {
+    color:#aaa;
+}
+
+  
+  a.button{
+    padding:10px;
+    background:#3cacae;
+    
+    display:block;
+    text-align:center;
+    color:#fff;
+    transition:all 1s linear;
+    text-decoration:none;
+    text-shadow:1px 1px 3px rgba(0,0,0,0.3);
+    border-radius:5px;
+    border-bottom:3px solid #379697;
+    box-shadow:1px 1px 3px rgba(0,0,0,0.3);
+  }
+  
+div#columns small { 
+  font-size: 1rem;
+  float: right; 
+  text-transform: uppercase;
+  color: #aaa;
+    border-radius: 10px;
+
+} 

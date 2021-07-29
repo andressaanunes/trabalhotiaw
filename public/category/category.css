@@ -1,0 +1,150 @@
+/*
+** Style Simple Ecommerce Theme for Bootstrap 4
+** Created by T-PHP https://t-php.fr/43-theme-ecommerce-bootstrap-4.html
+*/
+/*
+** Style Simple Ecommerce Theme for Bootstrap 4
+** Created by T-PHP https://t-php.fr/43-theme-ecommerce-bootstrap-4.html
+*/
+.bloc_left_price {
+    color: #c01508;
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}
+.category_block li:hover {
+    background-color: #007bff;
+}
+.category_block li:hover a {
+    color: #ffffff;
+}
+.category_block li a {
+    color: #343a40;
+}
+.navBtn{
+    border: solid 1px #85e1d5;
+}
+.navBtn:hover {
+    background-color: #85e1d5;
+    
+}
+.add_to_cart_block .price {
+    color: #c01508;
+    text-align: center;
+    font-weight: bold;
+    font-size: 200%;
+    margin-bottom: 0;
+}
+.add_to_cart_block .price_discounted {
+    color: #343a40;
+    text-align: center;
+    text-decoration: line-through;
+    font-size: 140%;
+}
+.product_rassurance {
+    padding: 10px;
+    margin-top: 15px;
+    background: #ffffff;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+.product_rassurance .list-inline {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    text-align: center;
+}
+.product_rassurance .list-inline li:hover {
+    color: #343a40;
+}
+.reviews_product .fa-star {
+    color: gold;
+}
+.pagination {
+    margin-top: 20px;
+}
+
+.nav-link{
+    color: #000000;
+    font-size: larger;
+    margin-left: 10px;
+}
+#categoriesnavbar{
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+.carouselstyle{
+    height: 200px;
+}
+.carouselcircle{
+    height: 150px;
+}
+
+.columns_5{
+    -webkit-column-count:5;
+    -moz-column-count:5;
+    column-count:5;
+  }
+#columns {
+      -moz-column-gap: 5px;  
+      -webkit-column-gap: 5px;
+      column-gap: 5px;
+      width: 90%;
+      max-width: 1100px;
+      margin-bottom: 25px;
+      margin-left: 25px;
+      border-radius: 10px;
+      font-size: 1.4rem;
+  }
+  .paymentimg{
+    position: relative;
+    width: 300px;
+    height:auto;    
+    margin-bottom: 20px;
+}
+  .card-body {
+      background: #fefefe;
+      border: 2px solid #fcfcfc;
+      box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+      /*margin: 0 2px 15px;*/
+      padding: 15px;
+      padding-bottom: 10px;
+      transition: all .7s ease-in-out;
+    display: inline-block;
+    column-break-inside: avoid;
+    border-radius: 10px;
+  }
+  
+  .cardimg {
+      width: 100%; height: auto;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 5px;
+      border-radius: 10px;
+  }
+  
+  
+  .card-body:hover{
+    padding: 20px;
+  }
+  a.button{
+    padding:10px;
+    background:#3cacae;
+    margin:10px;
+    display:block;
+    text-align:center;
+    color:#fff;
+    transition:all 1s linear;
+    text-decoration:none;
+    text-shadow:1px 1px 3px rgba(0,0,0,0.3);
+    border-radius:5px;
+    border-bottom:3px solid #339496;
+    box-shadow:1px 1px 3px rgba(0,0,0,0.3);
+  }
+  
+div#columns small { 
+  font-size: 1rem;
+  float: right; 
+  text-transform: uppercase;
+  color: #aaa;
+    border-radius: 10px;
+
+} 

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<link rel="stylesheet" href="carrinho.css">
+<link rel="stylesheet" href="../styles/geral.css">
+    <title>CriaLuth</title>
+</head>
+<body>
+    
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<nav class="navbar navbar-expand-md d-flex ">
+    <div class="container">
+       
+            <a href="/">
+                <img id="Logo"src="../imagens/Logo.png" alt="logo aqui">
+            </a>
+        
+        
+        <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarhome" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarhome">       
+            <form class="position-absolute top-50 start-50 translate-middle"></form>
+                <div id = "homesearchdiv" class="input-group input-group-mb" >
+                    <input id = "homesearch" type="search" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                    size="10" placeholder>
+                        <button id="busca" type="submit" class="btn btn-secondary btn-number ">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="d-flex input-group-sizing-sm justify-content-end">
+
+            <div class="input-group-append">
+                <a class = "logged" type="button" id="button-addon2" href="../Sign-in/index.html" >
+                    <img src="../imagens/login1.png" alt="">
+                    <p id="logged"></p>
+                </a>
+                
+            </div>
+            
+          </div>
+        <a class="mx-2 carrinho" href="../carrinho/index.html">
+            <img src="../imagens/carrinho1.png" alt="">
+            <span class="badge badge-light"></span>
+        </a>
+    </div>
+</nav>
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">Seu Carrinho</h1>
+     </div>
+</section>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div id="table" class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">Produto</th>
+                            <th scope="col" class="text-center">Quantidade</th>
+                            <th scope="col" class="text-right">Preço</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody id="prodList">
+                       
+                    </tbody>
+                </table>
+                <div class="input-group mb-3" id="cep">
+                    <input id="clientCEP" type="text" class="form-control" placeholder="CEP" aria-label="Recipient's username" >
+                    <button class="btn btn-outline-secondary" type="button" id="cepCalc">Calcular</button>
+                </div>
+                <div class="d-grid gap-3 float-end">
+                    <form id="shippingForm">
+                        
+                    </form>
+                    
+                    <div id="shippings">
+
+                    </div>
+                </div>
+                <br>
+                
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                    <a href="http://localhost:5000/">
+                    <button  class="btn btn-block btn-light">
+                        Continuar Comprando</button>
+                    </a>    
+                    </div>
+                <div class="col-sm-12 col-md-6 text-right align-items-center">
+                    
+                    <button id="fechapedido" class="btn btn-lg btn-block btn-success text-uppercase">Fechar Pedido</button>
+                    <p id="isLoged" class="text-right">Para finalizar o pedido você precisa estar logado!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="text-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-lg-1 col-xl-2 mx-auto">
+                <h5>Sobre:</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <p class="mb-0">
+                    CriaLuth Quadros Decorativos
+                </p>
+            </div>
+
+            <div class="col-md-2 col-lg-1 col-xl-3 mx-auto">
+                <h5>Atendimento:</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    <li type="disc" >Segunda à sexta: 9hrs às 21hrs</li>
+                    <li type="disc">Sábado: 9hrs às 12hrs</li>
+                    <li type="disc"> Domingo: Fechado</li>
+                    
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-lg-3 col-xl-2 mx-auto">
+                <h5>Redes Sociais:</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    <li  type="disc"><a href="">Instagram <img class="socialImg" src="../imagens/Logo redes sociais pequenas/instagram.png" alt=""></a>
+                        
+                    </li>
+                    <li type="disc"><a href="">TikTok <img class="socialImg" src="../imagens/Logo redes sociais pequenas/tiktok.png" alt=""></a>
+                        
+                    </li>
+                    <li type="disc"><a href="">Facebook <img class="socialImg" src="../imagens/Logo redes sociais pequenas/facebook.png" alt=""></a>
+                        
+                    </li>
+                    <li type="disc"><a href="">WhatsApp <img class="socialImg" src="../imagens/Logo redes sociais pequenas/whatsapp.png" alt=""></a>
+                        
+                    </li>
+                    <li type="disc"><a href="">Twitter <img class="socialImg" src="../imagens/Logo redes sociais pequenas/twitter.png" alt=""></a>
+                        
+                    </li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h5>Contato:</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    
+                    <li><i class="fa fa-envelope mr-2"></i> contato@crialuth.com</li>
+                    <li><i class="fa fa-phone mr-2"></i> 31 98307-0214</li>
+                    
+                </ul>
+                <img class="paymentimg" src="../imagens/meiosdepagamento.png" alt="image not loaded">
+            </div>
+            <div class="col-12 copyright mt-3 justify-content-center">
+                <p class="float-left">
+                    <a class="btn btn-primary topo"  href="#" role="button" >Pra cima
+                    <img src="baseline_north_white_18dp.png" alt="">
+                    </a>
+                       
+                <p class="text-right text-muted">created with <i class="fa fa-heart"></i> by <a href="https://t-php.fr/43-theme-ecommerce-bootstrap-4.html"><i>t-php</i></a> | <span>v. 1.0</span></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="./carrinho.js"></script>
+<script src="../scripts/scripts.js"></script>
+<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+</body>
+</html>

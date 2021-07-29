@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="product.css">
+<link rel="stylesheet" href="../styles/geral.css">
+
+    <title>CriaLuth</title>
+</head>
+<body>
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v11.0" nonce="ljZs3Nzg"></script>
+
+    
+<nav class="navbar navbar-expand-md d-flex ">
+    
+    <div class="container">
+        <a href="/">
+        <img id = "Logo" src="../imagens/Logo.png" alt="">
+        </a>       
+            
+        <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarhome" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarhome">       
+            <form class="position-absolute top-50 start-50 translate-middle"></form>
+                <div id = "homesearchdiv" class="input-group input-group-mb" >
+                    <input id = "homesearch" type="search" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                    size="10" placeholder>
+                        <button id="busca" type="submit" class="btn btn-secondary btn-number ">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="d-flex input-group-sizing-sm justify-content-end">
+
+          <div class="input-group-append">
+            <a class = "logged" type="button" id="button-addon2" href="../Sign-in/index.html" >
+                <img src="../imagens/login1.png" alt="">
+                <p id="logged"></p>
+            </a>
+            
+        </div>
+        
+      </div>
+    <a class="mx-2 carrinho" href="../carrinho/index.html">
+        <img src="../imagens/carrinho1.png" alt="">
+        <span class="badge badge-light"></span>
+    </a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <!-- Image -->
+        <div class="col-12 col-lg-6">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <a href="" data-toggle="modal" data-target="#productModal">
+                        <img id="image" class="img-fluid" src="imagesource" />
+                        <p class="text-center">Zoom</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Add to cart -->
+        <div class="col-12 col-lg-6 add_to_cart_block">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                   <h2 id="title" class="col-10"></h2>
+                   <p id="id" hidden></p>
+                   <div  class="price d-flex col-12">
+                       
+                        <p id="preco"></p>
+                    
+                   </div>
+                                      
+                    <form method="get" action="cart.html">
+                        <div class="form-group">
+                            <label for="colors">Revestimento do Quadro</label>
+                            <select class="custom-select" id="revest"> 
+                                <option selected value="1">Acetato</option>
+                                <option value="2">Vidro (+ R$10,00)</option>
+                            </select>
+                        </div>
+                        <div id="quantitydiv" class="form-group">
+                            <label>Quantidade :</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button onclick="" type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input  type="text" class="form-control"  id="quantity" name="quantity" min="1" max="100" value="1">
+                                <div class="input-group-append">
+                                    <button onclick="" type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <a id="addCart" class="btn btn-success btn-lg btn-block text-uppercase">
+                            <i class="fa fa-shopping-cart"></i> Adicionar ao carrinho
+                        </a>
+                    </form>
+                    <div class="product_rassurance">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br/>Entrega Rápida</li>
+                            <li class="list-inline-item"><i class="fa fa-credit-card fa-2x"></i><br/>Pagamento Seguro</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Description -->
+
+        <div class="col-12" id="personalizacao">
+            <div class="card border-light mb-3">
+                <div class="card-header text-black text-uppercase description"><b> Descrição</b></div>
+                <div class="card-body">
+                    <h5>Seu Quadro Pode ser Personalizado!</h5>
+                    <div class="card-text">Já imaginou sua casa com um quadro exclusivo seu? Aqui na CriaLuth nós deixamos sua casa mais aconchegante com quadros perfeitos pra você.
+                    </div>
+                    
+                     <div>Comece a personalizar agora mesmo clicando no link abaixo e preenchendo o formulário de personalização:</div>
+                    <p></p>
+                    <a class="btn btn-info" target="_blank" href="https://forms.gle/ynQJ4vjm7LHv1QEx5">Clique aqui!</a>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="col-12">
+            <img class="bottom-img d-block w-75" src="descricao/Inserir um título (1).png" alt="">
+             
+        </div>
+
+        <!-- Reviews -->
+        <div class="fb-comments" data-href="" data-width="900" data-numposts="5"></div>
+    </div>
+    
+</div>
+
+
+<!-- Footer -->
+<footer class="text-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-lg-1 col-xl-2 mx-auto">
+                <h5>Sobre:</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <p class="mb-0">
+                    CriaLuth Quadros Decorativos
+                </p>
+            </div>
+
+            <div class="col-md-2 col-lg-1 col-xl-3 mx-auto">
+                <h5>Atendimento:</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    <li type="disc" >Segunda à sexta: 9hrs às 21hrs</li>
+                    <li type="disc">Sábado: 9hrs às 12hrs</li>
+                    <li type="disc"> Domingo: Fechado</li>
+                    
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-lg-3 col-xl-2 mx-auto">
+                <h5>Redes Sociais:</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    <li  type="disc"><a href="">Instagram <img class="socialImg" src="../imagens/Logo redes sociais pequenas/instagram.png" alt=""></a>
+                        
+                    </li>
+                    <li type="disc"><a href="">TikTok <img class="socialImg" src="../imagens/Logo redes sociais pequenas/tiktok.png" alt=""></a>
+                        
+                    </li>
+                    <li type="disc"><a href="">Facebook <img class="socialImg" src="../imagens/Logo redes sociais pequenas/facebook.png" alt=""></a>
+                        
+                    </li>
+                    <li type="disc"><a href="">WhatsApp <img class="socialImg" src="../imagens/Logo redes sociais pequenas/whatsapp.png" alt=""></a>
+                        
+                    </li>
+                    <li type="disc"><a href="">Twitter <img class="socialImg" src="../imagens/Logo redes sociais pequenas/twitter.png" alt=""></a>
+                        
+                    </li>
+                </ul>
+            </div>
+
+            <div class="">
+                <h5>Contato:</h5>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <ul class="list-unstyled">
+                    
+                    <li><i class="fa fa-envelope mr-2"></i> contato@crialuth.com</li>
+                    <li><i class="fa fa-phone mr-2"></i> 31 98307-0214</li>
+                    
+                </ul>
+                <img class="paymentimg" src="../imagens/meiosdepagamento.png" alt="image not loaded">
+            </div>
+            <div class="col-12 copyright mt-3 justify-content-center">
+                <p class="float-left">
+                    <a class="btn btn-primary topo"  href="#" role="button" >Pra cima
+                    <img src="baseline_north_white_18dp.png" alt="">
+                    </a>
+                       
+                <p class="text-right text-muted">created with <i class="fa fa-heart"></i> by <a href="https://t-php.fr/43-theme-ecommerce-bootstrap-4.html"><i>t-php</i></a> | <span>v. 1.0</span></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Modal image -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Product title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="img-fluid" src="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./product.js"></script>
+<script src="../scripts/scripts.js"></script>
+</body>
+</html>

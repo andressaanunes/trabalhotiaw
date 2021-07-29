@@ -1,0 +1,28 @@
+{
+  "name": "crialuth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "form-data": "^4.0.0",
+    "jquery": "^3.5.1",
+    "jsonwebtoken": "^8.5.1",
+    "melhor-envio": "^1.6.3",
+    "mysql2": "^2.2.5",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
+    "request": "^2.88.2",
+    "sequelize": "^6.3.5",
+    "xml2js": "^0.4.23"
+  }
+}

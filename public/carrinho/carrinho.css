@@ -1,0 +1,106 @@
+/*
+** Style Simple Ecommerce Theme for Bootstrap 4
+** Created by T-PHP https://t-php.fr/43-theme-ecommerce-bootstrap-4.html
+*/
+.bloc_left_price {
+    color: #c01508;
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+#prodImg{
+    width: 20%; height: auto;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1px;
+    border-radius: 10px;
+}
+#cep{
+    margin-left:auto;
+    width: 305px;
+    right:0px;
+}
+.paymentimg{
+    position: relative;
+    width: 300px;
+    height: 100px;    
+    margin-bottom: 25px; 
+    
+}
+.transpImg{
+    width: 70px; height: auto;
+    margin-left: 10px;
+    margin-right: 5px;
+    line-height: 50%;
+}
+#shippingForm .col-12{
+    display: block;
+    padding: 3px;
+    line-height: 50%;
+    border: 0.2px solid rgba(128, 128, 128, 0.075);
+    border-radius: 5px;
+}
+
+#shippings #shippingForm{
+    position: relative;
+    flex-direction: row;
+    border-radius:10px;
+    width: 320px;
+    margin-bottom: 10px;
+    padding-right: 10px;
+    right:0px;
+}
+
+#prodName{
+    font-size:20px;
+    font-weight: bold;
+}
+#prodPrice{
+    font-size:20px
+}
+
+
+.category_block li:hover {
+    background-color: #007bff;
+}
+.category_block li:hover a {
+    color: #ffffff;
+}
+.category_block li a {
+    color: #343a40;
+}
+.add_to_cart_block .price {
+    color: #c01508;
+    text-align: center;
+    font-weight: bold;
+    font-size: 200%;
+    margin-bottom: 0;
+}
+.add_to_cart_block .price_discounted {
+    color: #343a40;
+    text-align: center;
+    text-decoration: line-through;
+    font-size: 140%;
+}
+.product_rassurance {
+    padding: 10px;
+    margin-top: 15px;
+    background: #ffffff;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+.product_rassurance .list-inline {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    text-align: center;
+}
+.product_rassurance .list-inline li:hover {
+    color: #343a40;
+}
+.reviews_product .fa-star {
+    color: gold;
+}
+.pagination {
+    margin-top: 20px;
+}
+
