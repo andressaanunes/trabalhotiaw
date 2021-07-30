@@ -64,7 +64,7 @@ router.get('/product/:id', async function getall(req,res){
 router.get('/area/:area', async function getall(req,res){
 
     let busca = req.params.area
-    //console.log(busca)
+    
     switch(busca) {
         case "gourmet":
           
