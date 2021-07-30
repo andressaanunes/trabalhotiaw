@@ -46,7 +46,7 @@
     margin-bottom: 25px;
     margin-left: 25px;
     border-radius: 10px;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 .paymentimg{
@@ -98,6 +98,9 @@ div#columns small {
     position: relative;
     bottom:1px;
     right: 10px;
+}
+.selosFooter{
+    display: block;
 }
 footer {
     margin-top: 10px;
