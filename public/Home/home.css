@@ -91,6 +91,7 @@
     margin: auto;
     max-width: 1200px;
     height: 200px;
+    padding: 25px;
 }
 .slick-prev:before,.slick-next:before {
     color:#aaa;
