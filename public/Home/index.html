@@ -28,8 +28,11 @@
                 <a href="/">
                     <img id="Logo" src="../imagens/Logo.png" alt="logo aqui">
                 </a>
-            <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarhome" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarhome"  aria-controls="navbarhome" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon">busca</span>
+            
             </button>
     
             <div class="collapse navbar-collapse justify-content-center" id="navbarhome">       
@@ -61,8 +64,15 @@
             </a>
         </div>
     </nav>
-    <nav id= "categoriesnavbar" class="navbar navbar-expand-md  d-flex justify-content-center ">
-        <ul class="nav ">                   
+    <nav id= "categoriesnavbar" class="navbar navbar-expand-md   d-flex justify-content-center ">
+
+            <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#categoriesList"  aria-controls="categoriesList" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon">categorias</span>
+            
+            </button>
+
+        <ul id="categoriesList" class="collapse navbar-collapse ">                   
             <li id="navcategories" type= "button"class=" nav-item btn  m-2 navBtn">
                 <a class="nav-link " href="http://localhost:5000/category?categoria=maisvendidos">Mais Vendidos</a>
             </li>
