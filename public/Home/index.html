@@ -35,9 +35,12 @@
             
             </button>
     
-            <div class="collapse navbar-collapse justify-content-center" id="navbarhome">       
+            <div class="collapse navbar-collapse justify-content-center" id="navbarhome"> 
+
                 <form class="position-absolute top-50 start-50 translate-middle"></form>
+
                     <div id = "homesearchdiv" class="input-group input-group-mb" >
+
                         <input id = "homesearch" type="search" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
                         size="10" placeholder>
                             <button id="busca" type="submit" class="btn btn-secondary btn-number ">
@@ -64,34 +67,35 @@
             </a>
         </div>
     </nav>
-    <nav id= "categoriesnavbar" class="navbar navbar-expand-md   d-flex justify-content-center ">
+    <nav id= "categoriesnavbar" class="navbar navbar-expand-md d-flex justify-content-center">
 
             <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#categoriesList"  aria-controls="categoriesList" aria-expanded="false" aria-label="Toggle navigation">
 
                 <span class="navbar-toggler-icon">categorias</span>
             
             </button>
-
-        <ul id="categoriesList" class="collapse navbar-collapse ">                   
-            <li id="navcategories" type= "button"class=" nav-item btn  m-2 navBtn">
-                <a class="nav-link " href="http://localhost:5000/category?categoria=maisvendidos">Mais Vendidos</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2  ">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=infantil">Infantil</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2 ">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=frases">Frases</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=animais">Animais</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=serie-filme-desenho">Séries e Filmes</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=amorosos">Amorosos</a>
-            </li>
-        </ul>
+            <div id="categoriesList" class="navbar-collapse d-flex justify-content-center" >
+                <ul class="d-flex justify-content-center">                   
+                    <li id="navcategories" type= "button"class=" nav-item btn  m-2 navBtn">
+                        <a class="nav-link " href="http://localhost:5000/category?categoria=maisvendidos">Mais Vendidos</a>
+                    </li>
+                    <li id="navcategories" type= "button"class="nav-item btn navBtn m-2  ">
+                        <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=infantil">Infantil</a>
+                    </li>
+                    <li id="navcategories" type= "button"class="nav-item btn navBtn m-2 ">
+                        <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=frases">Frases</a>
+                    </li>
+                    <li id="navcategories" type= "button"class="nav-item btn navBtn m-2">
+                        <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=animais">Animais</a>
+                    </li>
+                    <li id="navcategories" type= "button"class="nav-item btn navBtn m-2">
+                        <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=serie-filme-desenho">Séries e Filmes</a>
+                    </li>
+                    <li id="navcategories" type= "button"class="nav-item btn navBtn m-2">
+                        <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=amorosos">Amorosos</a>
+                    </li>
+                </ul>
+            </div>
     </nav>
     
     <div id = "carrossel"class="carousel slide mb-2 carouselstyle" data-bs-ride = "carousel">
