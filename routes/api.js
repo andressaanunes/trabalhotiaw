@@ -13,7 +13,7 @@ const cors = require('cors')
 
 router.use((req,res,next) => {
     console.log('acessou middleware CORSS')
-    res.header({"Access-Control-Allow-Origin":"*",
+    res.header({"Access-Control-Allow-Origin":"*",//tirar o asterisco e usar o site pra testar oq vai ser barrado, e adicionar a url do q for barrado na lista de "Access-Control-Allow-Origin"
                 "Access-Control-Allow-Methods":"POST, GET"})
     router.use(cors())
     next()

@@ -62,28 +62,36 @@
             </a>
         </div>
     </nav>
-    <nav id= "categoriesnavbar" class="navbar navbar-expand-md  d-flex justify-content-center ">
-        <ul class="nav ">                   
-            <li id="navcategories" type= "button"class=" nav-item btn  m-2 navBtn">
-                <a class="nav-link " href="http://localhost:5000/category?categoria=maisvendidos">Mais Vendidos</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2  ">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=infantil">Infantil</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2 ">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=frases">Frases</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=animais">Animais</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=serie-filme-desenho">Séries e Filmes</a>
-            </li>
-            <li id="navcategories" type= "button"class="nav-item btn navBtn m-2">
-                <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=amorosos">Amorosos</a>
-            </li>
-        </ul>
-    </nav>
+    <nav id= "categoriesnavbar" class="navbar navbar-expand-md d-flex justify-content-center">
+
+        <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#categoriesList"  aria-controls="categoriesList" aria-expanded="false" aria-label="Toggle navigation">
+
+            <span class="navbar-toggler-icon">categorias</span>
+        
+        </button>
+        <div class="mx-auto" >
+            <ul id="categoriesList" class="collapse navbar-collapse nav nav-pills">                   
+                <li id="navcategories" class=" nav-item btn  m-1 navBtn">
+                    <a class="nav-link " href="http://localhost:5000/category?categoria=maisvendidos">Mais Vendidos</a>
+                </li>
+                <li id="navcategories" class="nav-item btn navBtn m-1  ">
+                    <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=infantil">Infantil</a>
+                </li>
+                <li id="navcategories" class="nav-item btn navBtn m-1 ">
+                    <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=frases">Frases</a>
+                </li>
+                <li id="navcategories" class="nav-item btn navBtn m-1">
+                    <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=animais">Animais</a>
+                </li>
+                <li id="navcategories" class="nav-item btn navBtn m-1">
+                    <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=serie-filme-desenho">Séries e Filmes</a>
+                </li>
+                <li id="navcategories" class="nav-item btn navBtn m-1">
+                    <a class="nav-link navcategories" href="http://localhost:5000/category?categoria=amorosos">Amorosos</a>
+                </li>
+            </ul>
+        </div>
+</nav>
         
     <div class="container ">
 
@@ -95,32 +103,34 @@
         
     </div>  
     
-    <!-- Footer -->
-<footer class="text-light">
+  <!-- Footer -->
+ <footer class="text-light">
     <div class="container">
         <div class="row">
-            <div class="col-md-2 col-lg-1 col-xl-2 mx-auto">
+            <div class="col-md-4 col-lg-3 col-xl-3">
                 <h5>Sobre:</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                
                 <p class="mb-0">
                     CriaLuth Quadros Decorativos
                 </p>
-            </div>
-
-            <div class="col-md-2 col-lg-1 col-xl-3 mx-auto">
-                <h5>Atendimento:</h5>
                 <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+            </div>
+            
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto">
+                <h5>Atendimento:</h5>
+                
                 <ul class="list-unstyled">
                     <li type="disc" >Segunda à sexta: 9hrs às 21hrs</li>
                     <li type="disc">Sábado: 9hrs às 12hrs</li>
                     <li type="disc"> Domingo: Fechado</li>
                     
                 </ul>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
             </div>
 
-            <div class="col-md-3 col-lg-3 col-xl-2 mx-auto">
+            <div class="col-md-3 col-lg-2 col-xl-2">
                 <h5>Redes Sociais:</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                
                 <ul class="list-unstyled">
                     <li  type="disc"><a href="">Instagram <img class="socialImg" src="../imagens/Logo redes sociais pequenas/instagram.png" alt=""></a>
                         
@@ -138,11 +148,12 @@
                         
                     </li>
                 </ul>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
             </div>
 
-            <div class="col-md-3 col-lg-3 col-xl-2 mx-auto">
+            <div class="col-md-3 col-lg-4 col-xl-3">
                 <h5>Contato:</h5>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+               
                 <ul class="list-unstyled">
                     
                     <li><i class="fa fa-envelope mr-2"></i> contato@crialuth.com</li>
@@ -150,6 +161,7 @@
                     
                 </ul>
                 <img class="paymentimg" src="../imagens/meiosdepagamento.png" alt="image not loaded">
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
             </div>
             <div class="col-12 copyright mt-3 justify-content-center">
                 <p class="float-left">

@@ -20,6 +20,7 @@
 }
 .navBtn{
     border: solid 1px #85e1d5;
+    padding: 6px;
 }
 .navBtn:hover {
     background-color: #85e1d5;

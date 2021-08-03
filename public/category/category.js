@@ -24,7 +24,7 @@ function getProds() {
                 <div class="card-body">
                     <h4 class="card-title"><a class="text-decoration-none" href="http://localhost:5000/product?product=${prod.id}" title="View Product">${prod.nome}</a></h4>
                     <div class="align-text-bottom">
-                        <span class="price"><strong>R$${prod.preco}<strong></span>
+                        <span class="price"><strong>R$${prod.preco}</strong></span>
                     </div>
                 </div>
                 <div class="card-footer">
