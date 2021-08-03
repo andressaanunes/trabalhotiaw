@@ -72,7 +72,7 @@ function getProds() {
                 </div>
                 <div class="card-footer">
                     <a class="button" href="http://localhost:5000/product?product=${prod.id}">
-                    Adicionar ao carrinho2
+                    Adicionar ao carrinho
                     </a>
                 </div> 
             </div>
