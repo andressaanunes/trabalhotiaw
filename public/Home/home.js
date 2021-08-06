@@ -1,8 +1,11 @@
-document.addEventListener('DOMContentLoaded',()=>{
-    getProds()
-    loginCheck()
-})
 
+document.addEventListener('DOMContentLoaded',()=>{
+    
+    loginCheck()
+    
+    
+    
+})
 
 
 $('.carouselslick').slick({
@@ -46,24 +49,33 @@ $('.carouselslick').slick({
 })
 
 
+//pega os produtos no banco de dados
+ 
+//*PARA PROMISE FUNCIONAR A REQUISIÇÃO DEVE SER EXECUTADA DENTRO DE UMA FUNÇÃO, O RESULTADO DA FUNÇÃO DEVE SER ATRIBUIDO A UMA VARIAVEL COMO MOSTRADO ABAIXO
 
+      async function getProds(){
+          
+          var response = await fetch(`http://localhost:5000/api/`)
+        let prods = await response.json()
+        
+        return prods
 
-function getProds() {
+      }                                                             
+
+//*-------------------------------------------------
+
+var list = {
+
+ 
+
+  createProd(prod){
+
     
-    const prods = fetch(`http://localhost:5000/api/`).then((res)=>{    
-        
-
-        return res.json()
-    }).then((res) =>{
-
-        let prods = JSON.parse(res)
-        
-        prods.forEach(prod => {
-            
-            document.querySelector('#gridProds').innerHTML += `
+    var gridProds = document.querySelector('#gridProds')
+    gridProds.innerHTML += `
             <div class="col-md-3">
             <div id= "columns" class="card h-100">
-                <img class=" cardimg card-img-top" src="${prod.imagePath}" alt="Card image cap">
+                <img class="cardimg card-img-top" data-src="${prod.imagePath}" alt="Card image cap" >
                 <div class="card-body">
                     <h4 class="card-title"><a class="text-decoration-none" href="http://localhost:5000/product?product=${prod.id}" title="View Product">${prod.nome}</a></h4>
                     <div class="align-text-bottom">
@@ -76,19 +88,134 @@ function getProds() {
                     </a>
                 </div> 
             </div>
-        </div>`
-        });
+            </div>`
 
-        
-    })
+  },
 
-    
+  pageBtn(){
+    document.querySelector('.pageBtn').innerHTML=state.page
+  },
 
+  async update(){
 
+      var prods = await getProds()
+      console.log(prods)
+      
+      document.querySelector('#gridProds').innerHTML = ''
 
-
+      let actualPage = state.page
+      let start = actualPage*state.perPage
+      let end = start + state.perPage
+      
+      const paginatedItems = prods.slice(start,end)
+      
+      list.pageBtn()
+      paginatedItems.forEach(list.createProd)
+      
+  }
 
 }
 
 
+const perPage = 32
+const state = {
+  
+  page:1,
+  perPage,
+  async totalPage(){
+    let prods = await getProds()
+    return Math.ceil(prods.length/perPage-1)
+    },
+  
 
+} 
+
+async function chamPromise(){
+  let promise = await state.totalPage()
+  return promise
+}
+console.log(state)
+
+
+
+
+//Estado atual da lista
+
+
+//define os botoes de controle
+const controls = {
+
+  async next(){
+    state.page++
+
+    let lastPage = state.page > await state.totalPage()
+    
+    if(lastPage){
+      state.page--
+    } 
+    list.update()
+
+  },
+  prev(){
+
+    state.page--
+
+    if(state.page<1){
+      state.page++
+    
+    }
+  },
+  async goTo(page){
+
+    if(page<1){
+        page = 1
+    }
+
+    state.page = page
+    
+    if(page>await state.totalPage()){
+      state.page = await state.totalPage()
+    }
+
+  },
+  createListeners(){
+
+    document.querySelector('.firstPage').addEventListener('click',()=>{
+      controls.goTo(1)
+      list.update()
+    })
+    document.querySelector('.prev').addEventListener('click',()=>{
+      controls.prev()
+      list.update()
+    })
+    document.querySelector('.next').addEventListener('click',()=>{
+      controls.next()
+      list.update()
+    })
+    document.querySelector('.lastPage').addEventListener('click',async ()=>{
+      controls.goTo(await state.totalPage())
+      list.update()
+    })
+
+  }
+}
+
+
+//Lazy loading images
+function onScroll(){
+  document.querySelectorAll('.cardimg').forEach((img,index)=>{
+    
+    if(img.getBoundingClientRect().top < window.innerHeight){
+      img.src = img.getAttribute('data-src')
+    }
+
+  })
+}
+window.addEventListener('scroll', onScroll)
+//console.log(list.prods)
+
+list.update()
+controls.createListeners()
+
+let result = chamPromise()
+console.log(result)

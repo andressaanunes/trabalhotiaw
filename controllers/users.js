@@ -12,37 +12,42 @@ async function cripting (req){
 }
 
 async function createUser(user){
+    console.log('user: '+ JSON.stringify(user))
 
     try{
-        const check = await checkUser(user)
-        //console.log("controller user:"+ JSON.stringify(check))
-        
-        if(check.error.length>0){
-             //console.log("check.erro:"+JSON.stringify(check))
-             return JSON.stringify(check)
+         const check = await checkUser(user)
+        console.log("controller user:"+ JSON.stringify(check))
+            
+        if(check.error){
+                
+                console.log("check.erro:"+JSON.stringify(check))
+                return JSON.stringify(check)
+
         }else{
-            console.log('check de usuario deu certo')
-            return(check)
-        }
+                    
+                user.senha = await cripting(user.senha)
 
-    }catch(err){
-        console.log('erro no cadastro')
-        console.log(err)
-        return JSON.stringify({error: "erro no cadastro"})
-    }
+                try{
+                        
+                    await usuarios.create(user)
+                        
+                    return user
 
-    user.senha = await cripting(user.senha)
+                }catch(err){
 
-    try{
-        
-        console.log('aaaaaaaaaa'+JSON.stringify(user))
-        await usuarios.create(user)
-        
-        return user
+                     return(`Usuário (${user.nome}) não pode ser criado:` +err)
+                
+                }
 
-    }catch(err){
-        return(`Usuário (${user.nome}) não pode ser criado:` +err)
-    }
+            } 
+
+        }catch(err){
+            console.log('erro no cadastro')
+            console.log(err)
+            return JSON.stringify({error: "erro no cadastro"}) 
+        }    
+
+    
 }
 
 
@@ -62,11 +67,13 @@ async function checkUser(user){
             })
         if(emailCheck.length>0){
             const result = {error:"Esse Email já foi cadastrado!"}
+            console.log('emailcheck:' +result)
             return result
-        }if(nameCheck.length>0){
+        }else if(nameCheck.length>0){
             const resultado = {error:"Esse Nome já foi cadastrado!"}
+            console.log('namecheck:'+ resultado)
             return resultado
-        }
+        }else{return true}
     }catch(err){console.log(err)}
 }
 

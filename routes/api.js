@@ -130,16 +130,16 @@ router.get('/', async function getall(req,res){
 
     const produtos = await prods.getAllProducts()
     
-    res.json(produtos)
+    res.send(produtos)
      
         })
 
 router.post('/cadastro', async(req,res)=>{
     try{
         const user = await users.createUser(req.body)
-        //var response = JSON.stringify(user)
+        var response = JSON.stringify(user)
        // console.log("user"+response)
-        var createUser = JSON.parse(user)
+        var createUser = JSON.parse(response)
         
         if (createUser.error) {
 

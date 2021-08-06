@@ -26,6 +26,10 @@
     background-color: #85e1d5;
     
 }
+.pageBtn{
+    position: relative;
+    top: 5px;
+}
 .row {
     padding-bottom: 20px;
 }
