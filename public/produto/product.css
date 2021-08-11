@@ -6,7 +6,12 @@
 .navbar{
     margin-bottom: 20px;
 }
+.disabled{
 
+    pointer-events: none;
+    opacity: 0.4;
+
+}
 .bottom-img{
     position: relative;
     width: 1000px;

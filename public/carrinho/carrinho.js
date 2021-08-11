@@ -29,8 +29,13 @@ async function listProds(){
     var subTotal = 0;
     
     Object.values(item).map(itens => {    
-            
-        var price = 44.99
+        
+        if(itens.type = 1){    
+            var price = 44.99
+        }else{
+            var price = 54.99
+        }
+        
        
         subTotal += parseFloat(price*itens.quantity)
         let unformattedPrice = parseFloat(price*itens.quantity)
@@ -266,7 +271,7 @@ async function buildPayload(){
         i=i+1
         var price = cartItems[key].preco
         dataPart1[`itemId`+i] =  cartItems[key].id
-        dataPart1[`itemDescription`+i] =  cartItems[key].nome
+        dataPart1[`itemDescription`+i] =  cartItems[key].nome//!COLCOAR REVESTIMENTO COR E SE È PLACA OU NAO
         dataPart1[`itemAmount`+i] =  price
         dataPart1[`itemQuantity`+i] =  cartItems[key].quantity
         dataPart1[`itemWeight`+i] =  (cartItems[key].quantity * (0.5*1000))        

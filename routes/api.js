@@ -177,7 +177,7 @@ router.post('/login', async (req,res)=>{
 })
 
 
-router.post('/checkout',/*  auth, */ async (req,res) => {
+router.post('/checkout', auth, async (req,res) => {
     console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
     try{
         var searchParams = new URLSearchParams(req.body)

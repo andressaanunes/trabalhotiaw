@@ -11,7 +11,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="../Sign-in/signin.css">
     <link rel="stylesheet" href="../styles/geral.css">
-    <title>Document</title>
+    <title>Cadastro</title>
 </head>
 
 <body>
@@ -66,7 +66,7 @@
 
               <div class="input-group">
                 <label for="username" class="input-group-text">Nome:</label>
-                <input type="text" id="username" name="username" class = "form-control">
+                <input type="text" id="username" name="username" class = "form-control" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
               </div>
 
     
@@ -77,12 +77,12 @@
               
               <div class="input-group">
                 <label for="tel"class="input-group-text">Tel:</label>
-                <input type="tel" id="tel" name="tel"class = "form-control" placeholder="Telefone com DDD">
+                <input type="tel" id="tel" name="tel"class = "form-control" placeholder="Telefone com DDD" pattern="[0-9]+$">
               </div>
 
               <div class="input-group">
                 <label for="cpf"class="input-group-text">CPF:</label>
-                <input type="cpf" id="cpf" name="cpf"class = "form-control" >
+                <input type="cpf" id="cpf" name="cpf"class = "form-control" pattern="[0-9]+$">
               </div>
 
               <div class="input-group">
@@ -92,7 +92,7 @@
 
     
               <input type="hidden" name="_csrf" value="{{csrfToken}}" class="input-sign">
-              <input id="submit" type="button" value="Cadastre-se" class="btn-submit">
+              <input id="submit" type="submit" value="Cadastre-se" class="btn-submit">
 
             </div>
             
@@ -102,19 +102,19 @@
                 <div class="input-group">
                   
                     <label for="cep"class="input-group-text">Endereço:</label>
-                    <input type="text" id="cep" name="cep" placeholder="CEP"class="form-control">
+                    <input type="text" id="cep" name="cep" placeholder="CEP"class="form-control" pattern="[0-9]+$">
                 </div>
                 <div class="input-group">
                     <input type="text" id="uf" name="estado" placeholder="Estado"class="form-control">
-                    <input type="text" id="localidade" name="cidade" placeholder="Cidade"class="form-control">
+                    <input type="text" id="localidade" name="cidade" placeholder="Cidade"class="form-control" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
                 </div> 
                 <div class="input-group">
                     <input type="text" id="bairro" name="bairro" placeholder="Bairro"class="form-control">
-                    <input type="text" id="logradouro" name="rua" placeholder="Rua"class="form-control">
+                    <input type="text" id="logradouro" name="rua" placeholder="Rua"class="form-control" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
                 </div>
                 <div class="input-group">
                     <input type="text" id="numero" name="numero" placeholder="Número"class="form-control">
-                    <input type="text" id="complemento" name="complemento" placeholder="Complemento"class="form-control">         
+                    <input type="text" id="complemento" name="complemento" placeholder="Complemento"class="form-control" pattern="[0-9]+$">         
                 </div>
                 
                 <p id="error"></p>  

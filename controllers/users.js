@@ -47,10 +47,7 @@ async function createUser(user){
             return JSON.stringify({error: "erro no cadastro"}) 
         }    
 
-    
 }
-
-
 
 async function checkUser(user){
 
@@ -65,15 +62,19 @@ async function checkUser(user){
                 nome: user.nome
                 }
             })
-        if(emailCheck.length>0){
+        if(emailCheck){
             const result = {error:"Esse Email já foi cadastrado!"}
             console.log('emailcheck:' +result)
             return result
-        }else if(nameCheck.length>0){
+        
+        }else if(nameCheck){
             const resultado = {error:"Esse Nome já foi cadastrado!"}
             console.log('namecheck:'+ resultado)
             return resultado
-        }else{return true}
+
+        }else{
+            return true
+        }
     }catch(err){console.log(err)}
 }
 

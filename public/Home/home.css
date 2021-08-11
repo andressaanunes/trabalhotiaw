@@ -19,8 +19,10 @@
     color: #343a40;
 }
 .navBtn{
-    border: solid 1px #85e1d5;
+    border: 2px #85e1d5;
     padding: 6px;
+    border-style: solid;
+    font-weight: 500
 }
 .navBtn:hover {
     background-color: #85e1d5;

@@ -43,10 +43,10 @@ function getProds() {
     }).then((res) =>{
         
         prods = res
-        console.log(prods)
+        
               
         quadro.prodInfo(prods)
-        console.log(quadro)
+        
         document.querySelector('#title').innerHTML = quadro.nome
         document.querySelector('#id').innerHTML = quadro.id
         document.querySelector('#image').setAttribute('src', quadro.imagePath)
@@ -102,10 +102,41 @@ function alteraPreco(){
         preco.innerHTML = formatter.format(calculo)
         
     }else{
+
         let calculo = quadro.preco * quantidade1
         preco.innerHTML = formatter.format(calculo)
      }
+}
+
+
+var placaCheck = document.querySelector('#placaDeco')
+placaCheck.addEventListener('change', placaDeco)
+
+async function placaDeco(){
+
+    var preco =  document.querySelector('#preco')
+
+    if(placaCheck.checked == true){
+
+        let revest = document.querySelector('#select1')
+        let corMoldu = document.querySelector('#select2')
+        revest.setAttribute('class','disabled')
+        corMoldu.setAttribute('class','disabled')
+
+        quadro.preco = 19.99
+        preco.innerHTML = formatter.format(19.99)
+
+    }else if(placaCheck.checked == false){
+        let revest = document.querySelector('#select1')
+        let corMoldu = document.querySelector('#select2')
+        revest.setAttribute('class','')
+        corMoldu.setAttribute('class','')
+
+        quadro.preco = 44.99
+        alteraPreco()
     }
+
+}
 
 
 var addCart = document.querySelector("#addCart")
@@ -119,6 +150,23 @@ function cartIt(){
     
     var id = document.querySelector('#id').innerHTML
     var quantity = parseInt(document.querySelector('#quantity').value)
+
+    //var selected = document.querySelector('#revest') 
+    console.log(placaCheck.checked)
+    let type = placaCheck.checked == true ? 3 :  parseInt(select.options[select.selectedIndex].value)
+    console.log(type)
+
+    var select2 = document.querySelector('#molduraCor')
+    
+    var cor =  parseInt(select2.options[select2.selectedIndex].value)
+
+    if (cor == 1) {
+        cor = 'preto'
+    
+    }else if (cor ==2){
+        cor = 'branco'
+    
+    }
     
     product = {
         nome,
@@ -126,20 +174,22 @@ function cartIt(){
         img,
         preco,
         quantity,
-        
+        type,
+        cor,
+
     }
    
-    let cartItems = sessionStorage.getItem('cartItems')
+    let cartItems = JSON.parse(sessionStorage.getItem('cartItems'))
     let itensInCart = sessionStorage.getItem('itensInCart')
     itensInCart = parseInt(itensInCart)
-    cartItems = JSON.parse(cartItems)
     
 
     if(cartItems != null){
 
         console.log('cartitems notnull')
-
-            if(cartItems[nome] == undefined){
+        console.log(cartItems[nome])
+        console.log(cartItems[nome].type)
+            if(cartItems[nome].nome && cartItems[nome].type == undefined){
 
                 cartItems = {
                     ...cartItems,
@@ -148,6 +198,33 @@ function cartIt(){
                 console.log(product.quantity)
                 sessionStorage.setItem('itensInCart',itensInCart + product.quantity)
                 //itensInCart é o numero de produtos no carrinho
+                
+            }else if(cartItems[nome].nome == nome && cartItems[nome].type != type){
+
+                console.log(cartItems[nome].nome)
+                console.log(cartItems[nome].type)
+                console.log(nome)
+                console.log(type) 
+
+                if (type == 2) {
+                    nome = nome + ' (Vidro)'
+
+                }else if(type == 3) {
+                    nome = nome + '(Placa Decorativa)'
+                
+                }else if(type == 1) {
+                    nome = nome + '(Acetato)'
+                
+                }
+                cartItems = {
+                    ...cartItems,
+                    [nome]: product
+
+                }
+                console.log(product.quantity)
+                sessionStorage.setItem('itensInCart',itensInCart + product.quantity)
+                //itensInCart é o numero de produtos no carrinho
+
             }else{
 
                 sessionStorage.setItem('itensInCart',itensInCart + product.quantity)
@@ -156,24 +233,44 @@ function cartIt(){
                 
             }
 
+
     }else{
 
         console.log('cartitems null')
-        cartItems = {
+        cartItems = new Array()
+        cartItems.push(product)
+        console.log(cartItems[0].nome)
 
-            [nome]:product
-
-        }
+        //!USAR METODOS .PUSH PARA ADICIONAR ITENS DIFERENMTES
        sessionStorage.setItem('itensInCart',parseInt(product.quantity))
-       console.log(product.quantity)
+       
 
     }        
 
     sessionStorage.setItem('cartItems', JSON.stringify(cartItems))
-    console.log(quadro)
+    
     Swal.fire({
         title: 'Adicionado!',
         icon: 'success',
         timer:800,
       })
+}
+
+//!NOVA FUNÇÂO DE ADICIONAR ITEMS NO SESSIONSTORAGE
+
+async function testecartItems(){
+
+    let cartitems = JSON.parse(sessionStorage.getItem('cartItems'))
+    console.log(cartitems)
+
+    if (cartitems == null) {
+        cartitems = new Array();
+        cartitems.push({"testeNull":"testeNull"})
+        
+    }else if( cartitems!=null){
+        cartitems.push({"testeNotNull":"testeNotNull"})
+
+    }
+
+    sessionStorage.setItem('cartItems',JSON.stringify(cartitems))
 }
