@@ -32,11 +32,15 @@ async function listProds(){
         
         if(itens.type = 1){    
             var price = 44.99
-        }else{
+        }else if(itens.type = 2){ 
             var price = 54.99
+        }else if(itens.type = 3){ 
+            var price = 19.99
         }
         
-       
+       var index = item.indexOf(itens)
+       console.log(index)
+
         subTotal += parseFloat(price*itens.quantity)
         let unformattedPrice = parseFloat(price*itens.quantity)
 
@@ -45,9 +49,9 @@ async function listProds(){
         tabela.innerHTML += `
         <tr id="${itens.id}" class ="prodRow">                   
         <td><img id="prodImg" src="${itens.img}" /> </td>
-        <td id="prodName">${itens.nome}</td>                         
+        <td id="${index}">${itens.nome}</td>                         
 
-        <td><input id="${itens.id}quantity" onchange="prodQuant('${itens.nome},${itens.quantity},${unformattedPrice},${itens.id}')"  class="form-control prodQuantity" type="text" value="${itens.quantity}" /></td>
+        <td><input id="${index}quantity" onchange="prodQuant('${itens.nome},${itens.quantity},${unformattedPrice},${index},${itens.id}')"  class="form-control prodQuantity" type="text" value="${itens.quantity}" /></td>
 
         <td id="${itens.id}prodPrice" class="text-right ">${price}</td>
         <td class="text-right"><button onclick="excluirProduto(this)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></td>
@@ -72,71 +76,65 @@ async function listProds(){
 async function excluirProduto(btn){
     
     var prodRow = btn.closest('.prodRow')
-    var prodName = prodRow.children[1].innerHTML
-    console.log(prodName)
+    var prodName = prodRow.children[1]
+    
+    var prodIndex = parseInt(prodName.getAttribute('id'))
     var cartItems = JSON.parse(sessionStorage.getItem('cartItems'))
-    delete cartItems[prodName]
+    
+    console.log(prodIndex)
+    console.log(cartItems)
+    
+    cartItems.splice(prodIndex,1)
+    console.log(cartItems)
     sessionStorage.setItem('cartItems',JSON.stringify(cartItems))
     location.reload()
 
 }
 
-function ChangeItensInCart(){
 
-    let quant = document.querySelector('.prodQuantity').value
-    console.log(JSON.stringify(quant))
+function changeItensInCart(){
+    let newQuantity = 0
 
+    let cartitems = JSON.parse(sessionStorage.getItem('cartItems'))
+
+    cartitems.forEach(element => {
+
+        newQuantity += element.quantity
+    });
+    
+    sessionStorage.setItem('itensInCart', newQuantity)
 }
 
 function prodQuant(item){
 
-    var item = item.split(',')
-    console.log(item)
-    //ChangeItensInCart()
     var formatter = new Intl.NumberFormat('pt-BR',{
         style:"currency",currency:"BRL"})
 
-    let quant = parseInt(document.getElementById(item[3]+'quantity').value)
-    var nomeProd = item[0]
-    console.log(quant)
+
+    var item = item.split(',')
+    console.log(item)
+    
+    
+    var cartitems = JSON.parse(sessionStorage.getItem('cartItems'))
+
+    let index = item[3]
+   
+    let quant = parseInt(document.getElementById(item[3]+'quantity').value) 
+    
+       
+    cartitems[index].quantity = parseInt(quant)
+    
     
     let newPrice = quant * 44.99
-    var cartitems = JSON.parse(sessionStorage.getItem('cartItems'))
-        
-    //?Trocar o valor do itensincart para as novas quuantidades com o reload da pagina ou com o click da função, ou ser redefinido somando as quantidades dos itens no carrinho  
-
-    //?mudar o payload para buscar a quantidade de produtos da tela e nao do sessionStorage
-
-    //*Redefinindo o itensInCart 
-    let oldQuant = parseInt(cartitems[nomeProd].quantity)
-
-    console.log('oldQuant: '+oldQuant)
-
-    let olditensInCart = parseInt(sessionStorage.getItem('itensInCart'))
-
-    console.log('olditensInCart: '+olditensInCart)
-
-    let newitensInCart =  olditensInCart-oldQuant
-
-    console.log('newitensInCart: '+newitensInCart)
-    //!Subtrair oldQuant do ItensInCart e Somar a 'cartitems[nomeProd].quantity' Depois de redefini-la logo abaixo     
-
-    cartitems[nomeProd].quantity = parseInt(quant)
-    
-    newitensInCart += quant
-    sessionStorage.setItem('itensInCart',newitensInCart)
-    
-    
-    document.getElementById(item[3]+'prodPrice').innerHTML = formatter.format(newPrice)
+    document.getElementById(item[4]+'prodPrice').innerHTML = formatter.format(newPrice)
     sessionStorage.setItem('cartItems',JSON.stringify(cartitems))
       
-    
-    
+    changeItensInCart()
     
 }
 
 var trash = document.getElementById('excluiProd')
-//trash.addEventListener('click',excluirProduto)
+
 
 async function shipValues(){
 
@@ -268,10 +266,21 @@ async function buildPayload(){
     var i = 0
 
     for(var key in cartItems){
+
+        var tipo = cartItems[key].type
+        var cor = cartItems[key].cor
+        if (tipo == 1) {
+            tipo = 'acetato'
+        } else if( tipo == 2){
+            tipo = 'vidro'
+        }else{
+            tipo == 'placa'
+            cor = ''
+        }
         i=i+1
         var price = cartItems[key].preco
         dataPart1[`itemId`+i] =  cartItems[key].id
-        dataPart1[`itemDescription`+i] =  cartItems[key].nome//!COLCOAR REVESTIMENTO COR E SE È PLACA OU NAO
+        dataPart1[`itemDescription`+i] =  cartItems[key].nome + tipo + cor
         dataPart1[`itemAmount`+i] =  price
         dataPart1[`itemQuantity`+i] =  cartItems[key].quantity
         dataPart1[`itemWeight`+i] =  (cartItems[key].quantity * (0.5*1000))        
@@ -307,7 +316,6 @@ async function buildPayload(){
 }
 
 
-//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 async function buildMenvCorreiosPayload(){
     var shipInfo = JSON.parse(sessionStorage.getItem('shipInfo'))
     var userInfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -392,7 +400,7 @@ async function buildMenvCorreiosPayload(){
       
       return menvBody
 }
-//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 async function buildMenvJadlogPayload(){
 
     var shipInfo = JSON.parse(sessionStorage.getItem('shipInfo'))
@@ -570,7 +578,7 @@ async function apiPagseguro(){
         success : async function(transactionCode) {
             //Insira os comandos para quando o usuário finalizar o pagamento. 
             //O código da transação estará na variável "transactionCode"
-             //!corrigir erros no payload do envio:                               "error: 'O valor segurado deve ser o mesmo da nota fiscal e superior ou igual a R$ 1,00'"
+             
             var shipping = await shipCart()
             console.log(shipping)
             console.log("Compra feita com sucesso, código de transação: " + transactionCode);

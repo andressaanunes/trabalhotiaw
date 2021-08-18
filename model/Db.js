@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('crialuth', 'crialuth1', 'K4this78', {host:'mysql742.umbler.com',
-port:41890,
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, 
+{host:process.env.DB_HOST,
+port:3306,
 dialect: 'mysql'
 })
 
@@ -9,7 +10,6 @@ sequelize.authenticate().then(()=>{
 }).catch((erro)=>{
     console.log('falha ao se conectar:' +erro)
 })
-
 
 
 module.exports = { 
