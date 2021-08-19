@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
-const prods = require('./controllers/produtos')
+
 const apiRoute = require('./routes/api')
 const cors = require('cors')
 
@@ -43,7 +43,7 @@ app.use(`/product`, express.static(path.join(__dirname,"public",'produto')))
 
 
 app.listen(PORT,()=>{
-    console.log('Servidor rodando na porta: '+PORT)
+    console.log('Servidor rodando na porta '+PORT)
 })
 
 module.exports = app
