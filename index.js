@@ -18,7 +18,8 @@ app.use(cors())
     }else{
         res.redirect("https://"+req.headers.host + req.originalUrl)
     }
-})*/
+})
+*/
 
 app.listen(PORT,(error)=>{
     console.log('Servidor rodando na porta '+PORT)
