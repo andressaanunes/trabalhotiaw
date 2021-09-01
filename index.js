@@ -8,7 +8,7 @@ const cors = require('cors')
 
 const PORT = process.env.PORT
 
-const app = express()
+const app = new express()
 
 
 app.use(cors())
@@ -19,6 +19,13 @@ app.use(cors())
         res.redirect("https://"+req.headers.host + req.originalUrl)
     }
 })*/
+
+app.listen(PORT,(error)=>{
+    console.log('Servidor rodando na porta '+PORT)
+    if (error) {
+        console.log(error)
+    }
+})
 
 app.use('/api',apiRoute)
 
@@ -42,9 +49,7 @@ app.use(`/product`, express.static(path.join(__dirname,"public",'produto')))
 
 
 
-app.listen(PORT,()=>{
-    console.log('Servidor rodando na porta '+PORT)
-})
+
 
 module.exports = app
     
