@@ -35,7 +35,7 @@ async function login(){
 
     try {
         
-        await fetch('http://localhost:5000/api/login',config)
+        await fetch('http://localhost:21090/api/login',config)
         .then(async (response) => {
 
             if (response.status === 200){
@@ -44,7 +44,7 @@ async function login(){
                 sessionStorage.setItem('token', token)
                 response = await response.json()
                 localStorage.setItem('userInfo',JSON.stringify(response.user))
-                window.location.replace('http://localhost:5000')
+                window.location.replace('http://localhost:21090')
             
             }else{
 

@@ -30,9 +30,15 @@ app.listen(PORT,(error)=>{
 
 app.use('/api',apiRoute)
 
-app.use(express.static("public"))
+app.use("/imagens",express.static(path.join(__dirname, "public", "imagens")))
+app.use("/scripts",express.static(path.join(__dirname, "public", "scripts")))
+app.use("/styles",express.static(path.join(__dirname, "public", "styles")))
+
+
 
 app.use("/", express.static(path.join(__dirname,"public","Home")))
+app.use("/banner",express.static(path.join(__dirname, "public", "Home", "banner")))
+app.use("/slick-1.8.1",express.static(path.join(__dirname, "public", "Home", "slick-1.8.1")))
 
 app.use("/carrinho", express.static(path.join(__dirname,"public", "carrinho")))
 

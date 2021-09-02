@@ -151,7 +151,7 @@ async function shipValues(){
             })
     }
 
-    var shipValues = await fetch('http://localhost:5000/api/shipcalc', config)
+    var shipValues = await fetch('http://localhost:21090/api/shipcalc', config)
     
     var json = await shipValues.json()
     console.log('json:'+shipValues)
@@ -248,7 +248,7 @@ async function buildPayload(){
                     showConfirmButton: false,
                     timer: 3000
                   }).then(() => {
-                    window.location.replace(`http://localhost:5000/sign-up`)
+                    window.location.replace(`http://localhost:21090/sign-up`)
                   })
                 
             }
@@ -533,7 +533,7 @@ async function shipCart(){
         body:JSON.stringify(menvBody)
     }
 
-    var  result = await fetch('http://localhost:5000/api/shipcart', options)
+    var  result = await fetch('http://localhost:21090/api/shipcart', options)
     
 }
 // valor do frete
@@ -552,14 +552,14 @@ async function apiPagseguro(){
         body:JSON.stringify(pagSeguroBody)
     }
 
-    var codigo = await fetch('http://localhost:5000/api/checkout', options)
+    var codigo = await fetch('http://localhost:21090/api/checkout', options)
     console.log("codigo:"+JSON.stringify(codigo))
     
 
     if(codigo.status == 401){
         window.alert('Você será redirecionado para o cadastro para concluir a compra!')
         
-        window.location.replace(`http://localhost:5000/sign-up`)
+        window.location.replace(`http://localhost:21090/sign-up`)
     }
     
     var json = await codigo.json()
