@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     
 })
 
-
 function getProds() {
     
     var params = location.href.split('=',2)

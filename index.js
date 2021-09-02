@@ -1,4 +1,4 @@
-require('dotenv').config()
+const process = require('dotenv');
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
@@ -6,10 +6,13 @@ const path = require('path')
 const apiRoute = require('./routes/api')
 const cors = require('cors')
 
-const PORT = process.env.PORT
+const PORT = 21090
 
 const app = express()
 
+app.listen(PORT,()=>{
+    console.log('Servidor rodando na porta '+PORT)
+})
 
 app.use(cors())
 /*app.use('*',(Req,res,next) => {
@@ -40,11 +43,6 @@ app.use(`/search`, express.static(path.join(__dirname,"public",'Search')))
 
 app.use(`/product`, express.static(path.join(__dirname,"public",'produto')))
 
-
-
-app.listen(PORT,()=>{
-    console.log('Servidor rodando na porta '+PORT)
-})
 
 module.exports = app
     
