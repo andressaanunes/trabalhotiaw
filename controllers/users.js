@@ -1,7 +1,7 @@
 const db = require('../model/Db')
 const users =  db.Sequelize.Op
 const usuarios = require('../model/users')
-const bcrypt = require('bcrypt')
+//const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const authCfg = require('../config/authCfg.json')
 

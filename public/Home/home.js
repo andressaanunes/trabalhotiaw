@@ -55,7 +55,7 @@ $('.carouselslick').slick({
 
       async function getProds(){
           
-          var response = await fetch(`http://localhost:5000/api/`)
+          var response = await fetch(`http://localhost:21090/api/`)
         let prods = await response.json()
         
         return prods
@@ -77,13 +77,13 @@ var list = {
             <div id= "columns" class="card h-100">
                 <img class="cardimg card-img-top" data-src="${prod.imagePath}" alt="Card image cap" >
                 <div class="card-body">
-                    <h4 class="card-title"><a class="text-decoration-none" href="http://localhost:5000/product?product=${prod.id}" title="View Product">${prod.nome}</a></h4>
+                    <h4 class="card-title"><a class="text-decoration-none" href="http://localhost:21090/product?product=${prod.id}" title="View Product">${prod.nome}</a></h4>
                     <div class="align-text-bottom">
                         <span class="price"><strong>R$${prod.preco}</strong></span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a class="button" href="http://localhost:5000/product?product=${prod.id}">
+                    <a class="button" href="http://localhost:21090/product?product=${prod.id}">
                     Adicionar ao carrinho
                     </a>
                 </div> 
