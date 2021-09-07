@@ -29,14 +29,14 @@ app.listen(PORT,(error)=>{
 
 app.use('/api',apiRoute)
 
-app.use("/imagens",express.static(path.join(__dirname, "public", "imagens")))
-app.use("/scripts",express.static(path.join(__dirname, "public", "scripts")))
-app.use("/styles",express.static(path.join(__dirname, "public", "styles"))) 
+app.use(express.static(path.join(__dirname, "public")))
+/* app.use("/scripts",express.static(path.join(__dirname, "public", "scripts")))
+app.use("/styles",express.static(path.join(__dirname, "public", "styles")))  */
 
 
 app.use("/", express.static(path.join(__dirname,"public","Home")))
-app.use("/banner",express.static(path.join(__dirname, "public", "Home", "banner")))
-app.use("/slick-1.8.1",express.static(path.join(__dirname, "public", "Home", "slick-1.8.1")))
+/* app.use("/banner",express.static(path.join(__dirname, "public", "Home", "banner")))
+app.use("/slick-1.8.1",express.static(path.join(__dirname, "public", "Home", "slick-1.8.1"))) */
 
 app.use("/carrinho", express.static(path.join(__dirname,"public", "carrinho")))
 
@@ -51,9 +51,6 @@ app.use(`/area`, express.static(path.join(__dirname,"public",'area')))
 app.use(`/search`, express.static(path.join(__dirname,"public",'Search')))
 
 app.use(`/product`, express.static(path.join(__dirname,"public",'produto')))
-
-
-
 
 
 module.exports = app
