@@ -18,8 +18,7 @@ app.use(cors())
     }else{
         res.redirect("https://"+req.headers.host + req.originalUrl)
     }
-})
-*/
+})*/
 
 app.listen(PORT,(error)=>{
     console.log('Servidor na porta '+PORT)
@@ -33,7 +32,6 @@ app.use('/api',apiRoute)
 app.use("/imagens",express.static(path.join(__dirname, "public", "imagens")))
 app.use("/scripts",express.static(path.join(__dirname, "public", "scripts")))
 app.use("/styles",express.static(path.join(__dirname, "public", "styles"))) 
-
 
 
 app.use("/", express.static(path.join(__dirname,"public","Home")))
