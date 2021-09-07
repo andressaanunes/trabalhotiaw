@@ -12,13 +12,13 @@ const app = new express()
 
 
 app.use(cors())
-/*app.use('*',(Req,res,next) => {
+app.use('*',(Req,res,next) => {
     if(req.headers['x-forwarded-proto']=='https'){
         next()
     }else{
         res.redirect("https://"+req.headers.host + req.originalUrl)
     }
-})*/
+})
 
 app.listen(PORT,(error)=>{
     console.log('Servidor na porta '+PORT)
