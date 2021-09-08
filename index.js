@@ -12,13 +12,13 @@ const app = new express()
 
 
 app.use(cors())
-app.use('*',(Req,res,next) => {
+/*app.use('*',(Req,res,next) => {
     if(req.headers['x-forwarded-proto']=='https'){
         next()
     }else{
         res.redirect("https://"+req.headers.host + req.originalUrl)
     }
-})
+})*/
 
 app.listen(PORT,(error)=>{
     console.log('Servidor na porta '+PORT)
@@ -30,8 +30,9 @@ app.listen(PORT,(error)=>{
 app.use('/api',apiRoute)
 
 app.use(express.static(path.join(__dirname, "public")))
-/* app.use("/scripts",express.static(path.join(__dirname, "public", "scripts")))
-app.use("/styles",express.static(path.join(__dirname, "public", "styles")))  */
+//app.use("/scripts",express.static(path.join(__dirname, "public", "scripts")))
+//app.use("/styles",express.static(path.join(__dirname, "public", "styles")))
+//app.use("/imagens",express.static(path.join(__dirname, "public", "imagens")))
 
 
 app.use("/", express.static(path.join(__dirname,"public","Home")))
