@@ -12,13 +12,20 @@ const app = new express()
 
 
 app.use(cors())
-/*app.use('*',(Req,res,next) => {
-    if(req.headers['x-forwarded-proto']=='https'){
+app.use('*',(req,res,next) => {
+    res.header ("Access-Control-Allow-Origin","*")
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    if(req.method ==='OPTION'){
+        res.header("Access-Control-Allow-Methods", 'GET,POST,PUT,DELETE,PATCH');
+        return res.status(200).json({'req method' : 'option'});
+    }
+    next()
+    /* if(req.headers['x-forwarded-proto']=='https'){
         next()
     }else{
         res.redirect("https://"+req.headers.host + req.originalUrl)
-    }
-})*/
+    } */
+})
 
 app.listen(PORT,(error)=>{
     console.log('Servidor na porta '+PORT)
@@ -27,7 +34,7 @@ app.listen(PORT,(error)=>{
     }
 })
 
-app.use('/api',apiRoute)
+
 
 app.use(express.static(path.join(__dirname, "public")))
 //app.use("/scripts",express.static(path.join(__dirname, "public", "scripts")))
