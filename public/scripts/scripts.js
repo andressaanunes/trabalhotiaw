@@ -32,5 +32,5 @@ const busca = document.querySelector('#busca')
 busca.addEventListener('click', redirect)
 
 function redirect(){
-    window.location.replace(`http://localhost:21090/search/?search=${search.value}`)
+    window.location.replace(`https://www.crialuth.com/search/?search=${search.value}`)
 }

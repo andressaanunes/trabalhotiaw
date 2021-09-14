@@ -20,19 +20,19 @@ app.use('*',(req,res,next) => {
         return res.status(200).json({'req method' : 'option'});
     }
     next()
-    /* if(req.headers['x-forwarded-proto']=='https'){
+    if(req.headers['x-forwarded-proto']=='https'){
         next()
     }else{
         res.redirect("https://"+req.headers.host + req.originalUrl)
-    } */
+    } 
 })
 
-app.listen(PORT,(error)=>{
+app.listen(/* (error)=>{
     console.log('Servidor na porta '+PORT)
     if (error) {
         console.log(error)
     }
-})
+} */)
 
 
 

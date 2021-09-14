@@ -35,7 +35,7 @@ async function login(){
 
     try {
         
-        await fetch('http://localhost:21090/api/login',config)
+        await fetch('https://www.crialuth.com/api/login',config)
         .then(async (response) => {
 
             if (response.status === 200){
@@ -44,7 +44,7 @@ async function login(){
                 sessionStorage.setItem('token', token)
                 response = await response.json()
                 localStorage.setItem('userInfo',JSON.stringify(response.user))
-                window.location.replace('http://localhost:21090')
+                window.location.replace('https://www.crialuth.com/home/')
             
             }else{
 
