@@ -10,14 +10,15 @@ const bcrypt = require('bcrypt')
 const cors = require('cors')
 
 
-
+router.use(cors())
 router.use((req,res,next) => {
     console.log('acessou middleware CORSS')
-    res.header({"Access-Control-Allow-Origin":"http://www.crialuth.com:21090/",//tirar o asterisco e usar o site pra testar oq vai ser barrado, e adicionar a url do q for barrado na lista de "Access-Control-Allow-Origin"
+    res.header({"Access-Control-Allow-Origin":"http://localhost:5000/",//tirar o asterisco e usar o site pra testar oq vai ser barrado, e adicionar a url do q for barrado na lista de "Access-Control-Allow-Origin"
                 "Access-Control-Allow-Methods":"POST, GET"})
-    router.use(cors())
+    
     next()
 })
+
 
 
 router.use(bodyParser.json())
@@ -126,10 +127,11 @@ router.post('/product/newprod', async function getall(req,res){
                  
         })
 
-router.get('/', async function getall(req,res){
+router.get('/all', async function getall(req,res){
 
     const produtos = await prods.getAllProducts()
     
+    res.status(200)
     res.send(produtos)
      
         })

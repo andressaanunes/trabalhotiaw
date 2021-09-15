@@ -5,7 +5,6 @@ const path = require('path')
 
 const apiRoute = require('./routes/api')
 const cors = require('cors')
-
 const PORT = process.env.PORT
 
 const app = new express()
@@ -15,12 +14,13 @@ const app = new express()
 
 app.use(cors())
 
+app.use('/api',apiRoute)
 
 app.use('*',(req,res,next) => {
     res.header ("Access-Control-Allow-Origin","*")
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     
-    if(req.headers['x-forwarded-proto']=='https'){
+    /* if(req.headers['x-forwarded-proto']=='https'){
         next()
 
     }else if(req.originalUrl == "/"){
@@ -29,15 +29,14 @@ app.use('*',(req,res,next) => {
     } else{
         res.redirect("https://"+req.headers.host + req.originalUrl)
     } 
-
+ */next()
     })
 
 
-app.use('/api',apiRoute)
 
-var dir = path.join(__dirname, "public")
+app.use('/', express.static(path.join(__dirname, "public")))
 
-app.use('/', express.static(dir))
+
 
 app.listen(PORT,(error)=>{
     console.log('Servidor na porta '+PORT)
@@ -45,3 +44,5 @@ app.listen(PORT,(error)=>{
         console.log(error)
     }
 })
+
+module.exports = app
