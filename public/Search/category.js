@@ -9,7 +9,7 @@ function getProds() {
     
     var params = location.href.split('=',2)
     console.log(params[1])
-    const prods = fetch(`https://www.crialuth.com/api/search/${params[1]}`).then((res)=>{    
+    const prods = fetch(`https://www.crialuth.com/search/${params[1]}`).then((res)=>{    
         console.log(prods)
         console.log(res)
 

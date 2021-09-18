@@ -25,7 +25,7 @@ function getProds() {
     
     var params = location.href.split('=',2)
 
-    fetch(`https://www.crialuth.com/api/area/${params[1]}`).then((res)=>{
+    fetch(`https://www.crialuth.com/area/${params[1]}`).then((res)=>{
         console.log(res)
         return res.json()
         
@@ -68,7 +68,7 @@ function searchProds() {
     
     
    
-    const prods = fetch(`https://www.crialuth.com/api/search/${busca}`).then((res)=>{    
+    const prods = fetch(`https://www.crialuth.com/search/${busca}`).then((res)=>{    
         console.log(prods)
         console.log(res)
 

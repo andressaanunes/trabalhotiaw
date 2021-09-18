@@ -35,7 +35,7 @@ async function login(){
 
     try {
         
-        await fetch('https://www.crialuth.com/api/login',config)
+        await fetch('https://www.crialuth.com/login',config)
         .then(async (response) => {
 
             if (response.status === 200){

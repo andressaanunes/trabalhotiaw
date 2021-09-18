@@ -54,7 +54,7 @@ $('.carouselslick').slick({
 
     async function getProds(){
         
-        var response = await fetch(`http://localhost:5000/api/all`)
+        var response = await fetch(`https://www.crialuth.com/all`)
       let prods = await response.json()
       
       return prods
