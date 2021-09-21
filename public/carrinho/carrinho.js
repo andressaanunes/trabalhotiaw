@@ -88,8 +88,7 @@ async function excluirProduto(btn){
     console.log(cartItems)
     sessionStorage.setItem('cartItems',JSON.stringify(cartItems))
     location.reload()
-    changeItensInCart()
-    changeSubtotal()
+    
 
 }
 
