@@ -11,8 +11,6 @@ const PORT = process.env.PORT
 const app = new express()
 
 
-
-
 app.use(cors())
 
 app.use('/api',apiRoute)
