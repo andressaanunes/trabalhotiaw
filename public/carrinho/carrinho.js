@@ -88,6 +88,8 @@ async function excluirProduto(btn){
     console.log(cartItems)
     sessionStorage.setItem('cartItems',JSON.stringify(cartItems))
     location.reload()
+    changeItensInCart()
+    changeSubtotal()
 
 }
 
@@ -104,6 +106,19 @@ function changeItensInCart(){
     
     sessionStorage.setItem('itensInCart', newQuantity)
 }
+
+function changeSubtotal(){
+    let subtotal = 0
+
+    let cartitems = JSON.parse(sessionStorage.getItem('cartItems'))
+
+    cartitems.forEach(element => {
+
+         subtotal += element.quantity * element.preco
+    });
+    var subTotal =  document.querySelector('#subTotal').innerHTML = formatter.format(subtotal)
+}
+
 
 function prodQuant(item){
 

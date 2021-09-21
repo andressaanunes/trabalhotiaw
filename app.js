@@ -36,7 +36,7 @@ app.use('*',(req,res,next) => {
 app.use('/', express.static(path.join(__dirname, "public")))
 
 app.get('/',(req, res) =>{
-    res.redirect(200, "https://www.crialuth.com/home/")
+    res.redirect("https://www.crialuth.com/home/")
 })
 
 app.get('/all', async function getall(req,res){
