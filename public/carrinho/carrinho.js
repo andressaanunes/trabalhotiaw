@@ -30,11 +30,11 @@ async function listProds(){
     
     Object.values(item).map(itens => {    
         
-        if(itens.type = 1){    
+        if(itens.type === 1){    
             var price = 44.99
-        }else if(itens.type = 2){ 
+        }else if(itens.type === 2){ 
             var price = 54.99
-        }else if(itens.type = 3){ 
+        }else if(itens.type === 3){ 
             var price = 19.99
         }
         
@@ -139,11 +139,12 @@ function prodQuant(item){
     cartitems[index].quantity = parseInt(quant)
     
     
-    let newPrice = quant * 44.99
+    let newPrice = quant * item[2]
     document.getElementById(item[4]+'prodPrice').innerHTML = formatter.format(newPrice)
     sessionStorage.setItem('cartItems',JSON.stringify(cartitems))
       
     changeItensInCart()
+    changeSubtotal()
     
 }
 
