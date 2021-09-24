@@ -29,7 +29,7 @@ app.use('*',(req,res,next) => {
 
 app.listen(/* (error)=>{
     console.log('Servidor na porta '+PORT)
-    if (error) {
+    if (error) {  
         console.log(error)
     }
 } */)

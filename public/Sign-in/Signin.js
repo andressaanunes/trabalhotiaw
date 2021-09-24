@@ -32,7 +32,6 @@ async function login(){
         body: JSON.stringify(user)
     
     }
-
     try {
         
         await fetch('https://www.crialuth.com/login',config)
