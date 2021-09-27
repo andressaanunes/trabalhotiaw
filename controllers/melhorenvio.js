@@ -1,17 +1,31 @@
 const axios = require('axios');
 const melhorEnvioSdk = require('melhor-envio')
+const sequelize = require('../model/Db')
+const apiTokens = sequelize.apiTokens
+const dayjs = require('dayjs')
+
+
+
 
 const me = new melhorEnvioSdk({
   client_id: '1434',
   client_secret: 'i7a60hMMpXuVIVFcqXgdYXJRSgZzwaLSHGr3X06S',
   sandbox: true,
-  bearer:'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc5NWU0ZTM0ODNiNzBlMTgzYWRhMTc1MzU3OTQyZjk1ZWQ4ZDM5M2EyZjQyODE3YTNmMTNkOTZlMmZjODU1YWM0ODZiNmRiMWZlOGVjYWI3In0.eyJhdWQiOiI5NTYiLCJqdGkiOiI3OTVlNGUzNDgzYjcwZTE4M2FkYTE3NTM1Nzk0MmY5NWVkOGQzOTNhMmY0MjgxN2EzZjEzZDk2ZTJmYzg1NWFjNDg2YjZkYjFmZThlY2FiNyIsImlhdCI6MTYyNjc1MTI4NCwibmJmIjoxNjI2NzUxMjg0LCJleHAiOjE2NTgyODcyODQsInN1YiI6IjZlZWY1OWU5LTM5MjctNDM5MC1iYjI2LTY0MDEwNzJlN2ZmZiIsInNjb3BlcyI6WyJjYXJ0LXJlYWQiLCJjYXJ0LXdyaXRlIiwiY29tcGFuaWVzLXJlYWQiLCJjb21wYW5pZXMtd3JpdGUiLCJjb3Vwb25zLXJlYWQiLCJjb3Vwb25zLXdyaXRlIiwibm90aWZpY2F0aW9ucy1yZWFkIiwib3JkZXJzLXJlYWQiLCJwcm9kdWN0cy1yZWFkIiwicHJvZHVjdHMtZGVzdHJveSIsInByb2R1Y3RzLXdyaXRlIiwicHVyY2hhc2VzLXJlYWQiLCJzaGlwcGluZy1jYWxjdWxhdGUiLCJzaGlwcGluZy1jYW5jZWwiLCJzaGlwcGluZy1jaGVja291dCIsInNoaXBwaW5nLWNvbXBhbmllcyIsInNoaXBwaW5nLWdlbmVyYXRlIiwic2hpcHBpbmctcHJldmlldyIsInNoaXBwaW5nLXByaW50Iiwic2hpcHBpbmctc2hhcmUiLCJzaGlwcGluZy10cmFja2luZyIsImVjb21tZXJjZS1zaGlwcGluZyIsInRyYW5zYWN0aW9ucy1yZWFkIiwidXNlcnMtcmVhZCIsInVzZXJzLXdyaXRlIiwid2ViaG9va3MtcmVhZCIsIndlYmhvb2tzLXdyaXRlIl19.Ki5bqOAu36a90drFgFVnkUuYO5Kk6DL7tGusJ9Q0mw9L4kGQpd9SuVKCQqmHZsthICB6R1fpIb8YoX9x3IkuRGx72OReaRidl_L5V65RIJDuxrqhpSgh4xoLSVSshtPR9LlIz4YZrgASiGQxGu0vZbuz1H0_NBu8NcCOmXM8PYwCccM3XqwUdN022OCBFQfIFNo6F5qdLoQqFHQpkisatn5pefMrCCtgenrbU5PDlb2EanGHFeseWQ7rIt27y1B5ja3hVchKHzKsM8h4tj21crWxb7WF5wM8lhaG-cfmdlC_NKdOcsGhA4v2dAH_SqoBpdh_aq9TbFjqX_mVnsw8-6H6LTa2AGPjhpqWd5PGAZ1b-yEJiHisGlXPZUQXbFXieVMja-ZzROPHMOOmIUsqBnpnLt0j3oKRjUXLaqfeh5QUHf8IPqCABOfD4MUzVllF7qGioi-WO6an2pt7nsz4pJOw4uYd-GFE1FCEkorxV2iW4bLATAE89Cdu1ugax4wAQT1eX1dI1mDZ5NwHkVUCU2bEU_K-WqNndnNbBiMmz8A3QJ8XyzJrvtMSYEV_oFmfvk63yucMJjmeB9vHqG9k80GmAxfTWB08LldxMUYn-SsVnEV_Cd7tzxqJycbR2j6wQq4z6YfFU6hwdaD92i49gewanIFguI5Mdgx3tw6_aXM',
-  redirect_uri: 'https://www.crialuth.com/home/',
-  scope:
-  'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
+  bearer,
+  redirect_uri: 'http://localhost:5000/',
+  scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 })  
 
-var refreshToken =  'def5020028d8ce86c7dc08645584be7f0e23578c246f21ba7246581abc2af09fbdeab48f831fdd8d4b66b06e1499bb74b6670a797b06a00a68ba8d1ea443f08a0c2e1d4fbdaedae530cc1f854d11bb63726c60c4eb285daec70d0208b3391fea6d08077df5227c5cd826111cd1ab2b5a633a36093913eee141015be94fca9ddca727d69f9e168a0df3e009e846ac06e483dfad5e32b1ae590591f7054256094379324013b880c0b9f3e9a310f79cab01b14b39a2de08c392371c95bf611a948716c001e1857665bacdb4e06334bc311474c9c16aeaa9e0e91518576a5503071d9c5806d2e3ae6546fbf5c56b56aac5747c626be1abc0b683c57dcc9490aed9a5e3f3195777f5551d601a336218ad8ef79d54f0ab1cc88a30016bd64c23a4d179566fc5a452a22b35d8c9faec64291508f3acdaacd87263a6a1d8fc317341370a3bb193e19b744be9c2eb7d4e7b502674920513ce75d87c57e5fce99433740e22d56546a2c7b9664bb6a3552fd3ce40cd0f2782d44c3bc00d4045e906c2429dd9fb013bd0a3c90ea1d0'
+async function pegaToken() {
+  let token = apiTokens.findAll({
+    where: {
+        api: "menv"
+        }
+    })
+  console.log(token)
+  me.setToken = token.access_token 
+
+}
 
 console.log('O TOKEN REINICIA CADA VEZ Q O SERVER INICIA, ENTAO ME.BEARER É TEMPORÁRIO PARA PRODUÇÃO DEVE SER UTILIZADO UM NOVO TOKEN GERADO PELAS FUNÇÕES DA CONTROLLER')
 
@@ -20,27 +34,46 @@ async function authenticate() {
 
   //utiliza os atributos da classe "me" para construir a url que deve ser acessada e que também retornará o código utilizado para pegar o token
   console.log('me.bearer dentro de authenticate:'+me.bearer)
-  const url = me.auth.getAuth()
-  console.log()
+  var options = {scope:me.scope}
+  const url = await me.auth.getAuth(options)
+  console.log(url)
   return url 
 }
 
+authenticate()
 
-async function shipToken(){
+const testeTime = dayjs().add(2592000,'seconds').format('DD/MM/YYYY')
+console.log(typeof(testeTime))
+
+//console.log(data)
+async function shipToken(code){
   try{  
     
     //recebe o codigo que vem junto com a url, passa como parametro na função, recebe o token e refresh token e define no me.bearer
 
-    var token = await me.auth.getToken('def5020061c774b32b194c74d0eddeda05a795808e6b5e1c3bb21aa0f7f8577badf54fcf3cc4b096eb8e0acaab98d4d83921a5c89d7b759e056230ae845c2a82966f837a29afa1a39d2c0658267c201dbf9ae53dac27a8bbfaf03e6d690a19e00e3220e187f967409660f46aed3e793148755c0ae37125a7bf0edbf5b85ac3b4c33138624a6a0891dd4c72fdb77fcdd0d5cfb080a729ec4b6d8861764a0e2a19cf9d95791dad5ef22ed708cb7e16f26ad0f91f2036d18c893f7f12304d95d74b1b582f03a3c5c6d5d9adda968cab46555cfcd9a2656903465e63031f6d3f3bb3a3dc01b5887637cd4283836f80810549aa2a8b432d51fc8f395dfdd2c819e520212cd5939c6bdabb4679c9ec7b53b66167bc0e74191d7df9599aa0233651778695a6880df08bd6d0bf87d287e0d7bf7baf3174326fc0961d1a48c4f17e3248b618bdf3d8a12136efcc863e48b731111580575a82d4465aedbe3621cf3859a2bb5a0e987dfe597e66d636af193dab2b8db66b522c574486eaf884287c0bb53c66') 
-    console.log('token.data='+token.data)
-    me.setToken = token.data
-    console.log(me.bearer)
+    var token = await me.auth.getToken(code) 
+    console.log(token.data.access_token)
+    console.log(token.data.refresh_token)
+    console.log(token.data.expires_in)
+    var newToken = {
+                    "api":"menv",
+                    "token":token.data.access_token,
+                    "refreshToken":token.data.refresh_token,
+                    "expDate": dayjs().add(token.data.expires_in,'seconds').format()
+     }
+    apiTokens.create(newToken)
+    //console.log(me.bearer)
     return token
 
-}catch(err){
+  }catch(err){
     console.log(err)
+    return err
   }
 }
+
+//!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
+shipToken('def50200b06ea700b7935627414ce38b02dd9d2c7e61d8b423ce2e258ed05091926ed84de7b7a2e2ef5788c1817ae651469441f78227e9c94d400b56cc69bea4af9fe1d4d2f319677c03606abed782829fb6ef36635c374a77ef3e1c98a0ad03ba8723112875b0c5a4020fc5664e1340525c95fd434c85aa1f8e4cf3fa518f32b8651ecdf9d2b4fff01ae2927ebd36a7670f755fe33ad168743b5fe61e12f0b5fcd897ce024657bee2fb02f89037fa3a07d94ee6eef70c3f3dc209325d57e7805fd0af26d8c3f8ec409ebf8c5e396575965aae4ba3f791fe6b8d0481570d71629ed6e7beefa5a1dab417163fb7804967f1f9560162e9eb1c26925bb08b40815d67910404f20529a4a0a5ef80e8106e83e44b6cc231af8aff710ba6c36f21596aef6d5f19274c4160e4573da29f3f2cd073593057173829883efd7fb9339220403e381b741f5904bf2dd24f59365ae3fda5b6e1644ede6834ffa2a92fcbf7320a493a40ebc3a7cf44c1d29e5e43550306f80d75defbf26567c3626ce5f29d9cb8dd0f9276dfdd160602e34b92d0dae25afdfadec0cc2eb079db0a4c7fa5328e6f1eb86449d5db4e73e4cb638c543d3160a7bfdc8a7e29c10e0633d9b11f138dedf2b4b00cc18223ceda8c2cfba193a90c70460324cae4df8708650c31673fe04429e2963f985513217267bdcf4648acff6ffceabb1054ae61308741011338167d2655f1ee6dfa6ff8adad6e0583c8c5055f37a61184dd6bf969f11fc3cb0ecef257358ce6b72b20d198c5380c97f33c672cee388bfcca1597e525efdbfb43f0937780cf80d40e42f25241b5b5b7c835468f12ce71c8ca7043ecd313e021d143a881daed460ce7023da4f8ed951fbe5ffaf10c4140d8dd1f8898bcb7ca95836e45c69b5cda754d6c1622315021bf02ecc4d1f935676011e695a640c1fccc41ee79ecdc9d03600c676900d30f8b0036bb798d6dee068e7edd6940a4373969942d34e18433f1e422a00a3bc3c1ee3ae1de43d365c889abc5bdc8b4d90aed7b365a0827786c115942d92005fdf0c36e0dd1ca37c77c8498e0db29c9badf4a07289b6ec7a81ac7e8188db6329d59c726890e8775238e09ccc699c1a662a000fc67cdcef55ea4268ab924463f734bcdc76d20a0d20aff51b84169c2916b3e4702ac15eccb')
+
 
 async function refreshToken(){
 
@@ -163,7 +196,7 @@ async function shipCheckout(id){
 
 module.exports = {
   shipToken: shipToken, 
-  authenticate:authenticate,
+  authenticate: authenticate,
   shipCheckout: shipCheckout,
   shipCalc:shipCalc,
   shipCart:shipCart,
