@@ -4,7 +4,8 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const prods = require('./controllers/produtos')
 const auth = require('./middlewares/auth')
-const apiRoute = require('./routes/api')
+//const apiRoute = require('./routes/api')
+const shipping = require('./controllers/melhorenvio')
 const cors = require('cors')
 const PORT = process.env.PORT
 
@@ -13,7 +14,7 @@ const app = new express()
 
 app.use(cors())
 
-app.use('/api',apiRoute)
+//app.use('/api',apiRoute)
 
 app.use('*',(req,res,next) => {
     res.header ("Access-Control-Allow-Origin","*")
@@ -246,7 +247,7 @@ app.post('/checkout', auth, async (req,res) => {
 app.post('/notificacao', async function(req,res){})
 
 app.get('/shipcode', async (req,res)=>{
-
+    
     const shipCode = await shipping.authenticate()
     console.log(shipCode)
     res.send(shipCode)
@@ -256,8 +257,9 @@ app.get('/shipcode', async (req,res)=>{
 app.get('/shiptoken', async (req,res)=>{
     //console.log("parametros " + JSON.stringify(req.params))
     //let code = req.params.code
-    const shipToken = await shipping.shipToken()
-    console.log(shipToken)
+    //console.log(typeof req.body.code+ req.body.code)
+    const shipToken = await shipping.shipToken(req.body.code)
+    //console.log(shipToken)
     res.send(shipToken)
     
 })
