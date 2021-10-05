@@ -269,7 +269,7 @@ app.get('/refreshshiptoken', async (req,res)=>{
     //let code = req.params.code
     const refreshToken = await shipping.refreshToken()
     console.log(refreshToken)
-    res.send(refreshToken)
+    res.send(JSON.stringify(refreshToken))
     
 })
 
@@ -282,7 +282,7 @@ app.post('/shipcalc', async function(req,res){
     //JA FOI AUTENTICADO
     console.log(ships)
     
-    res.json(ships)
+    res.send(ships)
     
 })
 
