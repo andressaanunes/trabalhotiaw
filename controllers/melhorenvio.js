@@ -2,7 +2,8 @@ const axios = require('axios');
 const melhorEnvioSdk = require('melhor-envio')
 const sequelize = require('../model/Db')
 const apiTokens = sequelize.apiTokens
-const dayjs = require('dayjs')
+const dayjs = require('dayjs');
+const { Sequelize } = require('../model/Db');
 
 
 
@@ -20,19 +21,22 @@ pegaToken()
 
 async function pegaToken() {
   
-  let token = await apiTokens.findOne({
+  let token = await apiTokens.findAll({
     where: {
         api: "menv"
         }
+    }).then(res => {
+      console.log('res',res)
+      return res[0]
     })
   
-  //console.log('TOKEN = '+ JSON.stringify(token.token))
+  console.log('TOKEN = '+ token.token)
   await checkTokenExp()
   //console.log(token)
   //console.log(token.dataValues.expDate)
   me.setToken = token.token
 
-  console.log('me.bearer'+ me.bearer)
+  //console.log('me.bearer'+ me.bearer)
 }
 
 
@@ -43,13 +47,15 @@ async function checkTokenExp(){
         where: {
             api: "menv"
             }
+        }).then(res => {
+          return res.dataValues
         })
 
-    //console.log('TOKENOBJ  ='+ tokenObj.token)    
+    //console.log('TOKENOBJ  ='+ tokenObj)    
     let date = dayjs().format('YYYY-MM-DD')
     let isSame = date === tokenObj.expDate ? true : false
-    console.log(date)
-    console.log(tokenObj.expDate)
+    //console.log(date)
+    //console.log(tokenObj.expDate)
     console.log(isSame)
 
     if (isSame) {
@@ -81,27 +87,40 @@ async function authenticate() {
 //authenticate()
 
 async function shipToken(code){
+  
+  const token = await me.auth.getToken(code)
+  console.log("line 92 ~ shipToken ~ TOKEN", token)
+  const destroy = await apiTokens.destroy({truncate:true})
+  console.log("🚀 ~ file: melhorenvio.js ~ line 94 ~ shipToken ~ destroy", destroy)  
+
   try{  
+
+      console.log("🚀 ~ file: melhorenvio.js ~ line 97 ~ shipToken ~ token", token)    
+        const creation = await apiTokens.create({
+          api: apiTokens.api.default,
+          token: token.data.access_token,
+          refreshToken: token.data.refresh_token,
+          expDate: dayjs().add(token.data.expires_in,'seconds').format()
+
+        })
     
-    //recebe o codigo que vem junto com a url, passa como parametro na função, recebe o token e refresh token e define no me.bearer
 
-    var token = await me.auth.getToken(code) 
+   
 
-    console.log(token.data.access_token)
-    console.log(token.data.refresh_token)
-    console.log(token.data.expires_in)
-    var newToken = {
+    //console.log('token.data.access_token'+token.data.access_token)
+    //console.log('token.data.refresh_token'+token.data.refresh_token)
+    //console.log('token.data.expires_in'+token.data.expires_in)
+    /* var newToken = {
                     "api":"menv",
                     "token":token.data.access_token,
                     "refreshToken":token.data.refresh_token,
                     "expDate": dayjs().add(token.data.expires_in,'seconds').format()
-     }
-    apiTokens.destroy({where:{api:'menv'}})
+     } */
+    //console.log('newToken'+newToken) 
     
-    apiTokens.create(newToken)
     //console.log(me.bearer)
     pegaToken()
-    return token
+    return creation
 
   }catch(err){
     console.log(err)
@@ -112,13 +131,15 @@ async function shipToken(code){
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
 //shipToken('')
 async function refreshToken(){
-
+  Console.log('======================chegou no refreshtoken=============================')
   try {
 
     let refresh_token =  apiTokens.findOne({
       where: {
           api: "menv"
           }
+      }).then(res => {
+        return res.dataValues
       })
 
     const tokenRefresh = await me.auth.refreshToken(refresh_token.refreshToken)

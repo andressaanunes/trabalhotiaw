@@ -15,7 +15,8 @@ sequelize.authenticate().then(()=>{
 var apiTokens = sequelize.define('apiTokens',{
 
     api:{ type:Sequelize.STRING,
-    allowNull:false
+    allowNull:false,
+    defaultValue:"menv"
     },
     token:{ type: Sequelize.STRING(1000),
     allowNull:false
@@ -25,7 +26,7 @@ var apiTokens = sequelize.define('apiTokens',{
     
 })
 
-//apiTokens.sync()
+//apiTokens.sync({force:true})
 
 
 module.exports = { 

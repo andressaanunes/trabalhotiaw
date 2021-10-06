@@ -259,7 +259,7 @@ app.get('/shiptoken', async (req,res)=>{
     //let code = req.params.code
     //console.log(typeof req.body.code+ req.body.code)
     const shipToken = await shipping.shipToken(req.body.code)
-    //console.log(shipToken)
+    console.log(shipToken)
     res.send(shipToken)
     
 })
