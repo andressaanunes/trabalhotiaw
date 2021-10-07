@@ -87,25 +87,29 @@ async function authenticate() {
 //authenticate()
 
 async function shipToken(code){
-  
-  const token = await me.auth.getToken(code)
-  console.log("line 92 ~ shipToken ~ TOKEN", token)
-  const destroy = await apiTokens.destroy({truncate:true})
-  console.log("🚀 ~ file: melhorenvio.js ~ line 94 ~ shipToken ~ destroy", destroy)  
-
+  let destroy = await apiTokens.destroy({truncate:true})
+  console.log(destroy)
   try{  
 
-      console.log("🚀 ~ file: melhorenvio.js ~ line 97 ~ shipToken ~ token", token)    
-        const creation = await apiTokens.create({
-          api: apiTokens.api.default,
-          token: token.data.access_token,
-          refreshToken: token.data.refresh_token,
-          expDate: dayjs().add(token.data.expires_in,'seconds').format()
-
-        })
+      //console.log("🚀 ~ file: melhorenvio.js ~ line 97 ~ shipToken ~ token", token)
+        
+        var token = await me.auth.getToken(code).then(res =>{
+          console.log("🚀 ~ file: melhorenvio.js ~ line 96 ~ token ~ res", res)
+            
+            apiTokens.create({
+              api:'menv'+ Math.random(),
+              token: res.data.access_token,
+              refreshToken: res.data.refresh_token,
+              expDate: dayjs().add(res.data.expires_in,'seconds').format()
     
+            })
 
-   
+          
+
+        })   
+        
+        
+
 
     //console.log('token.data.access_token'+token.data.access_token)
     //console.log('token.data.refresh_token'+token.data.refresh_token)
@@ -120,7 +124,7 @@ async function shipToken(code){
     
     //console.log(me.bearer)
     pegaToken()
-    return creation
+    //return token
 
   }catch(err){
     console.log(err)
@@ -131,7 +135,7 @@ async function shipToken(code){
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
 //shipToken('')
 async function refreshToken(){
-  Console.log('======================chegou no refreshtoken=============================')
+  console.log('====================== chegou no refreshtoken =============================')
   try {
 
     let refresh_token =  apiTokens.findOne({

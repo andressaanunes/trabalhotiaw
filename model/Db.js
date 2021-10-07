@@ -15,7 +15,6 @@ sequelize.authenticate().then(()=>{
 var apiTokens = sequelize.define('apiTokens',{
 
     api:{ type:Sequelize.STRING,
-    allowNull:false,
     defaultValue:"menv"
     },
     token:{ type: Sequelize.STRING(1000),
@@ -25,6 +24,7 @@ var apiTokens = sequelize.define('apiTokens',{
     expDate:{type:Sequelize.DATEONLY},
     
 })
+
 
 //apiTokens.sync({force:true})
 
