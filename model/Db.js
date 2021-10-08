@@ -17,10 +17,9 @@ var apiTokens = sequelize.define('apiTokens',{
     api:{ type:Sequelize.STRING,
     defaultValue:"menv"
     },
-    token:{ type: Sequelize.STRING(1000),
-    allowNull:false
+    token:{ type: Sequelize.STRING(2500)
     },
-    refreshToken:{type: Sequelize.STRING(1000)}, 
+    refreshToken:{type: Sequelize.STRING(2500)}, 
     expDate:{type:Sequelize.DATEONLY},
     
 })
