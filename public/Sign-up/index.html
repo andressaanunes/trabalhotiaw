@@ -56,13 +56,10 @@
     </a>
     </div>
 </nav>
-    <section class="sign">
-
-       
-
-          <form class = "row ">
-
-            <div class="col">
+    <section class="sign ">
+          <!-- <form action ="/cadastro" method="post"class = "row" > -->
+          <div class="row">
+            <div class="col-6">
 
               <div class="input-group">
                 <label for="username" class="input-group-text">Nome:</label>
@@ -92,17 +89,21 @@
 
     
               <input type="hidden" name="_csrf" value="{{csrfToken}}" class="input-sign">
-              <input id="submit" type="submit" value="Cadastre-se" class="btn-submit">
+
+              <button id="submit" type ="button" class="btn-submit">
+                Cadastre-se
+              </button>
 
             </div>
             
             
-           <div class = "col">
+           <div class = "col-6">
 
                 <div class="input-group">
                   
                     <label for="cep"class="input-group-text">Endereço:</label>
-                    <input type="text" id="cep" name="cep" placeholder="CEP"class="form-control" pattern="[0-9]+$">
+                    <input type="text" id="cep" name="cep" placeholder="CEP"class="form-control" >
+                    <!-- pattern="[0-9]+$-" -->
                 </div>
                 <div class="input-group">
                     <input type="text" id="uf" name="estado" placeholder="Estado"class="form-control">
@@ -119,9 +120,8 @@
                 
                 <p id="error"></p>  
            </div>          
-           
-  
-          </form>
+          </div> 
+          <!-- </form> -->
 
           <div class="texts">
 
@@ -135,6 +135,6 @@
       </div>
 
 </body>
-<script src="https://www.crialuth.com/Sign-up/signup.js"></script>
-<script src="https://www.crialuth.com/scripts/scripts.js"></script>
+<script src="http://localhost:5000/sign-up/signup.js"></script>
+<script src="http://localhost:5000/scripts/scripts.js"></script>
 </html>

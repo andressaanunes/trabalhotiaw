@@ -30,12 +30,15 @@ async function listProds(){
     
     Object.values(item).map(itens => {    
         
-        if(itens.type = 1){    
+        if(itens.type === 1){    
             var price = 44.99
-        }else if(itens.type = 2){ 
+
+        }else if(itens.type === 2){ 
             var price = 54.99
-        }else if(itens.type = 3){ 
+
+        }else if(itens.type ===3){ 
             var price = 19.99
+            
         }
         
        var index = item.indexOf(itens)
@@ -88,6 +91,7 @@ async function excluirProduto(btn){
     console.log(cartItems)
     sessionStorage.setItem('cartItems',JSON.stringify(cartItems))
     location.reload()
+    
 
 }
 
@@ -104,6 +108,20 @@ function changeItensInCart(){
     
     sessionStorage.setItem('itensInCart', newQuantity)
 }
+
+
+function changeSubtotal(){
+    let subtotal = 0
+
+    let cartitems = JSON.parse(sessionStorage.getItem('cartItems'))
+
+    cartitems.forEach(element => {
+
+         subtotal += element.quantity * element.preco
+    });
+    var subTotal =  document.querySelector('#subTotal').innerHTML = formatter.format(subtotal)
+}
+
 
 function prodQuant(item){
 
@@ -125,12 +143,12 @@ function prodQuant(item){
     cartitems[index].quantity = parseInt(quant)
     
     
-    let newPrice = quant * 44.99
+    let newPrice = quant * item[2]
     document.getElementById(item[4]+'prodPrice').innerHTML = formatter.format(newPrice)
     sessionStorage.setItem('cartItems',JSON.stringify(cartitems))
       
     changeItensInCart()
-    
+    changeSubtotal()
 }
 
 var trash = document.getElementById('excluiProd')
@@ -151,7 +169,7 @@ async function shipValues(){
             })
     }
 
-    var shipValues = await fetch('https://www.crialuth.com/api/shipcalc', config)
+    var shipValues = await fetch('http://localhost:5000/shipcalc', config)
     
     var json = await shipValues.json()
     console.log('json:'+shipValues)

@@ -1,7 +1,7 @@
 const db = require('../model/Db')
 const users =  db.Sequelize.Op
 const usuarios = require('../model/users')
-//const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const authCfg = require('../config/authCfg.json')
 
@@ -16,12 +16,12 @@ async function createUser(user){
 
     try{
          const check = await checkUser(user)
-        console.log("controller user:"+ JSON.stringify(check))
+         console.log("controller user:"+ JSON.stringify(check))
             
         if(check.error){
                 
                 console.log("check.erro:"+JSON.stringify(check))
-                return JSON.stringify(check)
+                return check
 
         }else{
                     
@@ -30,23 +30,20 @@ async function createUser(user){
                 try{
                         
                     await usuarios.create(user)
-                        
+                    console.log("🚀 ~ file: users.js ~ line 41 ~ createUser ~ return user", user)    
                     return user
 
                 }catch(err){
+                    console.log("🚀 ~ file: users.js ~ line 41 ~ createUser ~ error user", {"error":`Usuário (${user.nome}) não pode ser criado:${err}`})
 
-                     return(`Usuário (${user.nome}) não pode ser criado:` +err)
-                
+                     return {"error":`Usuário (${user.nome}) não pode ser criado:${err}`}
                 }
-
             } 
-
         }catch(err){
             console.log('erro no cadastro')
-            console.log(err)
-            return JSON.stringify({error: "erro no cadastro"}) 
+            console.log({"error": `erro no cadastro:${err}`})
+            return {"error": `erro no cadastro:${err}`} 
         }    
-
 }
 
 async function checkUser(user){
@@ -62,20 +59,25 @@ async function checkUser(user){
                 nome: user.nome
                 }
             })
-        if(emailCheck){
+        if(emailCheck == null){
+            console.log(emailCheck)
             const result = {error:"Esse Email já foi cadastrado!"}
-            console.log('emailcheck:' +result)
+            console.log('emailcheck:' +JSON.stringify(result))
             return result
         
-        }else if(nameCheck){
+        }else if(nameCheck == null){
             const resultado = {error:"Esse Nome já foi cadastrado!"}
-            console.log('namecheck:'+ resultado)
+            console.log('namecheck:'+ JSON.stringify(resultado))
             return resultado
 
         }else{
             return true
         }
-    }catch(err){console.log(err)}
+    }catch(err){
+        
+        console.log(err)
+        return {"error":err}
+    }
 }
 
 
@@ -90,7 +92,7 @@ async function buscaEmail(user){
     return result[0]
     }catch(err){
         console.error('Erro em buscaEmail'+err)
-        return err
+        return {error: `O email não foi encontrado ${err}`}
     }
     
 }
