@@ -5,9 +5,6 @@ const apiTokens = sequelize.apiTokens
 const dayjs = require('dayjs');
 const { Sequelize } = require('../model/Db');
 
-
-
-
 const me = new melhorEnvioSdk({
   client_id: '1434',
   client_secret: 'i7a60hMMpXuVIVFcqXgdYXJRSgZzwaLSHGr3X06S',
@@ -30,7 +27,7 @@ async function pegaToken() {
       return res[0]
     })
   
-  console.log('TOKEN = '+ token.token)
+  console.log('TOKEN = '+ token)
   await checkTokenExp()
   //console.log(token)
   //console.log(token.dataValues.expDate)
@@ -38,8 +35,6 @@ async function pegaToken() {
 
   //console.log('me.bearer'+ me.bearer)
 }
-
-
 
 async function checkTokenExp(){    
  
@@ -97,7 +92,7 @@ async function shipToken(code){
           console.log("🚀 ~ file: melhorenvio.js ~ line 96 ~ token ~ res", res)
             
             apiTokens.create({
-              api:'menv'+ Math.random(),
+              //api:'menv'+ Math.random(),
               token: res.data.access_token,
               refreshToken: res.data.refresh_token,
               expDate: dayjs().add(res.data.expires_in,'seconds').format()
@@ -107,9 +102,6 @@ async function shipToken(code){
           
 
         })   
-        
-        
-
 
     //console.log('token.data.access_token'+token.data.access_token)
     //console.log('token.data.refresh_token'+token.data.refresh_token)
@@ -175,7 +167,7 @@ async function refreshToken(){
 async function shipCalc(senderCEP,receiverCEP,quant){
 
   checkTokenExp()
-
+  quant = 1
   console.log('me.bearer dentro de shipcalc: '+JSON.stringify(me.bearer))
   var peso = parseFloat(quant * 0.5)
     console.log('peso: '+peso)
