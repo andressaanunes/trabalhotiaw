@@ -38,7 +38,7 @@ function getProds() {
     
     var params = location.href.split('=',2)
     
-    fetch(`http://localhost:5000/api/product/${params[1]}`).then((res)=>{    
+    fetch(`http://localhost:5000/product/${params[1]}`).then((res)=>{    
         
         return res.json()
 

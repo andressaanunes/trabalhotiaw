@@ -551,7 +551,7 @@ async function shipCart(){
         body:JSON.stringify(menvBody)
     }
 
-    var  result = await fetch('https://www.crialuth.com/api/shipcart', options)
+    var  result = await fetch('https://www.crialuth.com/shipcart', options)
     
 }
 // valor do frete
@@ -570,7 +570,7 @@ async function apiPagseguro(){
         body:JSON.stringify(pagSeguroBody)
     }
 
-    var codigo = await fetch('https://www.crialuth.com/api/checkout', options)
+    var codigo = await fetch('https://www.crialuth.com/checkout', options)
     console.log("codigo:"+JSON.stringify(codigo))
     
 
