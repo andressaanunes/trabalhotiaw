@@ -43,7 +43,7 @@ async function login(){
                 sessionStorage.setItem('token', token)
                 response = await response.json()
                 localStorage.setItem('userInfo',JSON.stringify(response.user))
-                window.location.replace('https://www.crialuth.com/home/')
+                window.location.replace('http://localhost:5000/home/')
             
             }else{
 
@@ -58,3 +58,17 @@ async function login(){
         
     }
 }
+
+
+async function testeFetch(){
+    console.log('disparou fecth') 
+    var options = {
+        method: 'POST',
+         headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify({"teste":"teste!"})
+    }
+
+    var res = await fetch('http://localhost:5000/login',options)
+    console.log("🚀 ~ file: signup.js ~ line 100 ~ testeFetch ~ res", res)
+    
+}//  /area?area=sala

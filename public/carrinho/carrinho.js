@@ -32,10 +32,13 @@ async function listProds(){
         
         if(itens.type === 1){    
             var price = 44.99
+
         }else if(itens.type === 2){ 
             var price = 54.99
-        }else if(itens.type === 3){ 
+
+        }else if(itens.type ===3){ 
             var price = 19.99
+            
         }
         
        var index = item.indexOf(itens)
@@ -145,7 +148,6 @@ function prodQuant(item){
       
     changeItensInCart()
     changeSubtotal()
-    
 }
 
 var trash = document.getElementById('excluiProd')
@@ -166,7 +168,7 @@ async function shipValues(){
             })
     }
 
-    var shipValues = await fetch('https://www.crialuth.com/api/shipcalc', config)
+    var shipValues = await fetch('http://localhost:5000/shipcalc', config)
     
     var json = await shipValues.json()
     console.log('json:'+shipValues)
@@ -548,7 +550,7 @@ async function shipCart(){
         body:JSON.stringify(menvBody)
     }
 
-    var  result = await fetch('https://www.crialuth.com/api/shipcart', options)
+    var  result = await fetch('https://www.crialuth.com/shipcart', options)
     
 }
 // valor do frete
@@ -567,7 +569,7 @@ async function apiPagseguro(){
         body:JSON.stringify(pagSeguroBody)
     }
 
-    var codigo = await fetch('https://www.crialuth.com/api/checkout', options)
+    var codigo = await fetch('https://www.crialuth.com/checkout', options)
     console.log("codigo:"+JSON.stringify(codigo))
     
 

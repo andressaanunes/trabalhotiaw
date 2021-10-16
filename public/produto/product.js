@@ -119,6 +119,7 @@ var placaCheck = document.querySelector('#placaDeco')
 placaCheck.addEventListener('change', placaDeco)
 
 async function placaDeco(){
+    console.log(placaCheck.checked)
 
     var preco =  document.querySelector('#preco')
 
