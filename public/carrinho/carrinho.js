@@ -168,7 +168,7 @@ async function shipValues(){
             })
     }
 
-    var shipValues = await fetch('http://localhost:5000/shipcalc', config)
+    var shipValues = await fetch('https://www.crialuth.com/shipcalc', config)
     
     var json = await shipValues.json()
     console.log('json:'+shipValues)

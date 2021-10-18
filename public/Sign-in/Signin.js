@@ -43,7 +43,7 @@ async function login(){
                 sessionStorage.setItem('token', token)
                 response = await response.json()
                 localStorage.setItem('userInfo',JSON.stringify(response.user))
-                window.location.replace('http://localhost:5000/home/')
+                window.location.replace('https://www.crialuth.com/home/')
             
             }else{
 
@@ -68,7 +68,7 @@ async function testeFetch(){
         body: JSON.stringify({"teste":"teste!"})
     }
 
-    var res = await fetch('http://localhost:5000/login',options)
+    var res = await fetch('https://www.crialuth.com/login',options)
     console.log("🚀 ~ file: signup.js ~ line 100 ~ testeFetch ~ res", res)
     
 }//  /area?area=sala
