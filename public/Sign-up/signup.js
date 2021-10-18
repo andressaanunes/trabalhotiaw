@@ -62,7 +62,7 @@ async function saveUser(){
             body: JSON.stringify(userInfo)
         }
 
-        var res = await fetch('https://www.crialuth.com/cadastro',config)
+        var res = await fetch('https://www.crialuth.com/cadastro',options)
         
         var parsedRes = await res.json()
         console.log("🚀 ~ file: signup.js ~ line 71 ~ saveUser ~ res", parsedRes)
