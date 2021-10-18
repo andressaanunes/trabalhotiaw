@@ -9,7 +9,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://www.crialuth.com/Sign-in/signin.css">
+    <link rel="stylesheet" href="https://www.crialuth.com/sign-in/signin.css">
     <link rel="stylesheet" href="https://www.crialuth.com/styles/geral.css">
     <title>Cadastro</title>
 </head>
@@ -56,13 +56,10 @@
     </a>
     </div>
 </nav>
-    <section class="sign">
-
-       
-
-          <form class = "row ">
-
-            <div class="col">
+    <section class="sign ">
+          <!-- <form action ="/cadastro" method="post"class = "row" > -->
+          <div class="row">
+            <div class="col-6">
 
               <div class="input-group">
                 <label for="username" class="input-group-text">Nome:</label>
@@ -92,17 +89,21 @@
 
     
               <input type="hidden" name="_csrf" value="{{csrfToken}}" class="input-sign">
-              <input id="submit" type="submit" value="Cadastre-se" class="btn-submit">
+
+              <button id="submit" type ="button" class="btn-submit">
+                Cadastre-se
+              </button>
 
             </div>
             
             
-           <div class = "col">
+           <div class = "col-6">
 
                 <div class="input-group">
                   
                     <label for="cep"class="input-group-text">Endereço:</label>
-                    <input type="text" id="cep" name="cep" placeholder="CEP"class="form-control" pattern="[0-9]+$">
+                    <input type="text" id="cep" name="cep" placeholder="CEP"class="form-control" >
+                    <!-- pattern="[0-9]+$-" -->
                 </div>
                 <div class="input-group">
                     <input type="text" id="uf" name="estado" placeholder="Estado"class="form-control">
@@ -119,22 +120,21 @@
                 
                 <p id="error"></p>  
            </div>          
-           
-  
-          </form>
+          </div> 
+          <!-- </form> -->
 
           <div class="texts">
 
-            <p >Se você já tem uma conta. <a href="https://www.crialuth.com/Sign-in/index.html">Faça Login</a></p>
+            <p >Se você já tem uma conta. <a href="https://www.crialuth.com/sign-in/index.html">Faça Login</a></p>
             
           </div>       
 
       </section>
         <div class="imgdiv">
-          <img class="bottom-img" src="./Cópia de Cópia de Inserir um título.gif" alt="">
+          <img class="bottom-img" src="./logingif.gif" alt="">
       </div>
 
 </body>
-<script src="https://www.crialuth.com/Sign-up/signup.js"></script>
+<script src="https://www.crialuth.com/sign-up/signup.js"></script>
 <script src="https://www.crialuth.com/scripts/scripts.js"></script>
 </html>

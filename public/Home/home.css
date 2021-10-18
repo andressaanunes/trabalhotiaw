@@ -80,6 +80,7 @@
 }
 .carouselstyle{
     margin: auto;
+    width:75%;
     max-width: 2000px;
     height: 500px;
     

@@ -58,3 +58,17 @@ async function login(){
         
     }
 }
+
+
+async function testeFetch(){
+    console.log('disparou fecth') 
+    var options = {
+        method: 'POST',
+         headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify({"teste":"teste!"})
+    }
+
+    var res = await fetch('https://www.crialuth.com/login',options)
+    console.log("🚀 ~ file: signup.js ~ line 100 ~ testeFetch ~ res", res)
+    
+}//  /area?area=sala

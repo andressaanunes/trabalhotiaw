@@ -25,7 +25,7 @@ var apiTokens = sequelize.define('apiTokens',{
 })
 
 
-//apiTokens.sync({force:true})
+//apiTokens.sync()
 
 
 module.exports = { 

@@ -26,11 +26,7 @@ async function takeAddress(){
     }
 }
 
-
-// SALVAR O NOME E O ENDEREÇO DO CLIENTE NO LOCALSTORAGE, E NO BANCO POSTERIORMENTE
 async function saveUser(){
-    
-    //SALVAR USUARIO NO LOCALSTORAGE
 
     var cpf = document.querySelector("#cpf").value
     cpf = cpf.replace(/[.-]/g,'')
@@ -42,27 +38,26 @@ async function saveUser(){
     tel = tel.replace(/[()-]/g,'')
     
     var userInfo ={
-        nome: document.querySelector("#username").value,
-        email: document.querySelector("#email").value,
-        senha: document.querySelector("#password").value,
+        "nome": document.querySelector("#username").value,
+        "email": document.querySelector("#email").value,
+        "senha": document.querySelector("#password").value,
         tel,
         cpf,
         cep,
-        estado: document.querySelector("#uf").value,
-        cidade: document.querySelector("#localidade").value,
-        bairro: document.querySelector("#bairro").value,
-        rua: document.querySelector("#logradouro").value,
-        numero: document.querySelector("#numero").value,
-        complemento: document.querySelector("#complemento").value,
+        "estado": document.querySelector("#uf").value,
+        "cidade": document.querySelector("#localidade").value,
+        "bairro": document.querySelector("#bairro").value,
+        "rua": document.querySelector("#logradouro").value,
+        "numero": document.querySelector("#numero").value,
+        "complemento": document.querySelector("#complemento").value,
     } 
 
     var divErro = document.querySelector('#error')
     divErro.innerHTML=""
-    //ENVIAR PRO BANCO
-   try { 
 
-        var config = {
-            method: "POST",
+   try { 
+        var options = {
+            method: 'POST',
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify(userInfo)
         }
@@ -70,6 +65,7 @@ async function saveUser(){
         var res = await fetch('https://www.crialuth.com/cadastro',config)
         
         var parsedRes = await res.json()
+        console.log("🚀 ~ file: signup.js ~ line 71 ~ saveUser ~ res", parsedRes)
         
         console.log( "res:" + parsedRes)
         if(res.status == 400){
@@ -79,13 +75,23 @@ async function saveUser(){
             
             localStorage.setItem('userInfo',JSON.stringify(res.user))
         }
-        
-        
-            
+
     } catch (error) {
         //!CONFIGURA A MENSAGEM DE ERRO NO CADASTRO
         console.log(error)
-
     }
  
+}
+async function testeFetch(){
+    console.log('disparou fecth') 
+    var options = {
+        method: 'POST',
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify({teste:'teste!'})
+    }
+
+    var res = await fetch('https://www.crialuth.com/cadastro',options)
+    var parsedRes = await res.json()
+    console.log("🚀 ~ file: signup.js ~ line 100 ~ testeFetch ~ res", parsedRes)
+    
 }

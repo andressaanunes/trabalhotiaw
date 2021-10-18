@@ -4,17 +4,16 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const prods = require('./controllers/produtos')
 const auth = require('./middlewares/auth')
-//const apiRoute = require('./routes/api')
+const users = require('./controllers/users')
 const shipping = require('./controllers/melhorenvio')
+const bcrypt = require('bcrypt')
 const cors = require('cors')
+
 const PORT = process.env.PORT
 
 const app = new express()
 
-
 app.use(cors())
-
-//app.use('/api',apiRoute)
 
 app.use('*',(req,res,next) => {
     res.header ("Access-Control-Allow-Origin","*")
@@ -31,6 +30,8 @@ app.use('*',(req,res,next) => {
     } 
  */next()
     })
+
+
 
 
 
@@ -173,47 +174,63 @@ app.get('/all', async function getall(req,res){
      
         })
 
-app.post('/cadastro', async(req,res)=>{
-    try{
-        const user = await users.createUser(req.body)
-       
-        var createUser = JSON.parse(user)
+app.post('/cadastro', async (req, res) => {
         
-        if (createUser.error) {
-
-            console.log("user.error:     " +  createUser.error)
-            var error = JSON.stringify({error: `Falha no cadastro: ${createUser.error}`})
-           
-            res.status(400)
-            res.send(error)
-
-        } else {
-
-            res.header({token:users.generateToken({id:user.id})}) 
-            res.send({user})
-
-        }  
-
-    }catch(err){
-        console.log(err)
-        res.status(400).send(JSON.stringify({error: `registration failed ${err}`}))
-    }
-})
+        try{
+            console.log(req.body)
+            const user = await users.createUser(req.body)
+            
+            console.log("user"+user)
+            
+            if (user.error) {
+    
+                console.log("user.error:     " +  user.error)
+                var error = {error: `Falha no cadastro: ${user.error}`}
+                console.log("🚀 ~ file: app.js ~ line 194 ~ app.post ~ error", error)
+               
+                res.status(400)
+                res.send(error)
+    
+            } else {
+                
+                console.log("🚀 ~ file: app.js ~ line 203 ~ app.post ~ user", user)
+                res.header({token:users.generateToken({id:user.id})})
+                res.send({user})
+                
+    
+            }
+    
+        }catch(err){
+            console.log(err)
+            console.log("🚀 ~ file: app.js ~ line 210 ~ app.post ~ err", err)
+            //res.status(400)
+            res.send({error: `registration failed ${err}`})
+        } 
+    })
 
 app.post('/login', async (req,res)=>{
-    
+
     const user = await users.buscaEmail(req.body.email)
-    if(!user){
-        res.status(400).send({error:'Endereço de Email não encontrado'})
-    }
-    if(await bcrypt.compare(req.body.password,user.senha)){
-        user.senha = undefined
-        res.header({token:users.generateToken({id:user.id})})
-        res.send({user})
+    console.log("🚀 ~ file: app.js ~ line 216 ~ app.post ~ user", user)
+    if(user.error){
+        res.status(400)
+        res.send({error:'Endereço de Email não encontrado'})
     }else{
-        res.status(400).send({error:'Senha incorreta'})
+        
+        if(await bcrypt.compare(req.body.password,user.dataValues.senha)){ 
+        console.log("🚀 ~ file: app.js ~ line 223 ~ app.post ~ user.dataValues.senha", user.dataValues.senha)
+            
+            user.senha = undefined
+            res.header({token:users.generateToken({id:user.id})})
+            res.send({user})
+        }else{
+            console.log('passou aqui!')
+            res.status(400)
+            res.send({error:'Senha incorreta'})
+        }
     }
-})
+
+}) 
 
 
 app.post('/checkout', auth, async (req,res) => {
@@ -247,7 +264,6 @@ app.post('/checkout', auth, async (req,res) => {
 app.post('/notificacao', async function(req,res){})
 
 app.get('/shipcode', async (req,res)=>{
-    
     const shipCode = await shipping.authenticate()
     console.log(shipCode)
     res.send(shipCode)
@@ -257,19 +273,13 @@ app.get('/shipcode', async (req,res)=>{
 app.get('/shiptoken', async (req,res)=>{
     //console.log("parametros " + JSON.stringify(req.params))
     //let code = req.params.code
-    //console.log(typeof req.body.code+ req.body.code)
-    const shipToken = await shipping.shipToken(req.body.code)
-    console.log(shipToken)
-    res.send(shipToken)
-    
 })
-
 app.get('/refreshshiptoken', async (req,res)=>{
     //console.log("parametros " + JSON.stringify(req.params))
     //let code = req.params.code
     const refreshToken = await shipping.refreshToken()
     console.log(refreshToken)
-    res.send(JSON.stringify(refreshToken))
+    res.send(refreshToken)
     
 })
 
@@ -282,7 +292,7 @@ app.post('/shipcalc', async function(req,res){
     //JA FOI AUTENTICADO
     console.log(ships)
     
-    res.send(ships)
+    res.json(ships)
     
 })
 

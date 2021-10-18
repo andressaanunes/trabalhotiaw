@@ -1,7 +1,7 @@
 const db = require('../model/Db')
 
 db.sequelize.authenticate().then(()=>{
-    //console.log('conectado com sucesso (users)')
+    console.log('conectado com sucesso (users)')
 }).catch((erro)=>{
     console.log('falha ao se conectar:' +erro)
 })
