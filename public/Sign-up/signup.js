@@ -63,14 +63,14 @@ async function saveUser(){
 
         var config = {
             method: "POST",
-            headers: new Headers({"Content-Type" : "application/json"}),
+            headers: {"Content-Type" : "application/json"},
             body: JSON.stringify(userInfo)
         }
 
         var res = await fetch('https://www.crialuth.com/cadastro',config)
         
         var parsedRes = await res.json()
-        parsedRes = JSON.parse(parsedRes)
+        
         console.log( "res:" + parsedRes)
         if(res.status == 400){
            

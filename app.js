@@ -176,16 +176,16 @@ app.get('/all', async function getall(req,res){
 app.post('/cadastro', async(req,res)=>{
     try{
         const user = await users.createUser(req.body)
-        var response = JSON.stringify(user)
-       // console.log("user"+response)
-        var createUser = JSON.parse(response)
+       
+        var createUser = JSON.parse(user)
         
         if (createUser.error) {
 
             console.log("user.error:     " +  createUser.error)
             var error = JSON.stringify({error: `Falha no cadastro: ${createUser.error}`})
            
-            res.status(400).json(error)
+            res.status(400)
+            res.send(error)
 
         } else {
 
