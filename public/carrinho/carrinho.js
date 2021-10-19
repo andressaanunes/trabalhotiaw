@@ -171,7 +171,7 @@ async function shipValues(){
     var shipValues = await fetch('https://www.crialuth.com/shipcalc', config)
     
     var json = await shipValues.json()
-    console.log('json:'+shipValues)
+    console.log('json:'+JSON.stringify(shipValues))
     
     var tabela = document.getElementById('shippings')
     var shippingForm = document.getElementById('shippingForm')

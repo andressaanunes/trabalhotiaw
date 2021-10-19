@@ -1,5 +1,5 @@
 // SALVAR O NOME E O ENDEREÇO DO CLIENTE NO LOCALSTORAGE 
-
+var submit = document.querySelector('#submit')
 submit.addEventListener('click',saveUser)
 
 
@@ -27,6 +27,8 @@ async function takeAddress(){
 }
 
 async function saveUser(){
+
+    
 
     var cpf = document.querySelector("#cpf").value
     cpf = cpf.replace(/[.-]/g,'')
@@ -74,6 +76,13 @@ async function saveUser(){
         }else{
             
             localStorage.setItem('userInfo',JSON.stringify(res.user))
+            Swal.fire({
+                title: 'Cadastrado com Sucesso!',
+                icon: 'success',
+                timer:800
+              }).then(()=>{
+                  location.replace("https://www.crialuth.com/home/")
+              })
         }
 
     } catch (error) {
