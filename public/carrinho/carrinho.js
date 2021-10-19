@@ -161,11 +161,10 @@ async function shipValues(){
     config = {
         method: "POST",
         headers: new Headers({'Content-Type' : 'application/json'}),
-        body:JSON.stringify(
-            {
+        body:{
                 "quant":itensInCart,
                 "cep":clientCEP
-            })
+             }
     }
 
     var shipValues = await fetch('https://www.crialuth.com/shipcalc', config)
