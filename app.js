@@ -292,7 +292,7 @@ app.post('/shipcalc', async function(req,res){
     //JA FOI AUTENTICADO
     console.log(ships)
     
-    res.json(ships)
+    res.send(ships)
     
 })
 
