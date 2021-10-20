@@ -161,10 +161,10 @@ async function shipValues(){
     config = {
         method: "POST",
         headers: new Headers({'Content-Type' : 'application/json'}),
-        body:{
+        body:JSON.stringify({
                 "quant":itensInCart,
                 "cep":clientCEP
-             }
+             })
     }
 
     var shipValues = await fetch('https://www.crialuth.com/shipcalc', config)
@@ -432,7 +432,6 @@ async function buildMenvJadlogPayload(){
         payload1['agency'] = 1158
         
 
-
         var products =[]
         
     
@@ -452,8 +451,7 @@ async function buildMenvJadlogPayload(){
         
             "products": products     
         }
-    }
-    
+    }    
 
 
     var payload2 = {

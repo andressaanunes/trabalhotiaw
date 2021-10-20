@@ -284,15 +284,17 @@ app.get('/refreshshiptoken', async (req,res)=>{
 })
 
 app.post('/shipcalc', async function(req,res){
-
-    var quant = parseInt(req.body.quant)
+    console.log("🚀 ~ file: app.js ~ line 289 ~ app.post ~ req.body", req.body)
+    var quant = req.body.quant
+    
     var cep = req.body.cep
     //LER O CORPO DA REQUISICAO E PEGAR O NUMERO DE itensInCart
     const ships = await shipping.shipCalc("03683000",cep,quant)
+    console.log("🚀 ~ file: app.js ~ line 293 ~ app.post ~ ships", ships)
     //JA FOI AUTENTICADO
-    console.log(ships)
     
-    res.send(ships)
+    
+    res.send(ships[0])
     
 })
 
