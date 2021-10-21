@@ -214,7 +214,8 @@ async function shipCalc(senderCEP,receiverCEP,quant){
       "package": boxDimensTeste//! ADICIONAR CONFIGURAÇÂO PARA MAIS DE 1 CAIXA
     }
     const shipcalc = await me.shipment.calculate(payloadTeste,me.bearer)
-    //console.log(shipcalc)
+    console.log('SHIPCALC================='+shipcalc)
+    console.log('JSON SHIPCALC==================='+shipcalc)
     return shipcalc.data
     
   }catch(err){
