@@ -6,11 +6,11 @@ const dayjs = require('dayjs');
 const { Sequelize } = require('../model/Db');
 
 const me = new melhorEnvioSdk({
-  client_id: '1434',
-  client_secret: 'i7a60hMMpXuVIVFcqXgdYXJRSgZzwaLSHGr3X06S',
+  client_id: '2356',
+  client_secret: 'SjHWNkOo0K6cZvLrTZEqizXHEDQL20KslfgE4mFY',
   sandbox: true,
   bearer:'',
-  redirect_uri: 'http://localhost:5000/',
+  redirect_uri: 'https://www.crialuth.com/',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 })  
 
