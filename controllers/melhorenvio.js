@@ -85,9 +85,7 @@ async function shipToken(code){
   let destroy = await apiTokens.destroy({truncate:true})
   console.log(destroy)
   try{  
-
-      //console.log("🚀 ~ file: melhorenvio.js ~ line 97 ~ shipToken ~ token", token)
-        
+  
         var token = await me.auth.getToken(code).then(res =>{
           console.log("🚀 ~ file: melhorenvio.js ~ line 96 ~ token ~ res", res)
             
@@ -98,9 +96,6 @@ async function shipToken(code){
               expDate: dayjs().add(res.data.expires_in,'seconds').format()
     
             })
-
-          
-
         })   
 
     //console.log('token.data.access_token'+token.data.access_token)
