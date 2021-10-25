@@ -270,13 +270,14 @@ app.get('/shipcode', async (req,res)=>{
     
 })
 
-app.get('/shiptoken', async (req,res)=>{
-    console.log("parametros " + JSON.stringify(req.body.code))
-    let code = JSON.stringify(req.body.code)
+
+app.get('/shiptoken/:code', async (req,res)=>{
+    console.log("parametros " + JSON.stringify(req.params.code))
+    let code = JSON.stringify(req.params.code)
     console.log("🚀 ~ file: app.js ~ line 276 ~ app.get ~ code", code)
-     const shipToken = await shipping.shipToken()
-    console.log(shipToken)
-    res.send(shipToken) 
+    //const shipToken = await shipping.shipToken()
+    //console.log(shipToken)
+    //res.send(shipToken) 
     
 })
 app.get('/refreshshiptoken', async (req,res)=>{
