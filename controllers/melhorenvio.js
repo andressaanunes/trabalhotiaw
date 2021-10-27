@@ -10,7 +10,7 @@ const me = new melhorEnvioSdk({
   client_secret: 'SjHWNkOo0K6cZvLrTZEqizXHEDQL20KslfgE4mFY',
   sandbox: true,
   bearer:'',
-  redirect_uri: 'https://www.crialuth.com/',
+  redirect_uri: 'https://www.crialuth.com/shiptoken',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 })  
 
@@ -85,7 +85,8 @@ async function shipToken(code){
   let destroy = await apiTokens.destroy({truncate:true})
   console.log(destroy)
   try{  
-  
+    
+    
         var token = await me.auth.getToken(code).then(res =>{
           console.log("🚀 ~ file: melhorenvio.js ~ line 96 ~ token ~ res", res)
             
@@ -96,7 +97,8 @@ async function shipToken(code){
               expDate: dayjs().add(res.data.expires_in,'seconds').format()
     
             })
-        })   
+        })
+      
 
     //console.log('token.data.access_token'+token.data.access_token)
     //console.log('token.data.refresh_token'+token.data.refresh_token)

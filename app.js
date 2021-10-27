@@ -91,13 +91,16 @@ app.get('/search/:search', async function getall(req,res){
 })
 
 
-app.get('/product/:id', async function getall(req,res){
-
-    let busca = req.params.id
-    const produtos = await prods.getProductById(busca)
+app.get('/product:id', async function getall(req,res){
     
-    res.json(produtos)
-         
+     let busca = JSON.stringify(req.params)
+     console.log(busca)
+     /*const produtos = await prods.getProductById(busca)
+    
+    res.json(produtos) */
+    console.log("entrou")
+    res.status(200)
+    res.send("deu certo")     
     })
 
 app.get('/area/:area', async function getall(req,res){
@@ -270,14 +273,17 @@ app.get('/shipcode', async (req,res)=>{
     
 })
 
+//?https://www.crialuth.com/shiptoken?code=def50200ce8c38934ef71315334a184c413b913cf2b2040d4a5e67ac402174ccebe85f71cd4b7ac365980305e07173bf18362dfca9441fe24e2cce0f269ae721b8ed3159375f9ef3f38f8e2556d5e5ff0cc536dd889c4a5bb373ade0d656ae7e09ca6716653f3efac52be79ea6485015d2e97c3aa133aaf30c8756c73f57bf855f192e27c6d61cd649232f115439d589a693955681b34726e82e04bd381c5347519c9606d6c18880fc0f3c8813031a9975efa50e73b0d9273b80e3195abf9b4b22b773669e36bfe695f661163881dcbf60fe297e85047e36f5ff2be36d4afac65ac2e52665977e2049f963fe5b3739c47270045100232f8cf5e8b26e79eafb4e3c3c2abbe6c3f5df1f1f2f9a97d088c6d447cfd531bbcaf1fa7bebe3a214490a8f69be5263cbca46879a5e6c6b1e39b20910f524b6887c85ef85bf825a5ef9e52305d4868b7f0cda3d48a03c6539b09c9422ede8168f92081222baf8de6ad6ce160d8d457ce4126dff2b8466b05ded222c77e652158b8e274c78eba0f0fe0c5dcd35b7c45750e4a57ca871d8b2050226d4f7694a65ea045bc2d69cfa01dccafd9370901c667037bb35c8e3b19fcee255c4381e2cef666b17c077f8e1c8a725706da2203160ad4291a1887b5e0ad80b2205563b08e16bef6baf060a276719174fa79f1b878a10590e3917b901bf9935225d89365f99d4d09b7a3118009c9bd17065bcfafb26b62ab0491aab8da25e8afe179eae651b6b7924d907f86ec6b974c1850f457d96cc1e68b12dcb02ac2393db03db89f8ff5b1fbdff6547eda4550efda14bb697cd7a3db25b40af146808af3e474d58dbc174de5eca27587a226b9a8510830af612450b036e65b5d1b9680bf89eb3d27709abacfcb62d3871b28b2aa0e6bac28b30d382f5e5f4d628819ddd92000cccfefe6d30ce5852875820dbd989904c99dca78385deea2a809ec5e7d3b51bde31ca83550dfb430744c5b09670fe32146dbcdcdb45a7ea480f872a532526a5b6aaa1ae50fc0e6bc6e41b8b202e8ef7c14cfb3f5d59925a986834f32a589f2e0e28ac00b5c054fc2013769370028cf5fc9bfffca8c494e08f04880a2a42eaf990a5a6b8e8bb9681bbb6252e012c3521989db6a1fa78eb5c0535a5850e1054030efade92de7ef1f606526c6b7d16bf33859c2934ef91708d1fe1167d
 
-app.get('/shiptoken/:code', async (req,res)=>{
+app.get('/shiptoke/:code', async (req,res)=>{
+    console.log(req.query)
+    console.log("CHEGOU AQUI SHIPTOKEN-CODE")
     console.log("parametros " + JSON.stringify(req.params.code))
     let code = JSON.stringify(req.params.code)
     console.log("🚀 ~ file: app.js ~ line 276 ~ app.get ~ code", code)
-    //const shipToken = await shipping.shipToken()
-    //console.log(shipToken)
-    //res.send(shipToken) 
+    const shipToken = await shipping.shipToken(code)
+    console.log(shipToken)
+    res.send(shipToken) 
     
 })
 app.get('/refreshshiptoken', async (req,res)=>{

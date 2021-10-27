@@ -71,22 +71,22 @@
     
               <div class="input-group">
                 <label for="email"class="input-group-text">Email:</label>
-                <input type="email" id="email" name="email"class = "form-control">
+                <input type="email" id="email" name="email"class = "form-control" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ0-9._%+-@]+$">
               </div>
               
               <div class="input-group">
                 <label for="tel"class="input-group-text">Tel:</label>
-                <input type="tel" id="tel" name="tel"class = "form-control" placeholder="Telefone com DDD" pattern="[0-9]+$">
+                <input type="tel" id="tel" name="tel"class = "form-control" placeholder="Telefone com DDD" pattern="[0-9()-]+$">
               </div>
 
               <div class="input-group">
                 <label for="cpf"class="input-group-text">CPF:</label>
-                <input type="cpf" id="cpf" name="cpf"class = "form-control" pattern="[0-9]+$">
+                <input type="cpf" id="cpf" name="cpf"class = "form-control" pattern="[0-9.-]+$">
               </div>
 
               <div class="input-group">
                 <label for="password"class="input-group-text">Senha:</label>
-                <input type="password" id="password" name="password"class = "form-control">
+                <input type="password" id="password" name="password"class = "form-control" pattern=".{8,}">
               </div>
 
     
