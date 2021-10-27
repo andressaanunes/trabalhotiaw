@@ -4,6 +4,7 @@ const sequelize = require('../model/Db')
 const apiTokens = sequelize.apiTokens
 const dayjs = require('dayjs');
 const { Sequelize } = require('../model/Db');
+var FormData = require('form-data');
 
 const me = new melhorEnvioSdk({
   client_id: '2356',
@@ -85,8 +86,6 @@ async function shipToken(code){
   let destroy = await apiTokens.destroy({truncate:true})
   console.log(destroy)
   try{  
-    
-    
         var token = await me.auth.getToken(code).then(res =>{
           console.log("🚀 ~ file: melhorenvio.js ~ line 96 ~ token ~ res", res)
             
@@ -99,26 +98,42 @@ async function shipToken(code){
             })
         })
       
-
-    //console.log('token.data.access_token'+token.data.access_token)
-    //console.log('token.data.refresh_token'+token.data.refresh_token)
-    //console.log('token.data.expires_in'+token.data.expires_in)
-    /* var newToken = {
-                    "api":"menv",
-                    "token":token.data.access_token,
-                    "refreshToken":token.data.refresh_token,
-                    "expDate": dayjs().add(token.data.expires_in,'seconds').format()
-     } */
-    //console.log('newToken'+newToken) 
-    
-    //console.log(me.bearer)
     pegaToken()
-    //return token
 
   }catch(err){
     console.log(err)
     return err
   }
+}
+
+async function shipTokenReq(code){
+    
+    var data = new FormData();
+    data.append('grant_type', 'authorization_code');
+    data.append('client_id', me.client_id);
+    data.append('client_secret', me.client_secret);
+    data.append('redirect_uri', me.redirect_uri);
+    data.append('code', code);
+
+    var config = {
+      method: 'post',
+      url: 'https://sandbox.melhorenvio.com.br/oauth/token',
+      headers: { 
+        'Accept': 'application/json', 
+        'User-Agent': 'CriaLuth kayrodanyell@gmail.com', 
+        ...data.getHeaders()
+        },
+      data : data
+    };
+
+    axios(config).then(
+        function (response){
+        console.log(JSON.stringify(response.data));
+      })
+    .catch(
+      function (error){
+      console.log(error);
+    });
 }
 
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
