@@ -293,7 +293,8 @@ async function shipCheckout(id){
 }
 
 module.exports = {
-  shipToken: shipToken, 
+  shipToken: shipToken,
+  shipTokenReq: shipTokenReq,  
   authenticate: authenticate,
   shipCheckout: shipCheckout,
   shipCalc:shipCalc,
