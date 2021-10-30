@@ -7,8 +7,8 @@ const { Sequelize } = require('../model/Db');
 var FormData = require('form-data');
 
 const me = new melhorEnvioSdk({
-  client_id: '2356',
-  client_secret: 'SjHWNkOo0K6cZvLrTZEqizXHEDQL20KslfgE4mFY',
+  client_id: '2382',
+  client_secret: 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps',
   sandbox: true,
   bearer:'',
   redirect_uri: 'https://www.crialuth.com/shiptoken',
@@ -115,12 +115,13 @@ async function shipTokenReq(code){
     data.append('redirect_uri', me.redirect_uri);
     data.append('code', code);
 
+
     var config = {
       method: 'post',
       url: 'https://sandbox.melhorenvio.com.br/oauth/token',
       headers: { 
         'Accept': 'application/json', 
-        'User-Agent': 'CriaLuth kayrodanyell@gmail.com', 
+        'User-Agent': 'CrialuthProd kayrodanyell@gmail.com', 
         ...data.getHeaders()
         },
       data : data
