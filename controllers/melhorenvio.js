@@ -11,7 +11,7 @@ const me = new melhorEnvioSdk({
   client_secret: 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps',
   sandbox: true,
   bearer:'',
-  redirect_uri: 'https://www.crialuth.com/shiptoken',
+  redirect_uri: 'http://www.crialuth.com:21090/shiptoken',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 })  
 
@@ -117,14 +117,14 @@ async function shipTokenReq(code){
 
 
     var config = {
-      method: 'post',
+      method: 'POST',
       url: 'https://sandbox.melhorenvio.com.br/oauth/token',
       headers: { 
         'Accept': 'application/json', 
         'User-Agent': 'CrialuthProd kayrodanyell@gmail.com', 
         ...data.getHeaders()
         },
-      data : data
+      body : data
     };
 
     axios(config).then(
