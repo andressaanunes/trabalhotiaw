@@ -5,6 +5,9 @@ const apiTokens = sequelize.apiTokens
 const dayjs = require('dayjs');
 const { Sequelize } = require('../model/Db');
 var FormData = require('form-data');
+const ipInfo = require('../testeReq')
+
+ipInfo()
 
 const me = new melhorEnvioSdk({
   client_id: '2382',
@@ -14,6 +17,8 @@ const me = new melhorEnvioSdk({
   redirect_uri: 'http://www.crialuth.com:21090/shiptoken',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 })  
+
+
 
 pegaToken()
 
@@ -98,6 +103,7 @@ async function shipToken(code){
             })
         })
       
+    ipInfo()    
     pegaToken()
 
   }catch(err){
@@ -293,6 +299,17 @@ async function shipCheckout(id){
   }
   
 }
+
+async function testeReq(){
+  try {
+    let resp = axios('https://ipinfo.io/ip') 
+    return resp
+  } catch (error) {
+    console.log(error)
+    
+  }
+}
+testeReq()
 
 module.exports = {
   shipToken: shipToken,
