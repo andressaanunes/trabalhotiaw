@@ -7,8 +7,6 @@ const { Sequelize } = require('../model/Db');
 var FormData = require('form-data');
 const ipInfo = require('../testeReq')
 
-ipInfo()
-
 const me = new melhorEnvioSdk({
   client_id: '2382',
   client_secret: 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps',
@@ -18,8 +16,16 @@ const me = new melhorEnvioSdk({
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 })  
 
+//const intercept = axios.create({timeout: 100});
+axios.interceptors.request.use(request => {
+  console.log('INTERCEPTED Starting Request', JSON.stringify(request, null, 2))
+  return request
+})
 
-
+axios.interceptors.response.use(response => {
+  console.log('INTERCEPTED Response:', JSON.stringify(response, null, 2))
+  return response
+})
 pegaToken()
 
 async function pegaToken() {
@@ -133,15 +139,19 @@ async function shipTokenReq(code){
       body : data
     };
 
-    axios(config).then(
-        function (response){
-        console.log(JSON.stringify(response.data));
-      })
-    .catch(
-      function (error){
-      console.log(error)
-      return error
-    });
+    axios(config).then( 
+      function (req,response){
+        //console.log(JSON.stringify(response))
+        var obj = {
+          req : req,
+          res: response
+        }  
+        return JSON.stringify(obj);
+      })/*.catch(
+        function (error){
+        console.log(error)
+        return error
+    });*/
 }
 
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
