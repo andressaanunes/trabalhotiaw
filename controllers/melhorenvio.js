@@ -12,7 +12,7 @@ const me = new melhorEnvioSdk({
   client_secret: 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps',
   sandbox: true,
   bearer:'',
-  redirect_uri: 'http://www.crialuth.com:21090/shiptoken',
+  redirect_uri: 'https://www.crialuth.com/shiptoken',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 })  
 
@@ -23,6 +23,8 @@ axios.interceptors.request.use(request => {
 })
 
 axios.interceptors.response.use(response => {
+  console.log('INTERCEPTED Response', response)
+  console.log('INTERCEPTED Response', JSON.parse(response, null, 2))
   console.log('INTERCEPTED Response:', JSON.stringify(response, null, 2))
   return response
 })
@@ -87,7 +89,14 @@ async function authenticate() {
   var options = {scope:me.scope}
   const url = await me.auth.getAuth(options)
   console.log(url)
-  return url 
+  try{
+    let test = await axios(url)
+    console.log(test)
+    return test 
+  }catch(err){
+    console.log(err)
+    return err
+  }  
 
 }
 
@@ -136,22 +145,21 @@ async function shipTokenReq(code){
         'User-Agent': 'CrialuthProd kayrodanyell@gmail.com', 
         ...data.getHeaders()
         },
-      body : data
+      data : data
     };
 
     axios(config).then( 
       function (req,response){
-        //console.log(JSON.stringify(response))
-        var obj = {
-          req : req,
-          res: response
-        }  
-        return JSON.stringify(obj);
-      })/*.catch(
+      console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ req", req)
+
+      console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ response", response)
+        
+        return response;
+      }).catch(
         function (error){
         console.log(error)
         return error
-    });*/
+    });
 }
 
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
