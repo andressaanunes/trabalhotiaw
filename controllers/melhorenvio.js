@@ -6,6 +6,7 @@ const dayjs = require('dayjs');
 const { Sequelize } = require('../model/Db');
 var FormData = require('form-data');
 const ipInfo = require('../testeReq')
+const https = require('https')
 
 const me = new melhorEnvioSdk({
   client_id: '2382',
@@ -52,13 +53,14 @@ async function pegaToken() {
 
 async function checkTokenExp(){    
  
-    let tokenObj = await apiTokens.findOne({
-        where: {
-            api: "menv"
-            }
-        }).then(res => {
-          return res.dataValues
-        })
+    let tokenObj = await apiTokens.findAll({
+      where: {
+          api: "menv"
+          }
+      }).then(res => {
+        console.log('res',res)
+        return res[0]
+      })
 
     //console.log('TOKENOBJ  ='+ tokenObj)    
     let date = dayjs().format('YYYY-MM-DD')
@@ -89,14 +91,7 @@ async function authenticate() {
   var options = {scope:me.scope}
   const url = await me.auth.getAuth(options)
   console.log(url)
-  try{
-    let test = await axios(url)
-    console.log(test)
-    return test 
-  }catch(err){
-    console.log(err)
-    return err
-  }  
+  return url
 
 }
 
@@ -118,7 +113,7 @@ async function shipToken(code){
             })
         })
       
-    ipInfo()    
+    //ipInfo()    
     pegaToken()
 
   }catch(err){
@@ -131,9 +126,9 @@ async function shipTokenReq(code){
     
     var data = new FormData();
     data.append('grant_type', 'authorization_code');
-    data.append('client_id', me.client_id);
-    data.append('client_secret', me.client_secret);
-    data.append('redirect_uri', me.redirect_uri);
+    data.append('client_id','2382');
+    data.append('client_secret', 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps');
+    data.append('redirect_uri', 'https://www.crialuth.com/shiptoken');
     data.append('code', code);
 
 
@@ -145,16 +140,25 @@ async function shipTokenReq(code){
         'User-Agent': 'CrialuthProd kayrodanyell@gmail.com', 
         ...data.getHeaders()
         },
-      data : data
+      data : data,
+      httpsAgent: new https.Agent({ rejectUnauthorized: false })
     };
 
     axios(config).then( 
-      function (req,response){
-      console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ req", req)
+      function (res){
+      //console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ req", req)
+        let destroy = apiTokens.destroy({truncate:true})
+        console.log(destroy)
 
-      console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ response", response)
-        
-        return response;
+        console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ response", response)
+        apiTokens.create({
+          //api:'menv'+ Math.random(),
+          token: res.data.access_token,
+          refreshToken: res.data.refresh_token,
+          expDate: dayjs().add(res.data.expires_in,'seconds').format()
+
+          })
+        return res ;
       }).catch(
         function (error){
         console.log(error)

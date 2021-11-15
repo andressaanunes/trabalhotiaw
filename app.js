@@ -317,7 +317,7 @@ app.post('/shipcalc', async function(req,res){
     console.log("🚀 ~ file: app.js ~ line 293 ~ app.post ~ ships", ships)
     //JA FOI AUTENTICADO
     
-    res.send(ships[0])
+    res.send(ships)
     
 })
 

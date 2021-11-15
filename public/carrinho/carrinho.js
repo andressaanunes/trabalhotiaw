@@ -168,6 +168,7 @@ async function shipValues(){
     }
 
     var shipValues = await fetch('https://www.crialuth.com/shipcalc', config)
+    console.log("🚀 ~ file: carrinho.js ~ line 171 ~ shipValues ~ shipValues", shipValues)
     
     var json = await shipValues.json()
     console.log('json:'+JSON.stringify(shipValues))
@@ -264,7 +265,7 @@ async function buildPayload(){
                     showConfirmButton: false,
                     timer: 3000
                   }).then(() => {
-                    window.location.replace(`https://www.crialuth.com/sign-up`)
+                    window.location.replace(`https://www.crialuth.com/signup`)
                   })
                 
             }
@@ -555,6 +556,33 @@ async function shipCart(){
 
 async function apiPagseguro(){
 
+    var token = JSON.parse(sessionStorage.getItem('token'))
+    if(!token){
+        Swal.fire({
+            title: 'Você não está logado!',
+            text: "Você precisa fazer login para continuar!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Voltar',
+            confirmButtonText: 'Fazer Login'
+          }).then((result) => {
+            if (result.isConfirmed) {
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Você será redirecionado para página de cadastro',
+                    showConfirmButton: false,
+                    timer: 3000
+                  }).then(() => {
+                    window.location.replace(`https://www.crialuth.com/signup`)
+                  })
+                
+            }
+          })
+    }
     var pagSeguroBody = await buildPayload()
     
     var options = {
@@ -567,13 +595,15 @@ async function apiPagseguro(){
     }
 
     var codigo = await fetch('https://www.crialuth.com/checkout', options)
+    console.log("🚀 ~ file: carrinho.js ~ line 571 ~ apiPagseguro ~ codigo", codigo)
     console.log("codigo:"+JSON.stringify(codigo))
     
 
-    if(codigo.status == 401){
+    if(codigo.error){
+        console.log(codigo.error)
         window.alert('Você será redirecionado para o cadastro para concluir a compra!')
         
-        window.location.replace(`https://www.crialuth.com/sign-up`)
+        window.location.replace(`https://www.crialuth.com/signup`)
     }
     
     var json = await codigo.json()
