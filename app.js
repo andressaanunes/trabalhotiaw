@@ -8,6 +8,8 @@ const users = require('./controllers/users')
 const shipping = require('./controllers/melhorenvio')
 const bcrypt = require('bcrypt')
 const cors = require('cors')
+const { URLSearchParams } = require('url');
+const axios = require('axios')
 
 const PORT = process.env.PORT
 
@@ -93,11 +95,11 @@ app.get('/search/:search', async function getall(req,res){
 
 app.get('/product:id', async function getall(req,res){
     
-     let busca = JSON.stringify(req.params)
+     let busca = JSON.stringify(req.params.id)
      console.log(busca)
-     /*const produtos = await prods.getProductById(busca)
+     const produtos = await prods.getProductById(busca)
     
-    res.json(produtos) */
+    res.json(produtos)
     console.log("entrou")
     res.status(200)
     res.send("deu certo")     
@@ -197,7 +199,7 @@ app.post('/cadastro', async (req, res) => {
             } else {
                 
                 console.log("🚀 ~ file: app.js ~ line 203 ~ app.post ~ user", user)
-                res.header({token:users.generateToken({id:user.id})})
+                res.header({token:users.generateToken({nome:user.nome})})
                 res.send({user})
                 
     
@@ -224,7 +226,7 @@ app.post('/login', async (req,res)=>{
         console.log("🚀 ~ file: app.js ~ line 223 ~ app.post ~ user.dataValues.senha", user.dataValues.senha)
             
             user.senha = undefined
-            res.header({token:users.generateToken({id:user.id})})
+            res.header({token:users.generateToken({id:user.dataValues.id})})
             res.send({user})
         }else{
             console.log('passou aqui!')
@@ -239,9 +241,12 @@ app.post('/login', async (req,res)=>{
 app.post('/checkout', auth, async (req,res) => {
     console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
     try{
+        console.log(req.body)
         var searchParams = new URLSearchParams(req.body)
+        console.log(searchParams)
         var bodyForm = searchParams.toString()
-        
+        console.log(bodyForm)
+
         var reqOptions = {
         method:'POST', 
         header: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},

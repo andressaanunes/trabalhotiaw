@@ -5,7 +5,7 @@ const apiTokens = sequelize.apiTokens
 const dayjs = require('dayjs');
 const { Sequelize } = require('../model/Db');
 var FormData = require('form-data');
-const ipInfo = require('../testeReq')
+//const ipInfo = require('../testeReq')
 const https = require('https')
 
 const me = new melhorEnvioSdk({

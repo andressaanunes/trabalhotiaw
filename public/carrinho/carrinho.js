@@ -171,7 +171,7 @@ async function shipValues(){
     console.log("🚀 ~ file: carrinho.js ~ line 171 ~ shipValues ~ shipValues", shipValues)
     
     var json = await shipValues.json()
-    console.log('json:'+JSON.stringify(shipValues))
+
     
     var tabela = document.getElementById('shippings')
     var shippingForm = document.getElementById('shippingForm')
@@ -556,7 +556,7 @@ async function shipCart(){
 
 async function apiPagseguro(){
 
-    var token = JSON.parse(sessionStorage.getItem('token'))
+    var token = sessionStorage.getItem('token')
     if(!token){
         Swal.fire({
             title: 'Você não está logado!',
@@ -589,7 +589,7 @@ async function apiPagseguro(){
         method:'POST',    
         headers:new Headers({
                             'Content-Type': 'application/json',
-                            'token':localStorage.getItem('token')
+                            'token':sessionStorage.getItem('token')
                             }),
         body:JSON.stringify(pagSeguroBody)
     }
