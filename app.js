@@ -93,7 +93,7 @@ app.get('/search/:search', async function getall(req,res){
 })
 
 
-app.get('/product:id', async function getall(req,res){
+app.get('/product/:id', async function getall(req,res){
     
      let busca = JSON.stringify(req.params.id)
      console.log(busca)
