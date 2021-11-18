@@ -20,12 +20,12 @@ class Quadro{
     constructor(){}
 
     prodInfo(prod){
-        this.nome = prod[0].nome
-        this.id = prod[0].id
-        this.preco = parseFloat(prod[0].preco)
-        this.imagePath = prod[0].imagePath
-        this.imageBranca = prod[0].imageBranca
-        this.imagePlaca = parseFloat(prod[0].imagePlaca)
+        this.nome = prod.nome
+        this.id = prod.id
+        this.preco = parseFloat(prod.preco)
+        this.imagePath = prod.imagePath
+        this.imageBranca = prod.imageBranca
+        this.imagePlaca = parseFloat(prod.imagePlaca)
     }
     parsePrice(){
         return formatter.format(this.preco)
@@ -39,7 +39,7 @@ function getProds() {
     var params = location.href.split('=',2)
     
     fetch(`https://www.crialuth.com/product?id=${params[1]}`).then((res)=>{    
-        
+        console.log(res)
         return res.json()
 
     }).then((res) =>{
@@ -48,6 +48,8 @@ function getProds() {
         
               
         quadro.prodInfo(prods)
+        console.log("🚀 ~ file: product.js ~ line 51 ~ fetch ~ prods", prods)
+        
         
         document.querySelector('#title').innerHTML = quadro.nome
         document.querySelector('#id').innerHTML = quadro.id

@@ -584,12 +584,13 @@ async function apiPagseguro(){
           })
     }
     var pagSeguroBody = await buildPayload()
-    
+    var sessionToken = sessionStorage.getItem('token')
+    console.log("🚀 ~ file: carrinho.js ~ line 588 ~ apiPagseguro ~ sessionToken", sessionToken)
     var options = {
         method:'POST',    
         headers:new Headers({
                             'Content-Type': 'application/json',
-                            'token':sessionStorage.getItem('token')
+                            'token':sessionToken
                             }),
         body:JSON.stringify(pagSeguroBody)
     }

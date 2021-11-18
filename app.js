@@ -93,17 +93,11 @@ app.get('/search/:search', async function getall(req,res){
 })
 
 
-app.get('/product/:id', async function getall(req,res){
-    
-     let busca = JSON.stringify(req.params.id)
-     console.log(busca)
-     const produtos = await prods.getProductById(busca)
-    
-    res.json(produtos)
-    console.log("entrou")
-    res.status(200)
-    res.send("deu certo")     
-    })
+app.get('/product',async(req,res)=>{
+    console.log(req.query.id)
+    const produtos = await prods.getProductById(req.query.id)
+    res.status(200).json(produtos[0])
+})
 
 app.get('/area/:area', async function getall(req,res){
 
