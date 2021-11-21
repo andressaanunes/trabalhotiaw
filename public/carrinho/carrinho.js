@@ -303,11 +303,14 @@ async function buildPayload(){
         dataPart1[`itemWeight`+i] =  (cartItems[key].quantity * (0.5*1000))        
         
     }
+    
+    console.log(dataPart1)
     //! item id ta dando undefined (nao ta vindo da pagina do produto)
     var senderPhone = userInfo.tel.substring(2)
     var senderAreaCode = userInfo.tel.split('',2)
     
     var shippingCost = sessionStorage.getItem('shipInfo')
+
     var dataPart2 = {
         "senderName":userInfo.nome,  
         "senderAreaCode":senderAreaCode[0]+senderAreaCode[1],
@@ -389,7 +392,7 @@ async function buildMenvCorreiosPayload(){
           "city": userInfo.cidade,
           "state_abbr": userInfo.estado,
           "country_id": "BR",
-          "postal_code": userInfo.cep,
+          "postal_code": JSON.stringify(userInfo.cep),
           "note": "observação"
         }
       }     
@@ -483,7 +486,7 @@ async function buildMenvJadlogPayload(){
           "city": userInfo.cidade,
           "state_abbr": userInfo.estado,
           "country_id": "BR",
-          "postal_code": userInfo.cep,
+          "postal_code": JSON.stringify(userInfo.cep),
           "note": "observação"
         }
       }

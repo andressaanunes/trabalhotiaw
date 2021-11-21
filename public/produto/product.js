@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded',()=>{
    var fbComents = document.querySelector('.fb-comments')
    var url = location.href
@@ -10,7 +9,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 document.addEventListener('DOMContentLoaded',()=>{getProds()})
-prods = 'teste'
+
 
 var formatter = new Intl.NumberFormat('pt-BR',{
     style:"currency",currency:"BRL"})
@@ -22,6 +21,7 @@ class Quadro{
     prodInfo(prod){
         this.nome = prod.nome
         this.id = prod.id
+        this.precoUnit = parseFloat(prod.preco)
         this.preco = parseFloat(prod.preco)
         this.imagePath = prod.imagePath
         this.imageBranca = prod.imageBranca
@@ -29,6 +29,11 @@ class Quadro{
     }
     parsePrice(){
         return formatter.format(this.preco)
+    }
+    alteraPreco(price){
+        this.preco = price
+        document.querySelector('#preco').innerHTML = quadro.parsePrice()
+
     }
 
 }
@@ -38,7 +43,7 @@ function getProds() {
     
     var params = location.href.split('=',2)
     
-    fetch(`https://www.crialuth.com/product?id=${params[1]}`).then((res)=>{    
+    fetch(`http://localhost:21090/product?id=${params[1]}`).then((res)=>{    
         console.log(res)
         return res.json()
 
@@ -84,14 +89,14 @@ console.log(quadro.nome)
 
 
 var quantidade1 = document.querySelector('#quantitydiv')
-    quantidade1.addEventListener(`click`,() =>{alteraPreco()})
+    quantidade1.addEventListener(`click`,() =>{getNewPrice()})
 
 
 var select = document.querySelector('#revest')
-    select.addEventListener('change', () =>{alteraPreco()})
+    select.addEventListener('change', () =>{getNewPrice()})
 
 
-function alteraPreco(){
+/*function alteraPreco(){
     var preco =  document.querySelector('#preco')
     
     let quantidade1 = document.querySelector('#quantity').value
@@ -114,7 +119,27 @@ function alteraPreco(){
         preco.innerHTML = formatter.format(calculo)
         document.querySelector('#image').setAttribute('src', quadro.imagePath)
     }
+}*/
+
+function getNewPrice(){
+
+    let quantidadeAtual = document.querySelector('#quantity').value
+    console.log(quantidadeAtual)
+    if(select.options[select.selectedIndex].value == 2){  quadro.alteraPreco(54.99) }else{ quadro.alteraPreco(44.99) }
+    console.log(quadro.preco)
+    let revestValue = (select.options[select.selectedIndex].value == 2) ? 10 : 0
+
+    console.log('Informações do quadro:',quantidadeAtual, revestValue)
+    
+    let newPrice = (quantidadeAtual * quadro.preco) 
+
+    console.log('Preço final:',newPrice) 
+    
+    quadro.alteraPreco(newPrice)
+    console.log(quadro)
+
 }
+
 
 
 var placaCheck = document.querySelector('#placaDeco')
@@ -123,7 +148,6 @@ placaCheck.addEventListener('change', placaDeco)
 async function placaDeco(){
     console.log(placaCheck.checked)
 
-    var preco =  document.querySelector('#preco')
 
     if(placaCheck.checked == true){
 
@@ -132,19 +156,23 @@ async function placaDeco(){
         revest.setAttribute('class','disabled')
         corMoldu.setAttribute('class','disabled')
 
-        quadro.preco = 19.99
-        preco.innerHTML = formatter.format(19.99)
+        quadro.alteraPreco(19.99)
+        
         document.querySelector('#image').setAttribute('src', quadro.imagePlaca)
 
     }else if(placaCheck.checked == false){
+
         let revest = document.querySelector('#select1')
         let corMoldu = document.querySelector('#select2')
         revest.setAttribute('class','')
         corMoldu.setAttribute('class','')
 
-        quadro.preco = 44.99
+        quadro.alteraPreco(49.99)
+        getNewPrice()
+
         document.querySelector('#image').setAttribute('src', quadro.imagePath)
-        alteraPreco()
+
+        
     }
 
 }
@@ -158,7 +186,7 @@ function cartIt(){
     var nome = document.querySelector('#title').innerHTML
    
     var img = document.querySelector('#image').getAttribute('src')
-    var preco = quadro.preco
+    var preco = parseFloat(quadro.preco).toFixed(2)
     
     var id = document.querySelector('#id').innerHTML
     var quantity = parseInt(document.querySelector('#quantity').value)

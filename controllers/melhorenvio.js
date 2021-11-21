@@ -150,7 +150,7 @@ async function shipTokenReq(code){
         let destroy = apiTokens.destroy({truncate:true})
         console.log(destroy)
 
-        console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ response", response)
+        console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ response", res)
         apiTokens.create({
           //api:'menv'+ Math.random(),
           token: res.data.access_token,
@@ -158,6 +158,7 @@ async function shipTokenReq(code){
           expDate: dayjs().add(res.data.expires_in,'seconds').format()
 
           })
+        pegaToken()
         return res ;
       }).catch(
         function (error){
@@ -209,7 +210,7 @@ async function refreshToken(){
 async function shipCalc(senderCEP,receiverCEP,quant){
 
   checkTokenExp()
-  quant = 1
+  //quant = 1
   console.log('me.bearer dentro de shipcalc: '+JSON.stringify(me.bearer))
   var peso = parseFloat(quant * 0.5)
     console.log('peso: '+peso)
@@ -255,7 +256,7 @@ async function shipCalc(senderCEP,receiverCEP,quant){
       },
       "package": boxDimensTeste//! ADICIONAR CONFIGURAÇÂO PARA MAIS DE 1 CAIXA
     }
-    const shipcalc = await me.shipment.calculate(payloadTeste,me.bearer)
+    const shipcalc = await me.shipment.calculate(payload,me.bearer)
     console.log('SHIPCALC================='+shipcalc)
     console.log('JSON SHIPCALC==================='+shipcalc)
     return shipcalc.data
@@ -303,7 +304,8 @@ async function shipCheckout(id){
       'Accept': 'application/json', 
       'Content-Type': 'application/json', 
       'Authorization': 'Bearer '+me.bearer, 
-      'User-Agent': 'crialuth kayrodanyell@gmail.com'
+      'User-Agent': 'crialuth kayrodanyell@gmail.com',
+      httpsAgent: new https.Agent({ rejectUnauthorized: false })
     },
     data : data
   };
@@ -319,6 +321,18 @@ async function shipCheckout(id){
     console.log(error)
 
   }
+  
+}
+
+async function menvShipCheckout(id){
+  var data = {
+    "orders": [
+      id 
+    ]    
+  }
+  var checkout = await me.shipment.checkout(data,me.bearer)
+  console.log("🚀 ~ file: melhorenvio.js ~ line 329 ~ menvShipCheckout ~ checkout", checkout)
+  return checkout
   
 }
 
@@ -338,6 +352,7 @@ module.exports = {
   shipTokenReq: shipTokenReq,  
   authenticate: authenticate,
   shipCheckout: shipCheckout,
+  menvShipCheckout: menvShipCheckout,
   shipCalc:shipCalc,
   shipCart:shipCart,
   refreshToken:refreshToken

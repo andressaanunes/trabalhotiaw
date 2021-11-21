@@ -324,7 +324,7 @@ app.post('/shipcart', async (req,res)=>{
     //var reqBody = JSON.stringify(req.body)
     const shipCart = await shipping.shipCart(req.body)
     console.log('shipcart: ', shipCart)
-    const shipCheckout = await shipping.shipCheckout(shipCart.data.id)
+    const shipCheckout = await shipping.menvShipCheckout(shipCart.data.id)
     console.log('shipcheckout:',shipCheckout.status,shipCheckout.data)
     var response = {
         "shipCart":shipCart.data.id,
