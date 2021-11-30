@@ -48,15 +48,15 @@ async function listProds(){
         let unformattedPrice = parseFloat(price*itens.quantity)
 
         price = formatter.format(price*itens.quantity)
-       
+       console.log(itens)
         tabela.innerHTML += `
         <tr id="${itens.id}" class ="prodRow">                   
         <td><img id="prodImg" src="${itens.img}" /> </td>
         <td id="${index}">${itens.nome}</td>                         
 
-        <td><input id="${index}quantity" onchange="prodQuant('${itens.nome},${itens.quantity},${unformattedPrice},${index},${itens.id}')"  class="form-control prodQuantity" type="text" value="${itens.quantity}" /></td>
+        <td><input id="${index}quantity" onchange="prodQuant('${itens.nome}',${itens.quantity},${unformattedPrice},${index},${itens.id},${itens.precoUnit})"  class="form-control prodQuantity" type="text" value="${itens.quantity}" /></td>
 
-        <td id="${itens.id}prodPrice" class="text-right ">${price}</td>
+        <td id="${index}prodPrice" class="text-right ">${price}</td>
         <td class="text-right"><button onclick="excluirProduto(this)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></td>
         </tr>
         `
@@ -116,34 +116,31 @@ function changeSubtotal(){
 
     cartitems.forEach(element => {
 
-         subtotal += element.quantity * element.preco
+         subtotal += element.quantity * element.precoUnit
     });
     var subTotal =  document.querySelector('#subTotal').innerHTML = formatter.format(subtotal)
 }
 
 
-function prodQuant(item){
+function prodQuant(item,itemQuant,itemPrice,itemIndex,itemId,itemPrecoUnit){
 
     var formatter = new Intl.NumberFormat('pt-BR',{
         style:"currency",currency:"BRL"})
-
-
-    var item = item.split(',')
-    console.log(item)
     
     
     var cartitems = JSON.parse(sessionStorage.getItem('cartItems'))
-
-    let index = item[3]
    
-    let quant = parseInt(document.getElementById(item[3]+'quantity').value) 
+    let quant = parseInt(document.getElementById(itemIndex+'quantity').value) 
     
-       
-    cartitems[index].quantity = parseInt(quant)
+    cartitems[itemIndex].quantity = quant
     
-    
-    let newPrice = quant * item[2]
-    document.getElementById(item[4]+'prodPrice').innerHTML = formatter.format(newPrice)
+    console.log(quant)
+    let newPrice = quant * itemPrecoUnit
+    console.log(newPrice)
+    document.getElementById(`${itemIndex}prodPrice`).innerHTML = ''
+    document.getElementById(`${itemIndex}prodPrice`).innerHTML = formatter.format(newPrice)
+    console.log(itemId)
+    //console.log(changePrice)
     sessionStorage.setItem('cartItems',JSON.stringify(cartitems))
       
     changeItensInCart()

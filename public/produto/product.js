@@ -31,9 +31,15 @@ class Quadro{
         return formatter.format(this.preco)
     }
     alteraPreco(price){
+        
         this.preco = price
         document.querySelector('#preco').innerHTML = quadro.parsePrice()
 
+    }
+    alteraPrecoUnit(precoUnit){
+
+        this.precoUnit = precoUnit
+    
     }
 
 }
@@ -121,17 +127,42 @@ var select = document.querySelector('#revest')
     }
 }*/
 
+async function precoTipo(){
+    var placaCheck = document.querySelector('#placaDeco')
+    if(placaCheck.checked == false){  
+
+        if(select.options[select.selectedIndex].value == 2){
+
+            quadro.alteraPreco(54.99)
+            quadro.alteraPrecoUnit(54.99)
+            
+        }else{
+
+            quadro.alteraPreco(44.99)
+            quadro.alteraPrecoUnit(44.99)
+        }
+
+    }else{
+
+        quadro.alteraPreco(19.99)
+        quadro.alteraPrecoUnit(19.99)
+
+    }
+    console.log(quadro.preco)
+}
+
 function getNewPrice(){
+
+    precoTipo()
 
     let quantidadeAtual = document.querySelector('#quantity').value
     console.log(quantidadeAtual)
-    if(select.options[select.selectedIndex].value == 2){  quadro.alteraPreco(54.99) }else{ quadro.alteraPreco(44.99) }
-    console.log(quadro.preco)
-    let revestValue = (select.options[select.selectedIndex].value == 2) ? 10 : 0
-
-    console.log('Informações do quadro:',quantidadeAtual, revestValue)
     
-    let newPrice = (quantidadeAtual * quadro.preco) 
+    //let revestValue = (select.options[select.selectedIndex].value == 2) ? 10 : 0
+
+    //console.log('Informações do quadro:',quantidadeAtual, revestValue)
+    
+    let newPrice = (quantidadeAtual * quadro.precoUnit) 
 
     console.log('Preço final:',newPrice) 
     
@@ -156,7 +187,8 @@ async function placaDeco(){
         revest.setAttribute('class','disabled')
         corMoldu.setAttribute('class','disabled')
 
-        quadro.alteraPreco(19.99)
+        quadro.alteraPrecoUnit(19.99)
+        getNewPrice()
         
         document.querySelector('#image').setAttribute('src', quadro.imagePlaca)
 
@@ -213,6 +245,7 @@ function cartIt(){
         cor,
         img,
         preco,
+        precoUnit:quadro.precoUnit,
         quantity,
         type,
     }
