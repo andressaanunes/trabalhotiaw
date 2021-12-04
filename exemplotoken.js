@@ -61,20 +61,20 @@ data:
          "pauseStreams": true,
          "_released": false,
          "_streams": [
-           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=\"grant_type\"\r\n\r\n",
+           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=grant_type\r\n\r\n",
            "authorization_code",
            null,
-           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=\"client_id\"\r\n\r\n",
+           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=client_id\r\n\r\n",
            "2382",
            null,
-           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=\"client_secret\"\r\n\r\n",
+           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=client_secret\r\n\r\n",
            "rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps",
            null,
-           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=\"redirect_uri\"\r\n\r\n",
+           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=redirect_uri\r\n\r\n",
            "http://www.crialuth.com:21090/shiptoken",
            null,
-           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=\"code\"\r\n\r\n",
-           "\"def502008216ee76adad80d1a5920c4c8d99888003e86a61744e27558687c5e51329d0056a6dc6f3941e62bc374c021c05f940594a9e2423b960fa79164992df345541919aa914aa623bd6f0339454fa55ccedb9b3f193077a6f03ceda4d5e634b85b6ac4674b80583f7bd0735f694484efc632eb74a957403e452e02e432fb107b147a817abcc52af83364e03f22eda0387ac74756deffb3cbe04e9306974d6fb8db3e9bc386101dd996d2fe9eb03a89a4d8a01bcc5b8d4d04f91e84b7ad7b95e631dc025e2dd6b629015b49d632a6145529e9effabeefcd7ffcbb84a37f6b25450e45c00c9d515dfa0c63892a97e0c059432ab209b8e1348e615ad8c285997b5b3c258a248db53ab0e6fb80253f81ed222ceb58e3a772dfa7ee428ecd59b8b3d9a05da32706d90aca2717351c08cff39101584fdb96ec9cbca845ff9f6477c112729c632cce93c6fb14bdbed21980db502339ab21171bd438f58074fe8570e817805c86c81239b3539283fff0a9fd0dc7ea1b190604f1bf990742e7643d8f5158e8639c5a607249306687f3b4d2cc3f50f79380a65f0b43e1223fbc6e0c3a8c988c5cf2141ecdd5bbc3931788bfe3033ac2a104a471ffbb02326875d0b2e00cf7b49663eb13719fe9a23c76e687f37343b0676df7c3e1f4b81397bdce29033c3dfb8aa315dece1f3f7834deac17e833747a4c475cb385c8710155a4c0e7bd4ad162cd64e38720fd56700e2d3f86b296e1edbcef4bd121473d4a1d071889391be57fc40bbba8992cc0a749881ce69a1470eeb7c07a191f96522decf0e53d27b02415d0aab3d708f1acc5a55cfdfae27d7cb97f95fe97fc9af8e123233d3b6959565360bcecafddd3a5cfa3c65bfcc8f1e034327dd6a23f33ca580402eb6e4faf98a34c53cfeb81e94af118657346076fac673ed04a1021018b684984900d4e5fbd10ca9a5855d1d404ab38338657dd844a9b852510252a5c6bbc116dbc9e0076a4aeebbfe93bd2530cb9d208863e6761fcce2116e48bab5af52c6d5affe71ed1cd9f75eb57f8aa67e4b702b490919cafbdbebe49f28ca33f79ea03505ad68673a619f904e8fd4022d316d8f3bd607a1ef5c8f1251443a1b5818f6e18393a4d1c164c5a3a4a40753f4367041ce16d0ae058fac8b033471ca130a84ff8ba6db860d47274045460cdc1e827ca88c7e6731c736\"",
+           "----------------------------839996582434252357497332\r\nContent-Disposition: form-data; name=code\r\n\r\n",
+           "def502008216ee76adad80d1a5920c4c8d99888003e86a61744e27558687c5e51329d0056a6dc6f3941e62bc374c021c05f940594a9e2423b960fa79164992df345541919aa914aa623bd6f0339454fa55ccedb9b3f193077a6f03ceda4d5e634b85b6ac4674b80583f7bd0735f694484efc632eb74a957403e452e02e432fb107b147a817abcc52af83364e03f22eda0387ac74756deffb3cbe04e9306974d6fb8db3e9bc386101dd996d2fe9eb03a89a4d8a01bcc5b8d4d04f91e84b7ad7b95e631dc025e2dd6b629015b49d632a6145529e9effabeefcd7ffcbb84a37f6b25450e45c00c9d515dfa0c63892a97e0c059432ab209b8e1348e615ad8c285997b5b3c258a248db53ab0e6fb80253f81ed222ceb58e3a772dfa7ee428ecd59b8b3d9a05da32706d90aca2717351c08cff39101584fdb96ec9cbca845ff9f6477c112729c632cce93c6fb14bdbed21980db502339ab21171bd438f58074fe8570e817805c86c81239b3539283fff0a9fd0dc7ea1b190604f1bf990742e7643d8f5158e8639c5a607249306687f3b4d2cc3f50f79380a65f0b43e1223fbc6e0c3a8c988c5cf2141ecdd5bbc3931788bfe3033ac2a104a471ffbb02326875d0b2e00cf7b49663eb13719fe9a23c76e687f37343b0676df7c3e1f4b81397bdce29033c3dfb8aa315dece1f3f7834deac17e833747a4c475cb385c8710155a4c0e7bd4ad162cd64e38720fd56700e2d3f86b296e1edbcef4bd121473d4a1d071889391be57fc40bbba8992cc0a749881ce69a1470eeb7c07a191f96522decf0e53d27b02415d0aab3d708f1acc5a55cfdfae27d7cb97f95fe97fc9af8e123233d3b6959565360bcecafddd3a5cfa3c65bfcc8f1e034327dd6a23f33ca580402eb6e4faf98a34c53cfeb81e94af118657346076fac673ed04a1021018b684984900d4e5fbd10ca9a5855d1d404ab38338657dd844a9b852510252a5c6bbc116dbc9e0076a4aeebbfe93bd2530cb9d208863e6761fcce2116e48bab5af52c6d5affe71ed1cd9f75eb57f8aa67e4b702b490919cafbdbebe49f28ca33f79ea03505ad68673a619f904e8fd4022d316d8f3bd607a1ef5c8f1251443a1b5818f6e18393a4d1c164c5a3a4a40753f4367041ce16d0ae058fac8b033471ca130a84ff8ba6db860d47274045460cdc1e827ca88c7e6731c736",
            null
          ],
          "_currentStream": null,
@@ -585,3 +585,34 @@ INTERCEPTED Response { status: 200,
       "products":[{"name":"Quadro Seja Positivo, Seja paciente, Seja persistente","quantity":1,"unitary_value":44.99}],
       "volumes":[{"height":19,"width":28,"length":36,"weight":"1.00"}],
       "options":{"insurance_value":44.99,"receipt":false,"own_hand":false,"reverse":false,"non_commercial":true}}',
+
+
+
+
+
+
+
+
+
+
+
+      options{"method":"POST",
+      "headers":{"Content-Type":"application/json","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjM4NjQ1MDU0LCJleHAiOjE2Mzg3MzE0NTR9.BF7aXRFKgJw20hNDq5-hhJS5F2S1VUlHeNtErorxqrE"},
+      "body":"{currency:BRL,itemId1:36,itemDescription1:Quadro Aqui Reunimos Nossa Família e Amigosvidropreto,itemAmount1:109.98,itemQuantity1:2,
+        itemWeight1:1000,
+        senderName:Kayro Danyell,
+        senderAreaCode:31,
+        senderPhone:988849634,
+        senderEmail:kayrodanyell@gmail.com,
+        senderCPF:56140835615,
+        shippingType:3,
+        shippingAddressRequired:true,
+        shippingAddressStreet:Rua Taiwan,
+        shippingAddressNumber:130,
+        shippingAddressComplement:Casa,
+        shippingAddressDistrict:Itaipu (Barreiro),
+        shippingAddressPostalCode:30662523,
+        shippingAddressCity:Belo Horizonte,
+        shippingAddressState:MG,
+        shippingAddressCountry:BRA,
+        paymentMethodGroup:CREDIT_CARD,BALANCE,BOLETO,DEPOSIT,EFT}"}

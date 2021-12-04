@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt')
 const cors = require('cors')
 const { URLSearchParams } = require('url');
 const axios = require('axios')
+const https = require('https')
 
 const PORT = process.env.PORT
 
@@ -232,36 +233,6 @@ app.post('/login', async (req,res)=>{
 }) 
 
 
-app.post('/checkout', auth, async (req,res) => {
-    console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
-    try{
-        console.log(req.body)
-        var searchParams = new URLSearchParams(req.body)
-        console.log(searchParams)
-        var bodyForm = searchParams.toString()
-        console.log(bodyForm)
-
-        var reqOptions = {
-        method:'POST', 
-        header: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-        data:bodyForm
-        }
-    
-        var code = await axios('https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email=matheuscabralu1990@gmail.com&token=624D56DA97BD488A83E24D46034DC0C2',reqOptions)
-
-    
-       var codigo = JSON.stringify(code.data)
-       console.log(codigo)
-        
-        res.send(codigo)
-    
-    }catch(err){
-
-        console.log(err)
-
-            }            
-        },
-    )
 
 app.post('/notificacao', async function(req,res){})
 
@@ -333,6 +304,38 @@ app.post('/shipcart', async (req,res)=>{
     res.send(response)
     
 })
+
+app.post('/checkout', auth, async (req,res) => {
+    console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
+    try{
+        var searchParams = new URLSearchParams(req.body)
+        var bodyForm = searchParams.toString()
+        
+        console.log('bodyForm'+bodyForm)
+
+        var reqOptions = {
+        method:'POST', 
+        header: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+        data:bodyForm
+        }
+        
+        console.log('reqOptions'+JSON.stringify(reqOptions))
+
+        var code = await axios('https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email=matheuscabralu1990@gmail.com&token=624D56DA97BD488A83E24D46034DC0C2',reqOptions)
+
+    
+       var codigo = JSON.stringify(code.data)
+       console.log(codigo)
+        
+        res.json(codigo)
+    
+    }catch(err){
+
+        console.log(err)
+
+            }            
+        },
+    )
 
 
 module.exports = app

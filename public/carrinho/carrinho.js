@@ -585,7 +585,8 @@ async function apiPagseguro(){
     }
     var pagSeguroBody = await buildPayload()
     var sessionToken = sessionStorage.getItem('token')
-    console.log("🚀 ~ file: carrinho.js ~ line 588 ~ apiPagseguro ~ sessionToken", sessionToken)
+    
+    console.log(options)
     var options = {
         method:'POST',    
         headers:new Headers({
@@ -597,7 +598,8 @@ async function apiPagseguro(){
 
     var codigo = await fetch('https://www.crialuth.com/checkout', options)
     console.log("🚀 ~ file: carrinho.js ~ line 571 ~ apiPagseguro ~ codigo", codigo)
-    console.log("codigo:"+JSON.stringify(codigo))
+    let jsonCode = codigo.json()
+    console.log("codigo:"+jsonCode)
     
 
     if(codigo.error){
