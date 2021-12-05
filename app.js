@@ -305,8 +305,9 @@ app.post('/shipcart', async (req,res)=>{
     
 })
 
-app.post('/checkout', auth, async (req,res) => {
+app.post('/pagamento', auth,async (req,res) => {
     console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
+    //res.status(200).send() 
     try{
         var searchParams = new URLSearchParams(req.body)
         var bodyForm = searchParams.toString()
@@ -319,16 +320,17 @@ app.post('/checkout', auth, async (req,res) => {
         data:bodyForm
         }
         
-        console.log('reqOptions'+JSON.stringify(reqOptions))
+        console.log('reqOptions'+reqOptions)
 
         var code = await axios('https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email=matheuscabralu1990@gmail.com&token=624D56DA97BD488A83E24D46034DC0C2',reqOptions)
 
     
        var codigo = JSON.stringify(code.data)
        console.log(codigo)
-        
+        try{
         res.json(codigo)
-    
+        }catch(err){console.log(err)}
+
     }catch(err){
 
         console.log(err)
