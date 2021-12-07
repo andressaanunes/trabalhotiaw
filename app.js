@@ -16,6 +16,20 @@ const PORT = process.env.PORT
 
 const app = new express()
 
+
+axios.interceptors.request.use(request => {
+  console.log('INTERCEPTED Starting Request', JSON.stringify(request, null, 2))
+  return request
+})
+
+axios.interceptors.response.use(response => {
+  console.log('INTERCEPTED Response', response)
+  //console.log('INTERCEPTED Response', JSON.parse(response, null, 2))
+  //console.log('INTERCEPTED Response:', JSON.stringify(response, null, 2))
+  return response
+})
+
+
 app.use(cors())
 
 app.use('*',(req,res,next) => {
@@ -305,7 +319,7 @@ app.post('/shipcart', async (req,res)=>{
     
 })
 
-app.post('/pagamento', auth,async (req,res) => {
+app.post('/pagamento', /*auth,*/async (req,res) => {
     console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
     //res.status(200).send() 
     try{
@@ -327,9 +341,7 @@ app.post('/pagamento', auth,async (req,res) => {
     
        var codigo = JSON.stringify(code.data)
        console.log(codigo)
-        try{
-        res.json(codigo)
-        }catch(err){console.log(err)}
+       res.status(200).send(codigo)
 
     }catch(err){
 

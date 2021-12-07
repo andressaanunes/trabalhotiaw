@@ -269,9 +269,10 @@ async function buildPayload(){
           })
         
     }
-    let cartItems = sessionStorage.getItem('cartItems')
-    cartItems = JSON.parse(cartItems)
+    let cartItems = JSON.parse(sessionStorage.getItem('cartItems'))
+    console.log('cartItems 2 '+cartItems)
     userInfo = JSON.parse(userInfo)
+    console.log('userInfo '+userInfo)
 
     var dataPart1 = {
         "currency":"BRL"
@@ -306,7 +307,8 @@ async function buildPayload(){
     var senderPhone = userInfo.tel.substring(2)
     var senderAreaCode = userInfo.tel.split('',2)
     
-    var shippingCost = sessionStorage.getItem('shipInfo')
+    var shippingCost = JSON.parse(sessionStorage.getItem('shipInfo'))
+     console.log(shippingCost)
 
     var dataPart2 = {
         "senderName":userInfo.nome,  
@@ -328,6 +330,7 @@ async function buildPayload(){
         "paymentMethodGroup":"CREDIT_CARD,BALANCE,BOLETO,DEPOSIT,EFT" 
     }
     var data = {...dataPart1,...dataPart2}
+    console.log('data'+JSON.stringify(data))
     return data
 
 }
@@ -584,22 +587,27 @@ async function apiPagseguro(){
           })
     }
     var pagSeguroBody = await buildPayload()
+    console.log('pagSeguroBody'+pagSeguroBody)
     var sessionToken = sessionStorage.getItem('token')
     
-    console.log(options)
+    
     var options = {
         method:'POST',    
-        headers:new Headers({
+        headers:{
                             'Content-Type': 'application/json',
                             'token':sessionToken
-                            }),
+                            },
         body:JSON.stringify(pagSeguroBody)
     }
+    
+     console.log(JSON.stringify(options))
 
-    var codigo = await fetch('https://www.crialuth.com/checkout', options)
+    var codigo = await fetch('https://www.crialuth.com/pagamento', options)
     console.log("🚀 ~ file: carrinho.js ~ line 571 ~ apiPagseguro ~ codigo", codigo)
-    let jsonCode = codigo.json()
+    console.log(JSON.stringify(codigo)) 
+    let jsonCode = await codigo.json()
     console.log("codigo:"+jsonCode)
+    
     
 
     if(codigo.error){
@@ -609,17 +617,17 @@ async function apiPagseguro(){
         window.location.replace(`https://www.crialuth.com/signup`)
     }
     
-    var json = await codigo.json()
-    console.log('json:'+JSON.stringify(json))
+    //var json = await codigo.json()
+    
           
 
     var parser = new DOMParser()
-    var xmlDoc = parser.parseFromString(json,"text/xml")
+    var xmlDoc = parser.parseFromString(jsonCode,"text/xml")
     
  
     //Insira o código de checkout gerado no Passo 1    
     var code = xmlDoc.getElementsByTagName('code')[0].innerHTML;
-    console.log('code:'+JSON.stringify(code))
+    console.log('code:'+jsonCode)
    
     var callback = {
         success : async function(transactionCode) {

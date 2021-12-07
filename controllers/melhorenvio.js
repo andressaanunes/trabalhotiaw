@@ -18,7 +18,7 @@ const me = new melhorEnvioSdk({
 })  
 
 //const intercept = axios.create({timeout: 100});
-axios.interceptors.request.use(request => {
+/*axios.interceptors.request.use(request => {
   console.log('INTERCEPTED Starting Request', JSON.stringify(request, null, 2))
   return request
 })
@@ -28,7 +28,7 @@ axios.interceptors.response.use(response => {
   console.log('INTERCEPTED Response', JSON.parse(response, null, 2))
   console.log('INTERCEPTED Response:', JSON.stringify(response, null, 2))
   return response
-})
+})*/
 pegaToken()
 
 async function pegaToken() {

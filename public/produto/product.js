@@ -49,7 +49,7 @@ function getProds() {
     
     var params = location.href.split('=',2)
     
-    fetch(`http://localhost:21090/product?id=${params[1]}`).then((res)=>{    
+    fetch(`https://www.crialuth.com/product?id=${params[1]}`).then((res)=>{    
         console.log(res)
         return res.json()
 

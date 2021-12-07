@@ -1,3 +1,28 @@
+
+
+
+
+
+{method: 'POST', headers: Headers, body: '{"currency":"BRL","itemId1":"36",
+"itemDescription1…dGroup":"CREDIT_CARD,BALANCE,BOLETO,DEPOSIT,EFT"}'}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const axios = require('axios')
 module.exports = async function testeReq(){
     try {
