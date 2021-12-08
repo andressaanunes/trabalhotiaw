@@ -54,6 +54,8 @@ async function renderProds(){
 var submit = document.querySelector('#submitButton')
 submit.addEventListener('click',sendQuadro)
 
+var arrayQuadros = new Array()
+
 async function sendQuadro(){
 
     let nome = document.querySelector('#quadroNome').value
@@ -67,14 +69,51 @@ async function sendQuadro(){
         url,
         maisvendido
     }
+    arrayQuadros.push(quadroInfo)
+    console.log(arrayQuadros)
     
-    let options={
-        method:'POST',
-        headers:new Headers({'Content-Type': 'application/json'}),
-        body:JSON.stringify(quadroInfo)
-    }
-
-    let result = await fetch('http://localhost:21090/newprod',options)
-    console.log(result)
-    return result
 }
+
+
+async function adicionaQuadros(){
+  
+  console.log('arrayQuadro'+arrayQuadros)
+  let options={
+    method:'POST',
+    headers:new Headers({'Content-Type': 'application/json'}),
+    body:JSON.stringify(arrayQuadros)
+  }
+
+  let result = await fetch('http://localhost:21090/newprod',options)
+  console.log(result)
+  if (result.ok) {
+
+    arrayQuadros.length = 0
+  
+  }
+  return result
+
+}
+
+var send = document.querySelector('#sendButton')
+send.addEventListener('click',adicionaQuadros)
+
+
+
+async function delQuadros(){
+  var delButton = document.querySelector('#delId').value
+  console.log('arrayQuadro'+delButton)
+  let options={
+    method:'DELETE',
+    headers:new Headers({'Content-Type': 'application/json'}),
+  }
+
+  let result = await fetch(`http://localhost:21090/delprod/${delButton}`,options)
+  console.log(result)
+  
+  return result
+
+}
+
+var delButton = document.querySelector('#delButton')
+delButton.addEventListener('click',delQuadros)

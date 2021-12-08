@@ -74,14 +74,33 @@ async function getMaisVendidos(){
 async function newProduct(prods){
   try {
     prods.forEach(async prod => {
+
       console.log(prod)
-      let created = await produtos.create(prod)
-      console.log(created)
+      var created = await produtos.create({
+        nome: prod.nome,
+        categoria:prod.categ,
+        preco: 44.99,
+        imagePath:prod.url,
+        maisvendido:prod.maisvendido
+      })
+      console.log('created'+created)
+      return created
+
     });
-    return created
+    
   }catch(error){
     console.log(error)
   }
+}
+
+async function delProduct(id){
+
+  let result = await produtos.destroy({
+    where:{id:id}
+  })
+  console.log(result)
+  return result
+
 }
 
   module.exports = { 
@@ -91,5 +110,6 @@ async function newProduct(prods){
     getProductBolotas:getProductBolotas,
     getProductByCategory:getProductByCategory,
     getMaisVendidos:getMaisVendidos,
-    searchProduct: searchProduct
+    searchProduct: searchProduct,
+    delProduct:delProduct
   }

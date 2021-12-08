@@ -82,10 +82,8 @@ app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({extended: false}))
 
-app.get('/admin',/*isAdm,*/ 
-    express.static(path.join(__dirname, "public","admin"))
+app.get('/admin',/*isAdm,*/ express.static(path.join(__dirname, "public","admin"))) 
 
-) 
 app.post('/newprod',/*isAdm,*/ async function (req,res){
 
     let prods = req.body
@@ -94,7 +92,17 @@ app.post('/newprod',/*isAdm,*/ async function (req,res){
             
     res.status(200).send(prods)
                  
-        })
+    })
+
+app.delete('/delprod/:id',/*isAdm,*/ async function (req,res){
+
+    let prods = req.params.id
+    console.log(prods)
+    produtos.delProduct(prods)
+            
+    res.status(200).send(prods)
+                    
+    })        
 
 app.get('/category/:category', async function getall(req,res){
     
