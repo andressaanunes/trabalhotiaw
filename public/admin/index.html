@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <title>Crialuth-Admins</title>
+</head>
+<body>
+    <h1>Admin</h1>  
+    <div class="container my-1">
+        <div class="input-group">
+            <span class="input-group-text">Nome:</span>
+            <input id="quadroNome" type="text" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">URL da Imagem:</span>
+            <input id="quadroUrl" type="text" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Categoria:</span>
+            <input id="quadroCateg" type="text" class="form-control">
+        </div>  
+        <div class="input-group">
+            <span class="input-group-text">Maisvendido(0:não/1:sim):</span>
+            <input id="quadroMaisvend" type="text" class="form-control">
+        </div>
+        <button id="submitButton" class="btn btn-outline-info" type="button">Inserir</button>
+    </div>    
+    <br>
+    <ul id="prodsList" class="list-group-horizontal-xl">
+    
+    </ul>
+    <script src="./admin.js"></script>
+</body>
+</html>

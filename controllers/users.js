@@ -101,9 +101,18 @@ function generateToken(params = {}){
     return jwt.sign(params,authCfg.secret,{expiresIn:86400})
 }
 
+async function getUser(userId){
+    const result = await usuarios.findAll({
+        where:{
+            id:userId
+        }
+    })
+    return result[0]
+}
 
 module.exports = {
     generateToken:generateToken,
     createUser: createUser,
-    buscaEmail:buscaEmail
+    buscaEmail:buscaEmail,
+    getUser:getUser
 }

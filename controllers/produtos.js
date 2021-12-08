@@ -76,9 +76,9 @@ async function newProduct(prods){
     prods.forEach(async prod => {
       console.log(prod)
       let created = await produtos.create(prod)
-      //console.log(created)
+      console.log(created)
     });
-    
+    return created
   }catch(error){
     console.log(error)
   }

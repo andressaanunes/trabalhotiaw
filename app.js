@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const prods = require('./controllers/produtos')
 const auth = require('./middlewares/auth')
+const isAdm = require('./middlewares/admin')
 const users = require('./controllers/users')
 const shipping = require('./controllers/melhorenvio')
 const bcrypt = require('bcrypt')
@@ -11,6 +12,7 @@ const cors = require('cors')
 const { URLSearchParams } = require('url');
 const axios = require('axios')
 const https = require('https')
+const produtos = require('./controllers/produtos')
 
 const PORT = process.env.PORT
 
@@ -80,6 +82,19 @@ app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({extended: false}))
 
+app.get('/admin',/*isAdm,*/ 
+    express.static(path.join(__dirname, "public","admin"))
+
+) 
+app.post('/newprod',/*isAdm,*/ async function (req,res){
+
+    let prods = req.body
+    console.log(prods)
+    produtos.newProduct(prods)
+            
+    res.status(200).send(prods)
+                 
+        })
 
 app.get('/category/:category', async function getall(req,res){
     
@@ -169,15 +184,7 @@ app.get('/area/:area', async function getall(req,res){
                  
 })
 
-app.post('/product/newprod', async function getall(req,res){
 
-    let prods = req.body
-    console.log(prods)
-    
-            
-    res.send(prods)
-                 
-        })
 
 app.get('/all', async function getall(req,res){
 
@@ -248,7 +255,7 @@ app.post('/login', async (req,res)=>{
 
 
 
-app.post('/notificacao', async function(req,res){})
+app.post('/', async function(req,res){})
 
 app.get('/shipcode', async (req,res)=>{
     const shipCode = await shipping.authenticate()
