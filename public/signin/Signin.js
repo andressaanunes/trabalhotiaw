@@ -85,18 +85,58 @@ async function userIsAdmin(){
 
 }
 
-async function getAdmin(){
-    const userId = localStorage.getItem('userInfo')
-    options = {
+async function userIsAdmin(){
+    console.log('chegou userIsAdmin')
+    const userId = JSON.parse(localStorage.getItem('userInfo'))
+    console.log(userId.id)
 
-        headers:{'userId': userId.id},
-        method:'GET'
-    }
-    fetch('https://www.crialuth.com/admin',options)
+    if (userId.id) {
+        console.log('chegou primeiro if pra buscar api')
+        options = {
+            headers:{'Content-Type': 'application/json'},
+            method:'POST',
+            body: JSON.stringify(userId)
+        }
+
+        let userResult = await fetch('https://www.crialuth.com/userId',options)
+        let json = await userResult.json()
+        //const userResult = await users.getUser(userId.id)
+
+        console.log('userResult'+json.isAdmin)
+        
+        console.log('userResult'+JSON.stringify(json))
+    
+ 
+        if(!json.error){
+           console.log('chegou if != undefined')
+            if (json.response === 1) {
+
+                console.log('chegou if usuario admin')
+                let divbotao = document.getElementById('adminBtn')
+                console.log(divbotao)
+                divbotao.innerHTML = `
+                <button id="adminBtn" >admin</button>` 
+
+            }else{console.log('nao admin')}
+
+        }else{console.log('usuario nao encontrado')}
+
+    }else{console.log('sem userId.id não logado')}
+}
+
+
+
+async function getAdmin(){
+    const userId = JSON.parse(localStorage.getItem('userInfo'))
+    console.log('getAdmin :'+ userId.id)
+    
+    window.location.replace(`https://www.crialuth.com/admin${userId.id}`)
 }
 
 let adminBtn = document.querySelector('#adminBtn')
 adminBtn.addEventListener('click',getAdmin)
+
+
 
 const loginBtn = document.querySelector('#login')
 loginBtn.addEventListener('click', login)

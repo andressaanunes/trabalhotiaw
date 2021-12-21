@@ -2,6 +2,29 @@ document.addEventListener('DOMContentLoaded',checkUser)
 document.addEventListener('DOMContentLoaded',renderProds)
 
 
+
+async function loginCheck() {
+    userIsAdmin()
+    var token = sessionStorage.getItem('token')
+    console.log(token)
+    if( token ){
+        console.log('ok')
+    }else{
+
+          Swal.fire({
+      title: 'Você não está logado!',
+      text: "Você precisa fazer login para continuar!",
+      icon: 'warning',
+      showConfirmButton: false,
+      timer: 2000
+    }).then(() => {
+      window.location.replace(`https://www.crialuth.com/home`)
+    })          
+
+          }
+}
+
+
 async function checkUser(){
 
   var userId = localStorage.getItem('userInfo')
