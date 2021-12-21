@@ -31,7 +31,7 @@ axios.interceptors.response.use(response => {
 })*/
 pegaToken()
 
-async function pegaToken() {
+async function pegaToken(){
   
   let token = await apiTokens.findAll({
     where: {
@@ -304,9 +304,9 @@ async function shipCheckout(id){
       'Accept': 'application/json', 
       'Content-Type': 'application/json', 
       'Authorization': 'Bearer '+me.bearer, 
-      'User-Agent': 'crialuth kayrodanyell@gmail.com',
-      httpsAgent: new https.Agent({ rejectUnauthorized: false })
+      'User-Agent': 'crialuth kayrodanyell@gmail.com'
     },
+    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     data : data
   };
 

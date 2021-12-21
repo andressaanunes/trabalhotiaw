@@ -48,11 +48,11 @@ app.use('*',(req,res,next) => {
         res.redirect("https://"+req.headers.host + req.originalUrl)
     } 
  */next()
-    })
+})
 
 
 
-
+app.use('/admin/:userId',isAdm, express.static(path.join(__dirname, "adminContent","admin"))) 
 
 app.use('/', express.static(path.join(__dirname, "public")))
 
@@ -82,9 +82,7 @@ app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({extended: false}))
 
-app.get('/admin',/*isAdm,*/ express.static(path.join(__dirname, "public","admin"))) 
-
-app.post('/newprod',/*isAdm,*/ async function (req,res){
+app.post('/newprod',isAdm, async function (req,res){
 
     let prods = req.body
     console.log(prods)
@@ -94,7 +92,7 @@ app.post('/newprod',/*isAdm,*/ async function (req,res){
                  
     })
 
-app.delete('/delprod/:id',/*isAdm,*/ async function (req,res){
+app.delete('/delprod/:id',isAdm, async function (req,res){
 
     let prods = req.params.id
     console.log(prods)
@@ -261,7 +259,28 @@ app.post('/login', async (req,res)=>{
 
 }) 
 
+app.post('/userId', async (req,res)=>{
 
+    const user = await users.getUser(req.body.id)
+    console.log("🚀 ~ file: app.js ~ line 216 ~ app.post ~ user", user.dataValues)
+
+    if(user.error){
+    
+        res.status(400)
+        res.send({error:'usuario não encontrado'})
+    
+    }else if(user.isAdmin === 1){
+        
+        res.send(1)
+    
+    }else{
+
+        res.status(401)
+        res.send({error:'Acesso não autorizado, não possui permissões'})
+
+    }
+  }
+)
 
 app.post('/', async function(req,res){})
 

@@ -102,12 +102,20 @@ function generateToken(params = {}){
 }
 
 async function getUser(userId){
-    const result = await usuarios.findAll({
-        where:{
-            id:userId
-        }
-    })
-    return result[0]
+    try {
+        
+        const result = await usuarios.findAll({
+            where:{
+                id:userId
+            }
+        })
+        console.log(result[0])
+        return result[0]
+
+    } catch (error) {
+        return {error: `O usuario não foi encontrado ${error}`}
+    }
+    
 }
 
 module.exports = {

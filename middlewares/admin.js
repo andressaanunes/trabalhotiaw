@@ -1,17 +1,21 @@
 const users = require('../controllers/users')
 
 module.exports = async function(req,res,next){
-
-    const userId = req.body.userId
-    console.log(userId)
-    if (userId) {
     
-        const userResult = users.getUser(userId)
-        if(userResult.isAdmin === 1){
-            return next()
+    var userId = req.body ? req.body.userId : req.params.userId
+    console.log('userId'+userId)
+
+    if (userId != undefined) {
+    
+        const userResult = await users.getUser(userId)
+        console.log('userResult'+JSON.stringify(userResult))
+        if(userResult === undefined){
+
+            return res.status(401).send('Acesso Negado: Não Autorizado')
+            
         }
         else{
-            return res.status(401).send('Acesso Negado: Não Autorizado')
+            return next()
         }
 
     }else{

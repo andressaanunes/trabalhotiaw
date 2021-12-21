@@ -88,6 +88,13 @@ const users = db.sequelize.define('users',{
     },
     complemento:{type:db.Sequelize.STRING,
         allowNull:true     
+    },
+    isAdmin:{type:db.Sequelize.INTEGER,
+        allowNull:false,
+        validate:{        
+            notNull:true,
+            notEmpty: true,
+        }
     }
     
 })
