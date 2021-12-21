@@ -267,7 +267,7 @@ app.post('/userId', async (req,res)=>{
    if(user.error){
         console.log('user.error')
         res.status(400)
-        res.send({error:'usuario não encontrado'})
+        res.send({error:'usuario nï¿½o encontrado'})
     
     }else if(user.isAdmin === 1){
         console.log('user isAdmin')
@@ -278,7 +278,7 @@ app.post('/userId', async (req,res)=>{
     }else{
         console.log('user is not admin')
         res.status(401)
-        res.send({error:'Acesso não autorizado, não possui permissões'})
+        res.send({error:'Acesso nï¿½o autorizado, nï¿½o possui permissï¿½es'})
 
     }
   }
@@ -318,6 +318,7 @@ app.get('/shiptoken/', async (req,res)=>{
     res.send(shipToken)  */
     
 })
+
 app.get('/refreshshiptoken', async (req,res)=>{
     //console.log("parametros " + JSON.stringify(req.params))
     //let code = req.params.code
