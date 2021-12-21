@@ -88,9 +88,16 @@ const users = db.sequelize.define('users',{
     },
     complemento:{type:db.Sequelize.STRING,
         allowNull:true     
+    },
+    isAdmin:{type:db.Sequelize.INTEGER,
+        allowNull:false,
+        validate:{        
+            notNull:true,
+            notEmpty: true,
+        }
     }
     
 })
-////////////////////////////////users.sync({force:true})
+//////////////////////users.sync({alter:true})
 module.exports = users
 

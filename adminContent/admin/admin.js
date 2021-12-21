@@ -1,4 +1,77 @@
+document.addEventListener('DOMContentLoaded',checkUser)
 document.addEventListener('DOMContentLoaded',renderProds)
+
+
+
+async function loginCheck() {
+    userIsAdmin()
+    var token = sessionStorage.getItem('token')
+    console.log(token)
+    if( token ){
+        console.log('ok')
+    }else{
+
+          Swal.fire({
+      title: 'Você não está logado!',
+      text: "Você precisa fazer login para continuar!",
+      icon: 'warning',
+      showConfirmButton: false,
+      timer: 2000
+    }).then(() => {
+      window.location.replace(`https://www.crialuth.com/home`)
+    })          
+
+          }
+}
+
+
+async function checkUser(){
+
+  var userId = localStorage.getItem('userInfo')
+  console.log('admin.js separado : userId'+JSON.stringify(userId))
+  if (!userId) {
+    Swal.fire({
+      title: 'Você não está logado!',
+      text: "Você precisa fazer login para continuar!",
+      icon: 'warning',
+      showConfirmButton: false,
+      timer: 2000
+    }).then(() => {
+      window.location.replace(`https://www.crialuth.com/home`)
+    })
+  }
+  
+  if (userId.id) {
+  
+      const userResult = await users.getUser(userId)
+      console.log('userResult'+userResult)
+  
+      if(userResult == undefined){
+          Swal.fire({
+            title: 'Você não está logado!',
+            text: "Você precisa fazer login para continuar!",
+            icon: 'warning',
+            showConfirmButton: false,
+            timer: 2000
+          }).then(() => {
+            window.location.replace(`https://www.crialuth.com/home`)
+          })
+          
+      }else if( userResult.isAdmin !== 1 ){
+        Swal.fire({
+          title: 'Você não está logado!',
+          text: "Você precisa fazer login para continuar!",
+          icon: 'warning',
+          showConfirmButton: false,
+          timer: 2000
+        }).then(() => {
+          window.location.replace(`https://www.crialuth.com/home`)
+        })
+      } 
+  }
+
+}
+
 
 async function getProds(){
         
@@ -108,7 +181,7 @@ async function delQuadros(){
     headers:new Headers({'Content-Type': 'application/json'}),
   }
 
-  let result = await fetch(`http://localhost:21090/delprod/${delButton}`,options)
+  let result = await fetch(`https://www.crialuth.com/delprod/${delButton}`,options)
   console.log(result)
   
   return result

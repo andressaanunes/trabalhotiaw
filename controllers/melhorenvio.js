@@ -31,7 +31,7 @@ axios.interceptors.response.use(response => {
 })*/
 pegaToken()
 
-async function pegaToken() {
+async function pegaToken(){
   
   let token = await apiTokens.findAll({
     where: {
