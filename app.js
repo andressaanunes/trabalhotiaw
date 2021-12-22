@@ -247,7 +247,8 @@ app.post('/login', async (req,res)=>{
         if(await bcrypt.compare(req.body.password,user.dataValues.senha)){ 
         console.log("🚀 ~ file: app.js ~ line 223 ~ app.post ~ user.dataValues.senha", user.dataValues.senha)
             
-            user.senha = undefined
+            user.senha = user.isAdmin = user.createdAt = user.updatedAt = undefined
+            
             res.header({token:users.generateToken({id:user.dataValues.id})})
             res.send({user})
         }else{
