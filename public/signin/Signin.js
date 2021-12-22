@@ -7,11 +7,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     
 })
 
-//document.addEventListener('DOMContentLoaded',()=>{
- //   userIsAdmin
-//})
+document.addEventListener('DOMContentLoaded',()=>{
+    userIsAdmin()
+})
 
-async function testeReq(){
+/*async function testeReq(){
     options = {
         headers:{'Content-Type': 'application/json'},
         method:'POST',
@@ -35,10 +35,10 @@ async function testeReq(){
             //const userResult = await users.getUser(userId.id)
             console.log('userResult'+josn)
             console.log('userResult'+JSON.stringify(josn))
-            console.log('userResult'+JSON.stringify(josn.isAdmin))
+            
         }
 
-testeReq()
+testeReq()*/
 
 /*async function loginCheck() {
     userIsAdmin
@@ -50,7 +50,7 @@ testeReq()
     }
 }*/
 
-async function userIsAdmin(){
+/*async function userIsAdmin(){
 
     const userId = localStorage.getItem('userInfo')
     
@@ -83,7 +83,7 @@ async function userIsAdmin(){
     }else{console.log('não logado')}
 
 
-}
+}*/
 
 async function userIsAdmin(){
     console.log('chegou userIsAdmin')
@@ -130,7 +130,7 @@ async function getAdmin(){
     const userId = JSON.parse(localStorage.getItem('userInfo'))
     console.log('getAdmin :'+ userId.id)
     
-    window.location.replace(`https://www.crialuth.com/admin${userId.id}`)
+    window.location.replace(`https://www.crialuth.com/admin/${userId.id}`)
 }
 
 let adminBtn = document.querySelector('#adminBtn')
