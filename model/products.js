@@ -12,11 +12,13 @@ const products = db.sequelize.define('products',{
     categoria:{ type: db.Sequelize.STRING},
     preco:{type: db.Sequelize.INTEGER}, 
     maisvendido:{type:db.Sequelize.SMALLINT},
-    imagePath:{type:db.Sequelize.STRING} 
+    imagePath:{type:db.Sequelize.STRING},
+    imageBrancaPath:{type:db.Sequelize.STRING},
+    placaDecoPath:{type:db.Sequelize.STRING}
     
 })
 
-////////////////////////////////products.sync({force:true})
+////////////////////////////////products.sync({alter:true})
 module.exports = products
 
 
