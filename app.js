@@ -25,7 +25,7 @@ axios.interceptors.request.use(request => {
 })
 
 axios.interceptors.response.use(response => {
-  console.log('INTERCEPTED Response', response)
+  //console.log('INTERCEPTED Response', response)
   //console.log('INTERCEPTED Response', JSON.parse(response, null, 2))
   //console.log('INTERCEPTED Response:', JSON.stringify(response, null, 2))
   return response
@@ -52,7 +52,7 @@ app.use('*',(req,res,next) => {
 
 
 
-app.use('/admin/:userId',isAdm, express.static(path.join(__dirname, "adminContent","admin"))) 
+app.use('/admin/:userId/:userToken',auth,isAdm, express.static(path.join(__dirname, "adminContent","admin"))) 
 
 app.use('/', express.static(path.join(__dirname, "public")))
 
@@ -356,9 +356,10 @@ app.post('/shipcart', async (req,res)=>{
     
 })
 
-app.post('/pagamento', /*auth,*/async (req,res) => {
+app.post('/pagamento', auth,async (req,res) => {
     console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
     //res.status(200).send() 
+    console.log('ROTA PAGAMENTO REQUISI��O:',req)
     try{
         var searchParams = new URLSearchParams(req.body)
         var bodyForm = searchParams.toString()
@@ -378,6 +379,7 @@ app.post('/pagamento', /*auth,*/async (req,res) => {
     
        var codigo = JSON.stringify(code.data)
        console.log(codigo)
+     //console.log('ROTA PAGAMENTO RESPOSTA:',res)
        res.status(200).send(codigo)
 
     }catch(err){

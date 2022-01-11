@@ -9,9 +9,9 @@ var FormData = require('form-data');
 const https = require('https')
 
 const me = new melhorEnvioSdk({
-  client_id: '2382',
-  client_secret: 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps',
-  sandbox: true,
+  client_id: '6627',
+  client_secret: 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK',
+  sandbox: false,
   bearer:'',
   redirect_uri: 'https://www.crialuth.com/shiptoken',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
@@ -97,7 +97,7 @@ async function authenticate() {
 
 //authenticate()
 
-async function shipToken(code){
+/*async function shipToken(code){
   let destroy = await apiTokens.destroy({truncate:true})
   console.log(destroy)
   try{  
@@ -120,21 +120,21 @@ async function shipToken(code){
     console.log(err)
     return err
   }
-}
+}*/
 
 async function shipTokenReq(code){
     
     var data = new FormData();
     data.append('grant_type', 'authorization_code');
-    data.append('client_id','2382');
-    data.append('client_secret', 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps');
+    data.append('client_id','6627');
+    data.append('client_secret', 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK');
     data.append('redirect_uri', 'https://www.crialuth.com/shiptoken');
     data.append('code', code);
 
 
     var config = {
       method: 'POST',
-      url: 'https://sandbox.melhorenvio.com.br/oauth/token',
+      url: 'https://melhorenvio.com.br/oauth/token',
       headers: { 
         'Accept': 'application/json', 
         'User-Agent': 'CrialuthProd kayrodanyell@gmail.com', 
@@ -299,7 +299,7 @@ async function shipCheckout(id){
   }
   var config = {
     method: 'post',
-    url: 'https://sandbox.melhorenvio.com.br/api/v2/me/shipment/checkout',
+    url: 'https://melhorenvio.com.br/api/v2/me/shipment/checkout',
     headers: { 
       'Accept': 'application/json', 
       'Content-Type': 'application/json', 
@@ -348,7 +348,7 @@ async function testeReq(){
 testeReq()
 
 module.exports = {
-  shipToken: shipToken,
+  //shipToken: shipToken,
   shipTokenReq: shipTokenReq,  
   authenticate: authenticate,
   shipCheckout: shipCheckout,

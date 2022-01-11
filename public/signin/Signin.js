@@ -7,83 +7,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     
 })
 
-//document.addEventListener('DOMContentLoaded',()=>{
- //   userIsAdmin
-//})
-
-async function testeReq(){
-    options = {
-        headers:{'Content-Type': 'application/json'},
-        method:'POST',
-        body: JSON.stringify({"id":1,
-                "nome":"Kayro Danyell",
-                "email":"kayrodanyell@gmail.com",
-                "tel":"31988849634",
-                "cpf":"56140835615",
-                "cep":30662523,
-                "estado":"MG",
-                "cidade":"Belo Horizonte",
-                "bairro":"Itaipu (Barreiro)",
-                "rua":"Rua Taiwan",
-                "numero":130,
-                "complemento":"Casa",
-                "isAdmin":1,"createdAt":"2021-05-14T01:50:26.000Z","updatedAt":"2021-05-14T01:50:26.000Z"})
-    }
-
-    let userResult = await fetch('https://www.crialuth.com/userId',options)
-    let josn = await userResult.json() 
-            //const userResult = await users.getUser(userId.id)
-            console.log('userResult'+josn)
-            console.log('userResult'+JSON.stringify(josn))
-            console.log('userResult'+JSON.stringify(josn.isAdmin))
-        }
-
-testeReq()
-
-/*async function loginCheck() {
-    userIsAdmin
-    var token = sessionStorage.getItem('token')
-    console.log(token)
-    if( token ){
-        var button = document.querySelector('#button-addon2')
-        button.innerHTML = "Logado!"
-    }
-}*/
-
-async function userIsAdmin(){
-
-    const userId = localStorage.getItem('userInfo')
-    
-
-    if (userId.id) {
-        
-        options = {
-            headers:{'Content-Type': 'application/json'},
-            method:'POST',
-            body: JSON.stringify(userId)
-        }
-        let userResult = await fetch('https://www.crialuth.com/userId',options)
-
-        //const userResult = await users.getUser(userId.id)
-        console.log('userResult'+JSON.stringify(userResult))
-
-        let json = userResult.json()
-
-        if(json === undefined){
-
-            if (json === 1) {
-                
-              document.querySelector('#adminBtn').innerHTML = `
-                < id="adminBtn" button>admin</button>
-              ` 
-            }else{console.log('nao admin')}
-
-        }else{console.log('usuario nao encontrado')}
-
-    }else{console.log('não logado')}
-
-
-}
+document.addEventListener('DOMContentLoaded',()=>{
+    userIsAdmin()
+})
 
 async function userIsAdmin(){
     console.log('chegou userIsAdmin')
@@ -128,9 +54,10 @@ async function userIsAdmin(){
 
 async function getAdmin(){
     const userId = JSON.parse(localStorage.getItem('userInfo'))
+    const userToken = sessionStorage.getItem('token')
     console.log('getAdmin :'+ userId.id)
     
-    window.location.replace(`https://www.crialuth.com/admin${userId.id}`)
+    window.location.replace(`https://www.crialuth.com/admin/${userId.id}/${userToken}`)
 }
 
 let adminBtn = document.querySelector('#adminBtn')
@@ -169,6 +96,8 @@ async function login(){
                 sessionStorage.setItem('token', token)
                 response = await response.json()
                 localStorage.setItem('userInfo',JSON.stringify(response.user))
+                let header = new Headers()
+                header.set('userId',response.user.userId)
                 window.location.replace('https://www.crialuth.com/home/')
             
             }else{

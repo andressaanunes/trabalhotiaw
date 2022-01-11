@@ -48,9 +48,6 @@
     
     </ul>
     <script>
-        document.addEventListener('DOMContentLoaded',checkUser)
-document.addEventListener('DOMContentLoaded',renderProds)
-
 
 async function checkUser(){
 
@@ -98,6 +95,12 @@ async function checkUser(){
   }
 
 }
+checkUser()
+
+document.addEventListener('DOMContentLoaded',checkUser)
+document.addEventListener('DOMContentLoaded',renderProds)
+
+
 
 
 async function getProds(){
@@ -218,10 +221,6 @@ async function delQuadros(){
 var delButton = document.querySelector('#delButton')
 delButton.addEventListener('click',delQuadros)
     </script>
-<<<<<<< HEAD
-    <!---<script src="/admin.js"></script>--->
-=======
     <script src="/admin.js"></script>
->>>>>>> 2ae5f5ad2c0cad7ea33c6d2ceaa1aca6e4bbadac
 </body>
 </html>
