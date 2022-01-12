@@ -84,11 +84,18 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.post('/newprod',isAdm, async function (req,res){
 
-    let prods = req.body
-    console.log(prods)
-    produtos.newProduct(prods)
-            
-    res.status(200).send(prods)
+    try {
+        let prods = req.body
+        console.log(JSON.stringify(prods))
+        produtos.newProduct(prods)
+                
+        res.status(200).send(prods)
+        
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+        
+    }
                  
     })
 
@@ -359,7 +366,7 @@ app.post('/shipcart', async (req,res)=>{
 app.post('/pagamento', auth,async (req,res) => {
     console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
     //res.status(200).send() 
-    console.log('ROTA PAGAMENTO REQUISI��O:',req)
+    console.log('ROTA PAGAMENTO REQUISI��O:',req)
     try{
         var searchParams = new URLSearchParams(req.body)
         var bodyForm = searchParams.toString()

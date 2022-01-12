@@ -93,6 +93,7 @@ async function newProduct(prods){
     
   }catch(error){
     console.log(error)
+    return error
   }
 }
 
