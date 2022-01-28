@@ -648,10 +648,11 @@ async function apiPagseguro(){
     // Redireciona o comprador, caso o navegador não tenha suporte ao Lightbox
     if (!isOpenLightbox){
         location.href="https://pagseguro.uol.com.br/v2/checkout/payment.html?code=" + code;
+        //JA ESTA URL DE PRODUCAO DO PAGSEGURO
         console.log("Redirecionamento")
+
     }
 
 }
 var fechapedido = document.querySelector('#fechapedido')
 fechapedido.addEventListener('click',apiPagseguro)
-

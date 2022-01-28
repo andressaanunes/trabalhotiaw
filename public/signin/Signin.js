@@ -106,7 +106,6 @@ async function userIsAdmin(){
         
         console.log('userResult'+JSON.stringify(json))
     
- 
         if(!json.error){
            console.log('chegou if != undefined')
             if (json.response === 1) {
