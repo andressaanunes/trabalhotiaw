@@ -97,7 +97,11 @@ async function authenticate() {
 
 //authenticate()
 
+<<<<<<< HEAD
 /* async function shipToken(code){
+=======
+/*async function shipToken(code){
+>>>>>>> 2c2d4962c85769cb06e25b9aab44b7f5ed7f3b22
   let destroy = await apiTokens.destroy({truncate:true})
   console.log(destroy)
   try{  
@@ -120,7 +124,11 @@ async function authenticate() {
     console.log(err)
     return err
   }
+<<<<<<< HEAD
 } */
+=======
+}*/
+>>>>>>> 2c2d4962c85769cb06e25b9aab44b7f5ed7f3b22
 
 async function shipTokenReq(code){
     
@@ -348,7 +356,7 @@ async function testeReq(){
 testeReq()
 
 module.exports = {
-  shipToken: shipToken,
+  //shipToken: shipToken,
   shipTokenReq: shipTokenReq,  
   authenticate: authenticate,
   shipCheckout: shipCheckout,

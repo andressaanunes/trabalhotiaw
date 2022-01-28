@@ -3,8 +3,8 @@ const authCfg = require('../config/authCfg.json')
 
 
 module.exports = function (req, res, next){
-    const token = req.header('token')
-    console.log(token)
+    const token = req.header('token') ? req.header('token') : req.params.userToken
+    console.log("token dentro da MIDDLEWARE"+token)
     
     if (!token){ 
         
@@ -19,11 +19,17 @@ module.exports = function (req, res, next){
                 
                 return res.send({error:'Token invalid'})
                 
+            }else if(req.params.userToken){
+               
+                if(decoded.id == req.params.userId){
+                    return next()
+                 }else{ return res.send({error:'Token Invalid'}) }   
+                  
             }else{
-            console.log(decoded)
-            req.userId = decoded.id
-            return next()
+                  console.log('decoded: '+decoded.id)
+                  req.userId = decoded.id
+                  return next()
             }
         })  
     }
-}
+}	

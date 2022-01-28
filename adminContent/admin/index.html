@@ -25,6 +25,14 @@
             <input id="quadroUrl" type="text" class="form-control">
         </div>
         <div class="input-group">
+          <span class="input-group-text">URL imagem Branca:</span>
+          <input id="quadroImagemBranca" type="text" class="form-control">
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">placaDecoPath:</span>
+          <input id="quadroPlaca" type="text" class="form-control">
+        </div>
+        <div class="input-group">
             <span class="input-group-text">Categoria:</span>
             <input id="quadroCateg" type="text" class="form-control">
         </div>  
@@ -32,6 +40,10 @@
             <span class="input-group-text">Maisvendido(0:não/1:sim):</span>
             <input id="quadroMaisvend" type="text" class="form-control">
         </div>
+        <div class="input-group">
+          <span class="input-group-text">Area:</span>
+          <input id="quadroArea" type="text" class="form-control">
+      </div>     
         <button id="submitButton" class="btn btn-outline-info" type="button">Inserir</button>
         <button id="sendButton" class="btn btn-outline-danger" type="button">Enviar</button>
     </div>    
@@ -48,9 +60,6 @@
     
     </ul>
     <script>
-        document.addEventListener('DOMContentLoaded',checkUser)
-document.addEventListener('DOMContentLoaded',renderProds)
-
 
 async function checkUser(){
 
@@ -98,6 +107,12 @@ async function checkUser(){
   }
 
 }
+checkUser()
+
+document.addEventListener('DOMContentLoaded',checkUser)
+document.addEventListener('DOMContentLoaded',renderProds)
+
+
 
 
 async function getProds(){
@@ -135,12 +150,15 @@ async function renderProds(){
                 
                 <div>Maisvendido(0=não/1=sim):<br></div>
                 <div><strong> ${quadro.categoria}</strong></div>
+                <div> <strong>${quadro.preco}</strong></div>
               
             </div>
               <div class="col">
                 
                 <div> <strong>${quadro.maisvendido}</strong></div>
-                <div> <strong>${quadro.preco}</strong></div>
+                <div> <strong>${quadro.area}</strong></div>
+                <div> <strong>${quadro.imageBrancaPath}</strong></div>
+                <div> <strong>${quadro.placaDecoPath}</strong></div>
 
               </div>
             </div>
@@ -218,10 +236,6 @@ async function delQuadros(){
 var delButton = document.querySelector('#delButton')
 delButton.addEventListener('click',delQuadros)
     </script>
-<<<<<<< HEAD
-    <!---<script src="/admin.js"></script>--->
-=======
     <script src="/admin.js"></script>
->>>>>>> 2ae5f5ad2c0cad7ea33c6d2ceaa1aca6e4bbadac
 </body>
 </html>

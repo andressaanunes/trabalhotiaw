@@ -81,7 +81,10 @@ async function newProduct(prods){
         categoria:prod.categ,
         preco: 44.99,
         imagePath:prod.url,
-        maisvendido:prod.maisvendido
+        maisvendido:prod.maisvendido,
+        imageBrancaPath:prod.imageBrancaPath,
+        placaDecoPath:prod.placaDecoPath,
+        area:prod.area
       })
       console.log('created'+created)
       return created
@@ -90,6 +93,7 @@ async function newProduct(prods){
     
   }catch(error){
     console.log(error)
+    return error
   }
 }
 

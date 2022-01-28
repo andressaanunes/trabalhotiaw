@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 document.addEventListener('DOMContentLoaded',()=>{
     userIsAdmin()
 })
+<<<<<<< HEAD
 
 /*async function testeReq(){
     options = {
@@ -84,6 +85,8 @@ testeReq()*/
 
 
 }*/
+=======
+>>>>>>> 2c2d4962c85769cb06e25b9aab44b7f5ed7f3b22
 
 async function userIsAdmin(){
     console.log('chegou userIsAdmin')
@@ -127,9 +130,14 @@ async function userIsAdmin(){
 
 async function getAdmin(){
     const userId = JSON.parse(localStorage.getItem('userInfo'))
+    const userToken = sessionStorage.getItem('token')
     console.log('getAdmin :'+ userId.id)
     
+<<<<<<< HEAD
     window.location.replace(`https://www.crialuth.com/admin/${userId.id}`)
+=======
+    window.location.replace(`https://www.crialuth.com/admin/${userId.id}/${userToken}`)
+>>>>>>> 2c2d4962c85769cb06e25b9aab44b7f5ed7f3b22
 }
 
 let adminBtn = document.querySelector('#adminBtn')
@@ -168,6 +176,8 @@ async function login(){
                 sessionStorage.setItem('token', token)
                 response = await response.json()
                 localStorage.setItem('userInfo',JSON.stringify(response.user))
+                let header = new Headers()
+                header.set('userId',response.user.userId)
                 window.location.replace('https://www.crialuth.com/home/')
             
             }else{

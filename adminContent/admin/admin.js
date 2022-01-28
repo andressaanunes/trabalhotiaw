@@ -135,12 +135,19 @@ async function sendQuadro(){
     let categ = document.querySelector('#quadroCateg').value
     let url = document.querySelector('#quadroUrl').value
     let maisvendido = document.querySelector('#quadroMaisvend').value
+    let imageBrancaPath = document.querySelector('#quadroImagemBranca').value
+    let placaDecoPath = document.querySelector('#quadroPlaca').value
+    let area = document.querySelector('#quadroArea').value
+
 
     let quadroInfo= {
         nome,
         categ,
         url,
-        maisvendido
+        maisvendido,
+        area,
+        imageBrancaPath,
+        placaDecoPath
     }
     arrayQuadros.push(quadroInfo)
     console.log(arrayQuadros)
