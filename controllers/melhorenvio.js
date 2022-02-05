@@ -134,10 +134,10 @@ async function shipTokenReq(code){
 
     var config = {
       method: 'POST',
-      url: 'https://melhorenvio.com.br/oauth/token',
+      url: 'https://www.melhorenvio.com.br/oauth/token',
       headers: { 
         'Accept': 'application/json', 
-        'User-Agent': 'CrialuthProd ', 
+        'User-Agent': 'CriaLuth kayrodanyell@gmail.com', 
         ...data.getHeaders()
         },
       data : data,
