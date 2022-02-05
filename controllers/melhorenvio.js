@@ -97,11 +97,7 @@ async function authenticate() {
 
 //authenticate()
 
-<<<<<<< HEAD
 /* async function shipToken(code){
-=======
-/*async function shipToken(code){
->>>>>>> 2c2d4962c85769cb06e25b9aab44b7f5ed7f3b22
   let destroy = await apiTokens.destroy({truncate:true})
   console.log(destroy)
   try{  
@@ -124,11 +120,7 @@ async function authenticate() {
     console.log(err)
     return err
   }
-<<<<<<< HEAD
 } */
-=======
-}*/
->>>>>>> 2c2d4962c85769cb06e25b9aab44b7f5ed7f3b22
 
 async function shipTokenReq(code){
     
@@ -155,24 +147,26 @@ async function shipTokenReq(code){
     axios(config).then( 
       function (res){
       //console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ req", req)
+
         let destroy = apiTokens.destroy({truncate:true})
         console.log(destroy)
 
         console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ response", res)
+        
         apiTokens.create({
           //api:'menv'+ Math.random(),
           token: res.data.access_token,
           refreshToken: res.data.refresh_token,
           expDate: dayjs().add(res.data.expires_in,'seconds').format()
 
-          })
-        pegaToken()
-        return res ;
+          }).then( pegaToken() )
+
+        return res 
       }).catch(
         function (error){
-        console.log(error)
+        console.log('ERRO NO SHIPTOKEN: '+error)
         return error
-    });
+    })
 }
 
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM

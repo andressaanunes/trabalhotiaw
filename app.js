@@ -309,27 +309,19 @@ app.get('/shiptoken/', async (req,res)=>{
     console.log(req.query.code)
     console.log("CHEGOU AQUI SHIPTOKEN-CODE")
     console.log("parametros " + JSON.stringify(req.params.code))
+   
     let code = req.query.code
     console.log("🚀 ~ file: app.js ~ line 276 ~ app.get ~ code", code)
+
     const shipToken = await shipping.shipTokenReq(code)
+    
     console.log("🚀 ~ file: app.js ~ line 286 ~ app.get ~ shipToken", shipToken)
     res.send(shipToken)
-    
-
-    /* console.log(req.query)
-    console.log("CHEGOU AQUI SHIPTOKEN-CODE")
-    console.log("parametros " + JSON.stringify(req.params.code))
-    let code = JSON.stringify(req.params.code)
-    console.log("🚀 ~ file: app.js ~ line 276 ~ app.get ~ code", code)
-    const shipToken = await shipping.shipToken(code)
-    console.log(shipToken)
-    res.send(shipToken)  */
     
 })
 
 app.get('/refreshshiptoken', async (req,res)=>{
-    //console.log("parametros " + JSON.stringify(req.params))
-    //let code = req.params.code
+
     const refreshToken = await shipping.refreshToken()
     console.log(refreshToken)
     res.send(refreshToken)
@@ -367,7 +359,7 @@ app.post('/shipcart', async (req,res)=>{
 app.post('/pagamento', auth,async (req,res) => {
     console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
     //res.status(200).send() 
-    console.log('ROTA PAGAMENTO REQUISI��O:',req)
+    console.log('ROTA PAGAMENTO REQUISIcaO:',req)
     try{
         var searchParams = new URLSearchParams(req.body)
         var bodyForm = searchParams.toString()
