@@ -154,7 +154,7 @@ async function shipTokenReq(code){
         console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ response", res)
         
         apiTokens.create({
-          //api:'menv'+ Math.random(),
+  
           token: res.data.access_token,
           refreshToken: res.data.refresh_token,
           expDate: dayjs().add(res.data.expires_in,'seconds').format()
@@ -170,7 +170,7 @@ async function shipTokenReq(code){
 }
 
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
-//shipToken('')
+
 async function refreshToken(){
   console.log('====================== chegou no refreshtoken =============================')
   try {
