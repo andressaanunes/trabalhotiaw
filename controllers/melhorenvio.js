@@ -167,6 +167,7 @@ async function shipToken(code){
           throw new Error('ERRO AO PEGAR TOKEN')
       
       }
+
       console.log('CHEGOU O TOKENOBJ' + tokenObj)
       let tokensaved = await saveToken(tokenObj)
       if (tokensaved.success) {
@@ -191,13 +192,13 @@ async function shipToken(code){
 
 async function shipTokenReq(code){
     
+    try{
     var data = new FormData();
     data.append('grant_type', 'authorization_code');
     data.append('client_id','6627');
     data.append('client_secret', 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK');
     data.append('redirect_uri', 'https://www.crialuth.com/shiptoken');
     data.append('code', code);
-
 
     var config = {
       method: 'POST',
@@ -211,29 +212,39 @@ async function shipTokenReq(code){
       httpsAgent: new https.Agent({ rejectUnauthorized: false })
     };
 
-    axios(config).then( 
-      function (res){
-      //console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ req", req)
+    const token = await axios(config)
+    if (token.data.access_token) {
 
-        let destroy = apiTokens.destroy({truncate:true})
-        console.log(destroy)
+      var tokenObj = {
 
-        console.log("🚀 ~ file: melhorenvio.js ~ line 144 ~ shipTokenReq ~ response", res)
+        token: token.data.access_token,
+        refreshToken: token.data.refresh_token,
+        expDate: dayjs().add(token.data.expires_in,'seconds').format()
+      }
+
+    }else{
+
+        throw new Error('ERRO AO PEGAR TOKEN')
+    
+    }
+
+
+    console.log('CHEGOU O TOKENOBJ' + tokenObj)
+    let tokensaved = await saveToken(tokenObj)
+    if (tokensaved.success) {
+      
+        return true 
+    
+    }else{
         
-        apiTokens.create({
-  
-          token: res.data.access_token,
-          refreshToken: res.data.refresh_token,
-          expDate: dayjs().add(res.data.expires_in,'seconds').format()
+      throw new Error('ERRO AO SALVAR TOKEN')
+    
+    }    
 
-          }).then( pegaToken() )
-
-        return res 
-      }).catch(
-        function (error){
-        console.log('ERRO NO SHIPTOKEN: '+error)
-        return error
-    })
+  }catch(err){
+    console.log('ERRO NO SHIPTOKENREQ: '+ err)
+    return err
+  }
 }
 
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
@@ -418,7 +429,7 @@ testeReq()
 
 module.exports = {
   //shipToken: shipToken,
-  shipTokenReq: shipToken,  
+  shipTokenReq: shipTokenReq,  
   authenticate: authenticate,
   shipCheckout: shipCheckout,
   menvShipCheckout: menvShipCheckout,
