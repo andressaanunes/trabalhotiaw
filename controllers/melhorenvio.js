@@ -122,6 +122,73 @@ async function authenticate() {
   }
 } */
 
+
+
+
+async function saveToken(tokenObj){
+
+  try{
+      console.log('CHEGOU NO SAVETOKEN')
+      
+      let destroy = await apiTokens.destroy({truncate:true})
+      console.log('DESTROY'+destroy)
+
+      let token = await apiTokens.create({tokenObj})
+      console.log('TOKEN:'+token)
+
+      return {success: true, token: token}
+
+  }catch(err){
+
+    console.log('ERRO NO SAVETOKEN: '+ err)
+    return err
+
+  }
+}
+
+async function shipToken(code){
+  try{
+    console.log('CHEGOU NO SHIPTOKEN CERTO')
+
+    const token = await me.auth.getToken(code)
+    console.log('NOVO TOKEN:'+ token.data.access_token)
+      
+      if (token.data.access_token) {
+
+          var tokenObj = {
+    
+            token: token.data.access_token,
+            refreshToken: token.data.refresh_token,
+            expDate: dayjs().add(token.data.expires_in,'seconds').format()
+        }
+
+      }else{
+
+          throw new Error('ERRO AO PEGAR TOKEN')
+      
+      }
+      console.log('CHEGOU O TOKENOBJ' + tokenObj)
+      let tokensaved = await saveToken(tokenObj)
+      if (tokensaved.success) {
+        
+          return true 
+      
+      }else{
+          
+        throw new Error('ERRO AO SALVAR TOKEN')
+      
+      }    
+    
+  }catch(err){
+    
+    console.log('ERRO NO SHIPTOKEN: '+ err)
+    return err
+  
+  }
+}
+
+
+
 async function shipTokenReq(code){
     
     var data = new FormData();
@@ -351,7 +418,7 @@ testeReq()
 
 module.exports = {
   //shipToken: shipToken,
-  shipTokenReq: shipTokenReq,  
+  shipTokenReq: shipToken,  
   authenticate: authenticate,
   shipCheckout: shipCheckout,
   menvShipCheckout: menvShipCheckout,
