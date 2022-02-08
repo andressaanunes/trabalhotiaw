@@ -296,7 +296,7 @@ app.post('/', async function(req,res){})
 app.get('/appinfo', async function(req,res){
     var appInfo = await shipping.appInfo()
     console.log(appInfo)
-    
+   // var json = await appInfo.json()
     res.status(200)
     res.send(appInfo)
 })

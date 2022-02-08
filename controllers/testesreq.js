@@ -15,7 +15,7 @@ var unirest = require('unirest');
 class MontaReqs{
   
   constructor(){
-    this.url = 'https://melhorenvio.com.br'  
+    this.url = 'https://www.melhorenvio.com.br'  
     this.user_agent = 'CriaLuth kayrodanyell@gmail.com'
     this.client_id= '6627'
     this.client_secret= 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK'
@@ -82,24 +82,27 @@ class MontaReqs{
       'maxRedirects': 20
     };
     
-    var req = https1.request(options, function (res) {
+    var req = await https.request(options, function (res) {
       var chunks = [];
     
       res.on("data", function (chunk) {
-        console.log(chunk)
+        console.log('CHUNK'+chunk)
         chunks.push(chunk);
+        console.log('CHUNKS'+chunks)
       });
     
       res.on("end", function (chunk) {
         var body = Buffer.concat(chunks);
-        console.log(body.toString());
+        console.log('BODY'+body.toString());
       });
     
       res.on("error", function (error) {
-        console.error(error);
+        console.error('ERROR'+error);
       });
     });
     
+    console.log('REQ'+req)
+    return req
       //TESTAR REQUISIÇÕES COM REQUISIÇÃO GET DE LISTAR INFORMAÇÕES DO APLICATIVO
   }
 
