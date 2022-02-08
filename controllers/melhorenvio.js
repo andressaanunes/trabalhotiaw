@@ -124,7 +124,7 @@ async function authenticate() {
 
 
 
-
+//CONFERIR O CERTIFICADO SSL ESTÁ RETORNANDO ERRO NO MELHORNEVIO POR CAUSA DISSO
 async function saveToken(tokenObj){
 
   try{
@@ -202,14 +202,15 @@ async function shipTokenReq(code){
 
     var config = {
       method: 'POST',
-      url: 'https://www.melhorenvio.com.br/oauth/token',
+      url: 'https://melhorenvio.com.br/oauth/token',
       headers: { 
         'Accept': 'application/json', 
         'User-Agent': 'CriaLuth kayrodanyell@gmail.com', 
         ...data.getHeaders()
         },
-      data : data,
-      httpsAgent: new https.Agent({ rejectUnauthorized: false })
+        data : data,
+        proxy: false
+        //httpsAgent: new https.Agent({ rejectUnauthorized: false })
     };
 
     const token = await axios(config)
@@ -265,9 +266,9 @@ async function refreshToken(){
     
      var newToken = {
                     "api":"menv",
-                    "token":refresh_token.dataValues.access_token,
-                    "refreshToken":refresh_token.dataValues.refresh_token,
-                    "expDate": dayjs().add(refresh_token.dataValues.expires_in,'seconds').format()
+                    "token":tokenRefresh.dataValues.access_token,
+                    "refreshToken":tokenRefresh.dataValues.refresh_token,
+                    "expDate": dayjs().add(tokenRefresh.dataValues.expires_in,'seconds').format()
      }
     apiTokens.destroy({where:{api:'menv'}})
 
@@ -438,3 +439,4 @@ module.exports = {
   refreshToken:refreshToken
 }
 
+//eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhkMTE4NTdmMWVkMjllYjRjYTc3YzAzZDczNDRkZmFmZmQ2YTBjYmEyNTYwNThmZGQ0ZDhkMzQ4NzA2YzlkNWM0ODhiODUwMzUzNmIzN2RmIn0.eyJhdWQiOiIxIiwianRpIjoiOGQxMTg1N2YxZWQyOWViNGNhNzdjMDNkNzM0NGRmYWZmZDZhMGNiYTI1NjA1OGZkZDRkOGQzNDg3MDZjOWQ1YzQ4OGI4NTAzNTM2YjM3ZGYiLCJpYXQiOjE2NDQxNjQ4MjcsIm5iZiI6MTY0NDE2NDgyNywiZXhwIjoxNjc1NzAwODI3LCJzdWIiOiJmODQyZjAxNy0zZjc1LTRkZDAtOGJkYi03NDkyNTU2MzkwMzciLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLWRlc3Ryb3kiLCJwcm9kdWN0cy13cml0ZSIsInB1cmNoYXNlcy1yZWFkIiwic2hpcHBpbmctY2FsY3VsYXRlIiwic2hpcHBpbmctY2FuY2VsIiwic2hpcHBpbmctY2hlY2tvdXQiLCJzaGlwcGluZy1jb21wYW5pZXMiLCJzaGlwcGluZy1nZW5lcmF0ZSIsInNoaXBwaW5nLXByZXZpZXciLCJzaGlwcGluZy1wcmludCIsInNoaXBwaW5nLXNoYXJlIiwic2hpcHBpbmctdHJhY2tpbmciLCJlY29tbWVyY2Utc2hpcHBpbmciLCJ0cmFuc2FjdGlvbnMtcmVhZCIsInVzZXJzLXJlYWQiLCJ1c2Vycy13cml0ZSIsIndlYmhvb2tzLXJlYWQiLCJ3ZWJob29rcy13cml0ZSJdfQ.2i5-81SKySsaNPVldztPH5uak7xmmUVkMp5Gj3smUM8BQjFI7hvFXgxOFapmvxeUyKtqcnm2KdvW4v7573EkEd3UXjXYIAa6CTLbezKojhBnNRuPr-IXB12VVWMe9MCmqdJATi2l3F3gytStjI9t7zp7nvddbk9mgeM5nYMMLezWpmJu-0Sw0txKgDu1DcumXmcFbpTVdfGIqrr37h6kLJMldK-K726WbSvR3I5HgistebMQgxhC9ZpuK4oYqDZoI3NNZBGESFuOJwVBktll9NNkscvhA8DAfrR2deMNF9IhNTpFnb7dKQ7bLy9EjudNTP0iQwCKMbmd8Wc_4neNfuz39DnyTNWxyZ2v-GsFmWl7D9qwV221zo4KeFuHDpwRJBFDGoTlALWu8rBTCe-JtqoPTHMOLgTlhu4OJnjiO_2PRRQjZGsMtPdcZKZD2_vGbiBRuogPaqvLTmaHvqptEzYIXiErZL6hZEHBn52nud7PpLll6hBIEN_x3_xTZmKPFCVfMbXpXyujaP6mt0FmP2fnLZPAIfwI1A0tsnHRhF7FhFPaYwllEWw3AxSfywfjeT9-caFutC6rtekB5BXsIfLnng1sFp2js2RGQRsnDnlgRJFIVdzm45RxDaotkdgAz3vRiUkS8p3TkorL46X1HM4u29lXE9SLb-Ypl7scr6w

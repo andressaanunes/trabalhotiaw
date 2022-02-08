@@ -308,7 +308,7 @@ app.get('/shiptoken/', async (req,res)=>{
 
     console.log(req.query.code)
     console.log("CHEGOU AQUI SHIPTOKEN-CODE")
-    console.log("parametros " + JSON.stringify(req.params.code))
+    //console.log("parametros " + JSON.stringify(req.params.code))
    
     let code = req.query.code
     console.log("🚀 ~ file: app.js ~ line 276 ~ app.get ~ code", code)
