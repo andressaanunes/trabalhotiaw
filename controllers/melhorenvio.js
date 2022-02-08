@@ -8,6 +8,9 @@ var FormData = require('form-data');
 //const ipInfo = require('../testeReq')
 const https = require('https')
 
+const Reqs = require('./testesreq');
+
+
 const me = new melhorEnvioSdk({
   client_id: '6627',
   client_secret: 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK',
@@ -16,6 +19,7 @@ const me = new melhorEnvioSdk({
   redirect_uri: 'https://www.crialuth.com/shiptoken',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 })  
+
 
 //const intercept = axios.create({timeout: 100});
 /*axios.interceptors.request.use(request => {
@@ -29,7 +33,11 @@ axios.interceptors.response.use(response => {
   console.log('INTERCEPTED Response:', JSON.stringify(response, null, 2))
   return response
 })*/
-pegaToken()
+var token = pegaToken()
+
+const MontaReqs = new Reqs();
+MontaReqs.init()
+
 
 async function pegaToken(){
   
@@ -47,6 +55,7 @@ async function pegaToken(){
   //console.log(token)
   //console.log(token.dataValues.expDate)
   me.setToken = token.token
+  return token.token
 
   //console.log('me.bearer'+ me.bearer)
 }
@@ -95,6 +104,14 @@ async function authenticate() {
 
 }
 
+
+async function appInfo(){
+  var appInfo = MontaReqs.appInfo()
+  console.log(appInfo)
+  return appInfo
+}
+
+
 //authenticate()
 
 /* async function shipToken(code){
@@ -125,6 +142,7 @@ async function authenticate() {
 
 
 //CONFERIR O CERTIFICADO SSL ESTÁ RETORNANDO ERRO NO MELHORNEVIO POR CAUSA DISSO
+
 async function saveToken(tokenObj){
 
   try{
@@ -146,107 +164,97 @@ async function saveToken(tokenObj){
   }
 }
 
-async function shipToken(code){
+async function shipTokenReq(code){
+  
   try{
-    console.log('CHEGOU NO SHIPTOKEN CERTO')
+      var data = new FormData();
+      data.append('grant_type', 'authorization_code');
+      data.append('client_id',this.client_id);
+      data.append('client_secret', this.client_secret);
+      data.append('redirect_uri', this.redirect_uri);
+      data.append('code', code);
 
-    const token = await me.auth.getToken(code)
-    console.log('NOVO TOKEN:'+ token.data.access_token)
+      var config = {
+      method: 'POST',
+      url: 'https://melhorenvio.com.br/oauth/token',
+      headers: { 
+              'Accept': 'application/json', 
+              'User-Agent': 'CriaLuth kayrodanyell@gmail.com', 
+              ...data.getHeaders()
+          },
+          data : data,
+          proxy: false
+          //httpsAgent: new https.Agent({ rejectUnauthorized: false })
+      };
+
+      const token = await axios(config)
+      if (token.data.access_token) {
+          var tokenObj = {
+              token: token.data.access_token,
+              refreshToken: token.data.refresh_token,
+              expDate: dayjs().add(token.data.expires_in,'seconds').format()
+          }
+      }else{
+          throw new Error('ERRO AO PEGAR TOKEN')
+      }
+
+      console.log('CHEGOU O TOKENOBJ' + tokenObj)
+      let tokensaved = await this.saveToken(tokenObj)
+      if (tokensaved.success) {
+          return true 
+      }else{
+      throw new Error('ERRO AO SALVAR TOKEN')
+      }    
+
+  }catch(err){
+      console.log('ERRO NO SHIPTOKENREQ: '+ err)
+      return err
+  }
+}
+
+async function shipToken(code){
+  const me = new melhorEnvioSdk({
+      client_id: this.client_id,
+      client_secret: this.client_secret,
+      sandbox: false,
+      bearer:'',
+      redirect_uri: this.redirect_uri,
+      scope:this.scope
+    })  
+  try{
+      console.log('CHEGOU NO SHIPTOKEN CERTO')
+
+      const token = await me.auth.getToken(code)
+      console.log('NOVO TOKEN:'+ token.data.access_token)
       
       if (token.data.access_token) {
-
           var tokenObj = {
-    
-            token: token.data.access_token,
-            refreshToken: token.data.refresh_token,
-            expDate: dayjs().add(token.data.expires_in,'seconds').format()
-        }
-
+              token: token.data.access_token,
+              refreshToken: token.data.refresh_token,
+              expDate: dayjs().add(token.data.expires_in,'seconds').format()
+          }
       }else{
-
           throw new Error('ERRO AO PEGAR TOKEN')
-      
       }
 
       console.log('CHEGOU O TOKENOBJ' + tokenObj)
       let tokensaved = await saveToken(tokenObj)
       if (tokensaved.success) {
-        
           return true 
-      
       }else{
-          
-        throw new Error('ERRO AO SALVAR TOKEN')
-      
+          throw new Error('ERRO AO SALVAR TOKEN')
       }    
     
   }catch(err){
-    
-    console.log('ERRO NO SHIPTOKEN: '+ err)
-    return err
-  
+      console.log('ERRO NO SHIPTOKEN: '+ err)
+      return err
   }
 }
 
 
 
-async function shipTokenReq(code){
-    
-    try{
-    var data = new FormData();
-    data.append('grant_type', 'authorization_code');
-    data.append('client_id','6627');
-    data.append('client_secret', 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK');
-    data.append('redirect_uri', 'https://www.crialuth.com/shiptoken');
-    data.append('code', code);
-
-    var config = {
-      method: 'POST',
-      url: 'https://melhorenvio.com.br/oauth/token',
-      headers: { 
-        'Accept': 'application/json', 
-        'User-Agent': 'CriaLuth kayrodanyell@gmail.com', 
-        ...data.getHeaders()
-        },
-        data : data,
-        proxy: false
-        //httpsAgent: new https.Agent({ rejectUnauthorized: false })
-    };
-
-    const token = await axios(config)
-    if (token.data.access_token) {
-
-      var tokenObj = {
-
-        token: token.data.access_token,
-        refreshToken: token.data.refresh_token,
-        expDate: dayjs().add(token.data.expires_in,'seconds').format()
-      }
-
-    }else{
-
-        throw new Error('ERRO AO PEGAR TOKEN')
-    
-    }
 
 
-    console.log('CHEGOU O TOKENOBJ' + tokenObj)
-    let tokensaved = await saveToken(tokenObj)
-    if (tokensaved.success) {
-      
-        return true 
-    
-    }else{
-        
-      throw new Error('ERRO AO SALVAR TOKEN')
-    
-    }    
-
-  }catch(err){
-    console.log('ERRO NO SHIPTOKENREQ: '+ err)
-    return err
-  }
-}
 
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
 
@@ -430,6 +438,7 @@ testeReq()
 
 module.exports = {
   //shipToken: shipToken,
+  appInfo: appInfo,
   shipTokenReq: shipTokenReq,  
   authenticate: authenticate,
   shipCheckout: shipCheckout,

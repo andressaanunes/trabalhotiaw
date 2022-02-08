@@ -25,7 +25,7 @@ axios.interceptors.request.use(request => {
 })
 
 axios.interceptors.response.use(response => {
-  //console.log('INTERCEPTED Response', response)
+  console.log('INTERCEPTED Response', response)
   //console.log('INTERCEPTED Response', JSON.parse(response, null, 2))
   //console.log('INTERCEPTED Response:', JSON.stringify(response, null, 2))
   return response
@@ -197,8 +197,6 @@ app.get('/area/:area', async function getall(req,res){
                  
 })
 
-
-
 app.get('/all', async function getall(req,res){
 
     const produtos = await prods.getAllProducts()
@@ -294,6 +292,15 @@ app.post('/userId', async (req,res)=>{
 
 app.post('/', async function(req,res){})
 
+
+app.get('/appinfo', async function(req,res){
+    var appInfo = await shipping.appInfo()
+    console.log(appInfo)
+    
+    res.status(200)
+    res.send(appInfo)
+})
+
 app.get('/shipcode', async (req,res)=>{
     const shipCode = await shipping.authenticate()
     console.log(shipCode)
@@ -356,7 +363,7 @@ app.post('/shipcart', async (req,res)=>{
     
 })
 
-app.post('/pagamento', auth,async (req,res) => {
+app.post('/pagamento', auth, async (req,res) => {
     console.log('TEM QUE ATIVAR MIDDL  DE AUTENTICAÇÃO PRA COLOCAR EM PRODUÇÃO')
     //res.status(200).send() 
     console.log('ROTA PAGAMENTO REQUISIcaO:',req)
