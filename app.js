@@ -14,22 +14,60 @@ const axios = require('axios')
 const https = require('https')
 const produtos = require('./controllers/produtos')
 
+
+
+
+axios.interceptors.request.use(request => {
+    console.log('INTERCEPTED Starting Request', JSON.stringify(request, null, 2))
+    return request
+})
+  
+axios.interceptors.response.use(response => {
+    console.log('INTERCEPTED Response', response)
+    //console.log('INTERCEPTED Response', JSON.parse(response, null, 2))
+    //console.log('INTERCEPTED Response:', JSON.stringify(response, null, 2))
+    return response
+})
+
+const httpProxy = require('http-proxy')
+async function newProxyTeste(){
+    const proxy = httpProxy.createProxyServer({});
+    const testeApp = new express();
+    testeApp.get('*', function(req, res) {
+    // Prints "Request GET https://httpbin.org/get?answer=42"
+    console.log('Request', req.method, req.url);
+    proxy.web(req, res, { target: `${req.protocol}://${req.hostname}` });
+    });
+    const server = await testeApp.listen(3000);
+
+    //const axios = require('axios');
+    const res = await axios.get('http://httpbin.org/get?answer=42', {
+    // `proxy` means the request actually goes to the server listening
+    // on localhost:3000, but the request says it is meant for
+    // 'http://httpbin.org/get?answer=42'
+    proxy: {
+        host: 'localhost',
+        port: 3000
+    }
+    });
+    console.log('TESTEPROXY RESPONSE'+res.data)
+}
+
+newProxyTeste()
+
+
+
+
+
+
+
 const PORT = process.env.PORT
 
 const app = new express()
 
 
-axios.interceptors.request.use(request => {
-  console.log('INTERCEPTED Starting Request', JSON.stringify(request, null, 2))
-  return request
-})
 
-axios.interceptors.response.use(response => {
-  console.log('INTERCEPTED Response', response)
-  //console.log('INTERCEPTED Response', JSON.parse(response, null, 2))
-  //console.log('INTERCEPTED Response:', JSON.stringify(response, null, 2))
-  return response
-})
+
 
 
 app.use(cors())
@@ -90,7 +128,6 @@ app.post('/newprod',isAdm, async function (req,res){
         produtos.newProduct(prods)
                 
         res.status(200).send(prods)
-        
     } catch (error) {
         console.log(error)
         res.send(error)
