@@ -52,7 +52,8 @@ class MontaReqs{
         'Accept': 'application/json', 
         'Authorization': `Bearer ${this.bearer}`, 
         'User-Agent': this.user_agent
-      }
+      },
+      httpsAgent: new https.Agent({ rejectUnauthorized: false })
     };
     
     var response = await axios(config)
@@ -115,7 +116,8 @@ class MontaReqs{
         'Accept': 'application/json',
         'Authorization': `Bearer ${this.bearer}`,
         'User-Agent': this.user_agent
-      }
+      },
+      'rejectUnauthorized': false
     };
     request(options, function (error, response) {
       if (error) throw new Error(error);
@@ -130,7 +132,7 @@ class MontaReqs{
         'Accept': 'application/json',
         'Authorization': `Bearer ${this.bearer}`,
         'User-Agent': this.user_agent
-      })
+      }).strictSSL(false)
     .end(function (res) { 
         if (res.error) throw new Error(res.error); 
         console.log(res.raw_body);
