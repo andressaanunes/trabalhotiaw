@@ -18,7 +18,7 @@ const produtos = require('./controllers/produtos')
 
 
 axios.interceptors.request.use(request => {
-    console.log('INTERCEPTED Starting Request', JSON.stringify(request, null, 2))
+   // console.log('INTERCEPTED Starting Request', JSON.stringify(request, null, 2))
     return request
 })
   
@@ -38,22 +38,57 @@ async function newProxyTeste(){
     console.log('Request', req.method, req.url);
     proxy.web(req, res, { target: `${req.protocol}://${req.hostname}` });
     });
-    const server = await testeApp.listen(3000);
+    const server = await testeApp.listen(3333);
 
     //const axios = require('axios');
-    const res = await axios.get('http://httpbin.org/get?answer=42', {
+    try{
+    const res = await axios.get(`https://www.melhorenvio.com.br/api/v2/me/shipment/app-settings`, {
     // `proxy` means the request actually goes to the server listening
     // on localhost:3000, but the request says it is meant for
     // 'http://httpbin.org/get?answer=42'
-    proxy: {
-        host: 'localhost',
-        port: 3000
-    }
+        method: 'get',
+        headers: { 
+            'Accept': 'application/json', 
+            'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImIxMTAzYWZiNGJhNWY5N2U0ZWE1ZGVhZWUwODE3YzczZGU2ZmYzMGQ1NThhZDM1MGVmOWIyZWU4N2VjZjk0OGFlNTcxNjg2YTZhODVmZDVmIn0.eyJhdWQiOiI2NjI3IiwianRpIjoiYjExMDNhZmI0YmE1Zjk3ZTRlYTVkZWFlZTA4MTdjNzNkZTZmZjMwZDU1OGFkMzUwZWY5YjJlZTg3ZWNmOTQ4YWU1NzE2ODZhNmE4NWZkNWYiLCJpYXQiOjE2NDQyNzkyMzQsIm5iZiI6MTY0NDI3OTIzNCwiZXhwIjoxNjQ2ODcxMjM0LCJzdWIiOiJmODQyZjAxNy0zZjc1LTRkZDAtOGJkYi03NDkyNTU2MzkwMzciLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLXdyaXRlIiwicHVyY2hhc2VzLXJlYWQiLCJzaGlwcGluZy1jYWxjdWxhdGUiLCJzaGlwcGluZy1jYW5jZWwiLCJzaGlwcGluZy1jaGVja291dCIsInNoaXBwaW5nLWNvbXBhbmllcyIsInNoaXBwaW5nLWdlbmVyYXRlIiwic2hpcHBpbmctcHJldmlldyIsInNoaXBwaW5nLXByaW50Iiwic2hpcHBpbmctc2hhcmUiLCJzaGlwcGluZy10cmFja2luZyIsImVjb21tZXJjZS1zaGlwcGluZyIsInRyYW5zYWN0aW9ucy1yZWFkIiwidXNlcnMtcmVhZCIsInVzZXJzLXdyaXRlIiwid2ViaG9va3MtcmVhZCIsIndlYmhvb2tzLXdyaXRlIl19.xTnO_jESNHmjCWyuX20-OZdYlSG3-F7XcGI1S52qoQuwqiu70w5K6Tjs3qpy76FPkB5mRdO5HUEASfpIYQAgRy8e-KlU9Cm0IVd7ddwNyfg2ll0-h96e2NYLRqbohEQAuWUbDrtRmbkmU-kcx3ZuQ4MJlT4sM5HwH3sfTvQ-DGXGRibbJixHWlxBorG3u5Yh62288VETJ0Vt7vPCFqXkRWfY0SiGfrEpmvxsXxAN0VeUKkeZQDuplpBaJrgWnhRv4fstM56r3cOR8dO6vkcnfNilmjYFH2kBZTJbQFpV8TMC207NWZ4v2t6RJ7qciGmA04Qf52fetzeF3OsCM5uDmESm9Cp3QtYxWN_Rcb2QVnq_uT13j5hHjjzQMg7uGjoK4WXpI_kg5tRLnmwhF1Y5XkVjJPf0LWryP1ZsGjABCTY4oznkEPD6DT5ae0MXIZlcWv16m8OODQFdFEBMjHa-VSlUTvLQ_eYJT1URx0x0mOjltyVPCigWknQVGFVfXNVtMO2Wcwtr_0QEdkCUsWUPdmS7PNlOL12ThMYOwSLUH1s7tHXj7550CRY4Y_MbZ1-EwahcJ7CMbtkjsgnBEPFOqzxY14px3zTRIT4BkcQULZ1fs5ihtNZHWmRskVjySlnb1O3UgN7wq94jgYQgjoTAyNA1hvak-Cy3VnkMIGu5krw`, 
+            'User-Agent': 'CriaLuth kayrodanyell@gmail.com'
+        },
+        proxy: {
+            host: 'localhost',
+            port: 3333
+        }    
     });
-    console.log('TESTEPROXY RESPONSE'+res.data)
+        console.log('TESTEPROXY RESPONSE'+res.data)
+    }catch(e) {console.error(e);}
+    
 }
 
-newProxyTeste()
+//newProxyTeste()
+
+async function Teste(){
+
+    try{
+        const res = await axios.get(`https://www.melhorenvio.com.br/api/v2/me/shipment/app-settings`, {
+        // `proxy` means the request actually goes to the server listening
+        // on localhost:3000, but the request says it is meant for
+        // 'http://httpbin.org/get?answer=42'
+            method: 'get',
+            headers: { 
+                'Accept': 'application/json', 
+                'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImIxMTAzYWZiNGJhNWY5N2U0ZWE1ZGVhZWUwODE3YzczZGU2ZmYzMGQ1NThhZDM1MGVmOWIyZWU4N2VjZjk0OGFlNTcxNjg2YTZhODVmZDVmIn0.eyJhdWQiOiI2NjI3IiwianRpIjoiYjExMDNhZmI0YmE1Zjk3ZTRlYTVkZWFlZTA4MTdjNzNkZTZmZjMwZDU1OGFkMzUwZWY5YjJlZTg3ZWNmOTQ4YWU1NzE2ODZhNmE4NWZkNWYiLCJpYXQiOjE2NDQyNzkyMzQsIm5iZiI6MTY0NDI3OTIzNCwiZXhwIjoxNjQ2ODcxMjM0LCJzdWIiOiJmODQyZjAxNy0zZjc1LTRkZDAtOGJkYi03NDkyNTU2MzkwMzciLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLXdyaXRlIiwicHVyY2hhc2VzLXJlYWQiLCJzaGlwcGluZy1jYWxjdWxhdGUiLCJzaGlwcGluZy1jYW5jZWwiLCJzaGlwcGluZy1jaGVja291dCIsInNoaXBwaW5nLWNvbXBhbmllcyIsInNoaXBwaW5nLWdlbmVyYXRlIiwic2hpcHBpbmctcHJldmlldyIsInNoaXBwaW5nLXByaW50Iiwic2hpcHBpbmctc2hhcmUiLCJzaGlwcGluZy10cmFja2luZyIsImVjb21tZXJjZS1zaGlwcGluZyIsInRyYW5zYWN0aW9ucy1yZWFkIiwidXNlcnMtcmVhZCIsInVzZXJzLXdyaXRlIiwid2ViaG9va3MtcmVhZCIsIndlYmhvb2tzLXdyaXRlIl19.xTnO_jESNHmjCWyuX20-OZdYlSG3-F7XcGI1S52qoQuwqiu70w5K6Tjs3qpy76FPkB5mRdO5HUEASfpIYQAgRy8e-KlU9Cm0IVd7ddwNyfg2ll0-h96e2NYLRqbohEQAuWUbDrtRmbkmU-kcx3ZuQ4MJlT4sM5HwH3sfTvQ-DGXGRibbJixHWlxBorG3u5Yh62288VETJ0Vt7vPCFqXkRWfY0SiGfrEpmvxsXxAN0VeUKkeZQDuplpBaJrgWnhRv4fstM56r3cOR8dO6vkcnfNilmjYFH2kBZTJbQFpV8TMC207NWZ4v2t6RJ7qciGmA04Qf52fetzeF3OsCM5uDmESm9Cp3QtYxWN_Rcb2QVnq_uT13j5hHjjzQMg7uGjoK4WXpI_kg5tRLnmwhF1Y5XkVjJPf0LWryP1ZsGjABCTY4oznkEPD6DT5ae0MXIZlcWv16m8OODQFdFEBMjHa-VSlUTvLQ_eYJT1URx0x0mOjltyVPCigWknQVGFVfXNVtMO2Wcwtr_0QEdkCUsWUPdmS7PNlOL12ThMYOwSLUH1s7tHXj7550CRY4Y_MbZ1-EwahcJ7CMbtkjsgnBEPFOqzxY14px3zTRIT4BkcQULZ1fs5ihtNZHWmRskVjySlnb1O3UgN7wq94jgYQgjoTAyNA1hvak-Cy3VnkMIGu5krw`, 
+                'User-Agent': 'CriaLuth kayrodanyell@gmail.com'
+            },
+            proxy: {
+                host: 'localhost',
+                port: 3333
+            }    
+        });
+            console.log('TESTEPROXY RESPONSE'+res.data)
+        }catch(e) {console.error(e);}
+        
+}
+
+
+
 
 
 

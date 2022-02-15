@@ -36,7 +36,7 @@ class MontaReqs{
         return res[0]
       })
     
-    console.log('TOKEN = '+ token)
+    //console.log('TOKEN = '+ token)
     //await checkTokenExp()
     //console.log(token)
     //console.log(token.dataValues.expDate)
@@ -117,8 +117,19 @@ class MontaReqs{
         'Authorization': `Bearer ${this.bearer}`,
         'User-Agent': this.user_agent
       },
-      'rejectUnauthorized': false
+      
     };
+
+    var httpsagent = {
+      'host': `localhost`,
+      'port': '443',
+      'ca': [ fs.readFileSync('server-cert.pem') ],
+      checkServerIdentity: function (host, cert) {
+        return undefined; 
+      }
+    }
+    options.agent = new httpsagent.Agent(httpsagent)
+
     request(options, function (error, response) {
       if (error) throw new Error(error);
       console.log(response.body);
@@ -142,3 +153,14 @@ class MontaReqs{
 }
 
 module.exports = MontaReqs
+
+/*{ Error: Hostname/IP doesn't match certificate's altnames: "Host: (URL). is not in the cert's altnames: DNS:*.sa-east-1.es.amazonaws.com"
+  at Object.checkServerIdentity (tls.js:223:17)
+  at TLSSocket.<anonymous> (_tls_wrap.js:1111:29)
+  at emitNone (events.js:106:13)
+  at TLSSocket.emit (events.js:208:7)
+  at TLSSocket._finishInit (_tls_wrap.js:639:8)
+  at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:469:38)
+reason: 'Host: (URL). is not in the cert\'s altnames: DNS:*.sa-east-1.es.amazonaws.com',
+host: '(URL)',
+cert:  (certificate array)*/

@@ -46,11 +46,11 @@ async function pegaToken(){
         api: "menv"
         }
     }).then(res => {
-      console.log('res',res)
+      //console.log('res',res)
       return res[0]
     })
   
-  console.log('TOKEN = '+ token)
+  //console.log('TOKEN = '+ token)
   await checkTokenExp()
   //console.log(token)
   //console.log(token.dataValues.expDate)
@@ -106,7 +106,7 @@ async function authenticate() {
 
 
 async function appInfo(){
-  var appInfo = await MontaReqs.getAppInfoUnirest()
+  var appInfo = await MontaReqs.appInfo()
   //https nao funciona, axios funciona, request funciona, unirest funciona
   console.log('APPINFO'+appInfo)
   return appInfo
