@@ -106,7 +106,7 @@ async function authenticate() {
 
 
 async function appInfo(){
-  var appInfo = await MontaReqs.appInfo()
+  var appInfo = await MontaReqs.getAppInfoRequest()
   //https nao funciona, axios funciona, request funciona, unirest funciona
   console.log('APPINFO'+appInfo)
   return appInfo

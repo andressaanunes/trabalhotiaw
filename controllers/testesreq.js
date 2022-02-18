@@ -109,27 +109,28 @@ class MontaReqs{
 
   async getAppInfoRequest(){
 
-    var options = {
-      'method': 'GET',
-      'url': `${this.url}/api/v2/me/shipment/app-settings`,
-      'headers': {
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${this.bearer}`,
-        'User-Agent': this.user_agent
-      },
-      
-    };
-
     var httpsagent = {
-      'host': `localhost`,
+      'host': `www.melhorenvio.com.br`,
       'port': '443',
-      'ca': [ fs.readFileSync('server-cert.pem') ],
+      'path': `/api/v2/me/shipment/app-settings`,
+      'rejectUnauthorized': false,
+      //'ca': [ fs.readFileSync('server-cert.pem') ],
       checkServerIdentity: function (host, cert) {
         return undefined; 
       }
     }
-    options.agent = new httpsagent.Agent(httpsagent)
 
+    var options = {
+      'method': 'GET',
+      'url': `https://www.melhorenvio.com.br/api/v2/me/shipment/app-settings`,
+      'headers': {
+        'Accept': 'application/json',
+        'Authorization': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImIxMTAzYWZiNGJhNWY5N2U0ZWE1ZGVhZWUwODE3YzczZGU2ZmYzMGQ1NThhZDM1MGVmOWIyZWU4N2VjZjk0OGFlNTcxNjg2YTZhODVmZDVmIn0.eyJhdWQiOiI2NjI3IiwianRpIjoiYjExMDNhZmI0YmE1Zjk3ZTRlYTVkZWFlZTA4MTdjNzNkZTZmZjMwZDU1OGFkMzUwZWY5YjJlZTg3ZWNmOTQ4YWU1NzE2ODZhNmE4NWZkNWYiLCJpYXQiOjE2NDQyNzkyMzQsIm5iZiI6MTY0NDI3OTIzNCwiZXhwIjoxNjQ2ODcxMjM0LCJzdWIiOiJmODQyZjAxNy0zZjc1LTRkZDAtOGJkYi03NDkyNTU2MzkwMzciLCJzY29wZXMiOlsiY2FydC1yZWFkIiwiY2FydC13cml0ZSIsImNvbXBhbmllcy1yZWFkIiwiY29tcGFuaWVzLXdyaXRlIiwiY291cG9ucy1yZWFkIiwiY291cG9ucy13cml0ZSIsIm5vdGlmaWNhdGlvbnMtcmVhZCIsIm9yZGVycy1yZWFkIiwicHJvZHVjdHMtcmVhZCIsInByb2R1Y3RzLXdyaXRlIiwicHVyY2hhc2VzLXJlYWQiLCJzaGlwcGluZy1jYWxjdWxhdGUiLCJzaGlwcGluZy1jYW5jZWwiLCJzaGlwcGluZy1jaGVja291dCIsInNoaXBwaW5nLWNvbXBhbmllcyIsInNoaXBwaW5nLWdlbmVyYXRlIiwic2hpcHBpbmctcHJldmlldyIsInNoaXBwaW5nLXByaW50Iiwic2hpcHBpbmctc2hhcmUiLCJzaGlwcGluZy10cmFja2luZyIsImVjb21tZXJjZS1zaGlwcGluZyIsInRyYW5zYWN0aW9ucy1yZWFkIiwidXNlcnMtcmVhZCIsInVzZXJzLXdyaXRlIiwid2ViaG9va3MtcmVhZCIsIndlYmhvb2tzLXdyaXRlIl19.xTnO_jESNHmjCWyuX20-OZdYlSG3-F7XcGI1S52qoQuwqiu70w5K6Tjs3qpy76FPkB5mRdO5HUEASfpIYQAgRy8e-KlU9Cm0IVd7ddwNyfg2ll0-h96e2NYLRqbohEQAuWUbDrtRmbkmU-kcx3ZuQ4MJlT4sM5HwH3sfTvQ-DGXGRibbJixHWlxBorG3u5Yh62288VETJ0Vt7vPCFqXkRWfY0SiGfrEpmvxsXxAN0VeUKkeZQDuplpBaJrgWnhRv4fstM56r3cOR8dO6vkcnfNilmjYFH2kBZTJbQFpV8TMC207NWZ4v2t6RJ7qciGmA04Qf52fetzeF3OsCM5uDmESm9Cp3QtYxWN_Rcb2QVnq_uT13j5hHjjzQMg7uGjoK4WXpI_kg5tRLnmwhF1Y5XkVjJPf0LWryP1ZsGjABCTY4oznkEPD6DT5ae0MXIZlcWv16m8OODQFdFEBMjHa-VSlUTvLQ_eYJT1URx0x0mOjltyVPCigWknQVGFVfXNVtMO2Wcwtr_0QEdkCUsWUPdmS7PNlOL12ThMYOwSLUH1s7tHXj7550CRY4Y_MbZ1-EwahcJ7CMbtkjsgnBEPFOqzxY14px3zTRIT4BkcQULZ1fs5ihtNZHWmRskVjySlnb1O3UgN7wq94jgYQgjoTAyNA1hvak-Cy3VnkMIGu5krw`,
+        'User-Agent': 'CriaLuth kayrodanyell@gmail.com'
+      },
+      
+    };
+    
     request(options, function (error, response) {
       if (error) throw new Error(error);
       console.log(response.body);
