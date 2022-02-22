@@ -152,8 +152,8 @@ var trash = document.getElementById('excluiProd')
 
 async function shipValues(){
 
-    var clientCEP = document.getElementById('clientCEP').value
-    var itensInCart = parseInt(sessionStorage.getItem('itensInCart'))    
+    const clientCEP = document.getElementById('clientCEP').value
+    const itensInCart = parseInt(sessionStorage.getItem('itensInCart'))    
 
     config = {
         method: "POST",
@@ -164,10 +164,10 @@ async function shipValues(){
              })
     }
 
-    var shipValues = await fetch('https://www.crialuth.com/shipcalc', config)
+    var shipValues = await shipCalc("03683000",clientCEP,itensInCart)
     console.log("🚀 ~ file: carrinho.js ~ line 171 ~ shipValues ~ shipValues", shipValues)
     
-    var json = await shipValues.json()
+    //var json = await shipValues.json()
 
     
     var tabela = document.getElementById('shippings')
@@ -551,7 +551,8 @@ async function shipCart(){
         body:JSON.stringify(menvBody)
     }
 
-    var  result = await fetch('https://www.crialuth.com/shipcart', options)
+    var  result = await shipCart(menvBody)
+    console.log('result: '+result)
     
 }
 // valor do frete

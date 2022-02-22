@@ -35,8 +35,8 @@ axios.interceptors.response.use(response => {
 })*/
 var token = pegaToken()
 
-const MontaReqs = new Reqs();
-MontaReqs.init()
+/* const MontaReqs = new Reqs();
+MontaReqs.init() */
 
 
 async function pegaToken(){
@@ -54,8 +54,8 @@ async function pegaToken(){
   await checkTokenExp()
   //console.log(token)
   //console.log(token.dataValues.expDate)
-  me.setToken = token.token
-  return token.token
+  /////////me.setToken = token.token
+  return token
 
   //console.log('me.bearer'+ me.bearer)
 }
@@ -144,7 +144,7 @@ async function appInfo(){
 
 //CONFERIR O CERTIFICADO SSL ESTÁ RETORNANDO ERRO NO MELHORNEVIO POR CAUSA DISSO
 
-async function saveToken(tokenObj){
+/* async function saveToken(tokenObj){
 
   try{
       console.log('CHEGOU NO SAVETOKEN')
@@ -163,7 +163,7 @@ async function saveToken(tokenObj){
     return err
 
   }
-}
+} */
 
 async function shipTokenReq(code){
   
@@ -212,7 +212,7 @@ async function shipTokenReq(code){
       return err
   }
 }
-
+/* 
 async function shipToken(code){
   const me = new melhorEnvioSdk({
       client_id: this.client_id,
@@ -250,7 +250,7 @@ async function shipToken(code){
       console.log('ERRO NO SHIPTOKEN: '+ err)
       return err
   }
-}
+} */
 
 
 
@@ -259,11 +259,11 @@ async function shipToken(code){
 
 //!TESTAR DISPARAR AS FUNÇÕES SHItOKEN E AUTHENTICATE VIA API COM SERVER RODANDO PARA GUARDAR NO BANCO, NAO HA MAIS ERROS DE TIPAGEM
 
-async function refreshToken(){
+async function refreshToken(tokenRefresh) {
   console.log('====================== chegou no refreshtoken =============================')
   try {
 
-    let refresh_token =  apiTokens.findOne({
+    /* let refresh_token =  apiTokens.findOne({
       where: {
           api: "menv"
           }
@@ -272,7 +272,7 @@ async function refreshToken(){
       })
 
     const tokenRefresh = await me.auth.refreshToken(refresh_token.refreshToken)
-    
+     */
      var newToken = {
                     "api":"menv",
                     "token":tokenRefresh.dataValues.access_token,
@@ -302,9 +302,11 @@ async function shipCalc(senderCEP,receiverCEP,quant){
   checkTokenExp()
   //quant = 1
   console.log('me.bearer dentro de shipcalc: '+JSON.stringify(me.bearer))
+
   var peso = parseFloat(quant * 0.5)
-    console.log('peso: '+peso)
-    if (quant <= 3 ){
+  console.log('peso: '+peso)
+
+  if (quant <= 3 ){
     var boxDimens = {
         "height": 19,
         "width": 28,
@@ -319,6 +321,7 @@ async function shipCalc(senderCEP,receiverCEP,quant){
       "weight": peso
     }
   }  
+
   var payload = {
     "from": {
       "postal_code": senderCEP
@@ -331,12 +334,12 @@ async function shipCalc(senderCEP,receiverCEP,quant){
   //console.log(payload)
   
   try{
-    var boxDimensTeste = {
+    /* var boxDimensTeste = {
       "height": 19,
       "width": 28,
       "length": 36,
       "weight": 1
-  }
+    }
     var payloadTeste = {
       "from": {
         "postal_code": "03683000"
@@ -345,7 +348,8 @@ async function shipCalc(senderCEP,receiverCEP,quant){
         "postal_code": "30662523"
       },
       "package": boxDimensTeste//! ADICIONAR CONFIGURAÇÂO PARA MAIS DE 1 CAIXA
-    }
+    } */
+
     const shipcalc = await me.shipment.calculate(payload,me.bearer)
     console.log('SHIPCALC================='+shipcalc)
     console.log('JSON SHIPCALC==================='+shipcalc)
