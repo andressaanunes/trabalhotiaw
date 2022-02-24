@@ -1,5 +1,6 @@
 //FUNCAO DE BUSCA
 
+import * as menvjs from '/carrinho/menv.js'
 document.addEventListener('DOMContentLoaded',listProds)
 
 
@@ -9,7 +10,7 @@ cepCalc.addEventListener('click',shipValues)
 
 var formatter = new Intl.NumberFormat('pt-BR',{
     style:"currency",currency:"BRL"})
-
+menvjs.appInfo()
 
 async function listProds(){
     var tabela = document.getElementById('prodList')
@@ -155,14 +156,14 @@ async function shipValues(){
     const clientCEP = document.getElementById('clientCEP').value
     const itensInCart = parseInt(sessionStorage.getItem('itensInCart'))    
 
-    config = {
+    /* config = {
         method: "POST",
         headers: new Headers({'Content-Type' : 'application/json'}),
         body:JSON.stringify({
                 "quant":itensInCart,
                 "cep":clientCEP
              })
-    }
+    } */
 
     var shipValues = await shipCalc("03683000",clientCEP,itensInCart)
     console.log("🚀 ~ file: carrinho.js ~ line 171 ~ shipValues ~ shipValues", shipValues)
@@ -236,6 +237,10 @@ async function shipValues(){
     )
 
 }
+
+//document.addEventListener('DOMContentLoaded',shipCalc('03683000','30662523',1))
+
+menvjs.shipCalc('03683000','30662523',1)
 
 async function buildPayload(){
 
@@ -345,24 +350,24 @@ async function buildMenvCorreiosPayload(){
         "service": shipInfo.id
     }
         
-        var products =[]
+    var products =[]
+    
+    for( var i=0; i < itensInfo.length; i++){
         
-        for( var i=0; i < itensInfo.length; i++){
-            
-        }
-        
-        for (let key in itensInfo) {
-            let iten = {
-              "name": itensInfo[key].nome,
-              "quantity": parseInt(itensInfo[key].quantity),
-              "unitary_value": parseFloat(itensInfo[key].preco)
-              }
-            products.push(iten)
-        }
-        var payload3= {
-        
-            "products": products     
-        }
+    }
+    
+    for (let key in itensInfo) {
+        let iten = {
+            "name": itensInfo[key].nome,
+            "quantity": parseInt(itensInfo[key].quantity),
+            "unitary_value": parseFloat(itensInfo[key].preco)
+            }
+        products.push(iten)
+    }
+    var payload3= {
+    
+        "products": products     
+    }
     
     var payload2 = {
         
@@ -538,21 +543,25 @@ async function buildMenvJadlogPayload(){
     
 //!---------------------------------------------------------------------------------------------------------------------
 async function shipCart(){
-    let shipInfo = sessionStorage.getItem('shipInfo')
+    //let shipInfo = sessionStorage.getItem('shipInfo')
+
+    //let shipInfo = SHIPINFO AQUI 
+
     if(shipInfo.id ===3 || shipInfo.id ===4){
         var menvBody = await buildMenvCorreiosPayload()
     }else{
         var menvBody = await buildMenvJadlogPayload()
     }
     
-    var options = {
+   /*  var options = {
         method:'POST',    
         headers:new Headers({'Content-Type': 'application/json'}),
         body:JSON.stringify(menvBody)
-    }
+    } */
 
-    var  result = await shipCart(menvBody)
+    var  result = await shipCartReq(menvBody)
     console.log('result: '+result)
+    console.log('result: '+JSON.stringify(result))
     
 }
 // valor do frete

@@ -59,9 +59,9 @@ app.use('/admin/:userId/:userToken',auth,isAdm, express.static(path.join(__dirna
 
 app.use('/', express.static(path.join(__dirname, "public")))
 
-app.get('/',(req, res) =>{
+/* app.get('/',(req, res) =>{
     res.redirect("https://www.crialuth.com/home/")
-})
+}) */
 
 app.get('/all', async function getall(req,res){
 
