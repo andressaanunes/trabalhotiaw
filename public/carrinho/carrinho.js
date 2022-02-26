@@ -10,7 +10,7 @@ cepCalc.addEventListener('click',shipValues)
 
 var formatter = new Intl.NumberFormat('pt-BR',{
     style:"currency",currency:"BRL"})
-menvjs.appInfo()
+
 
 async function listProds(){
     var tabela = document.getElementById('prodList')
@@ -165,10 +165,10 @@ async function shipValues(){
              })
     } */
 
-    var shipValues = await shipCalc("03683000",clientCEP,itensInCart)
+    var shipValues = await menvjs.shipCalc("03683000",clientCEP,itensInCart)
     console.log("🚀 ~ file: carrinho.js ~ line 171 ~ shipValues ~ shipValues", shipValues)
     
-    //var json = await shipValues.json()
+    var json = await shipValues.json()
 
     
     var tabela = document.getElementById('shippings')
@@ -208,6 +208,7 @@ async function shipValues(){
         var shipId = parseInt(form.shipValue.value)
 
         for(item in json ){
+            
 
             if(json[item].id == shipId){
                 sessionStorage.setItem('shipInfo',JSON.stringify(json[item]))
@@ -240,7 +241,7 @@ async function shipValues(){
 
 //document.addEventListener('DOMContentLoaded',shipCalc('03683000','30662523',1))
 
-menvjs.shipCalc('03683000','30662523',1)
+document.getElementById('shipCartBtn').addEventListener('click',shipCart)
 
 async function buildPayload(){
 
@@ -539,11 +540,11 @@ async function buildMenvJadlogPayload(){
       const menvBody = {...payload1,...payload2,...payload3,...payload4,...payload5}
       
       return menvBody
-    }
+}
     
 //!---------------------------------------------------------------------------------------------------------------------
 async function shipCart(){
-    //let shipInfo = sessionStorage.getItem('shipInfo')
+    let shipInfo = sessionStorage.getItem('shipInfo')
 
     //let shipInfo = SHIPINFO AQUI 
 
@@ -559,10 +560,10 @@ async function shipCart(){
         body:JSON.stringify(menvBody)
     } */
 
-    var  result = await shipCartReq(menvBody)
-    console.log('result: '+result)
-    console.log('result: '+JSON.stringify(result))
-    
+    var  result = await menvjs.shipCartReq(menvBody)
+    console.log('result: ',result)
+    console.log('result: ',JSON.stringify(result))
+    return result
 }
 // valor do frete
 
@@ -645,7 +646,7 @@ async function apiPagseguro(){
             //O código da transação estará na variável "transactionCode"
              
             var shipping = await shipCart()
-            console.log(shipping)
+            console.log('resultado shipCart',shipping)
             console.log("Compra feita com sucesso, código de transação: " + transactionCode);
         },
         abort : function() {

@@ -145,11 +145,11 @@ async function shipCalc(senderCEP,receiverCEP,quant){
       };
       
     var response = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/calculate`, requestOptions)
-    let res = await response.json()
-    console.log(response)
-    console.log('response json',res)
-    console.log(JSON.stringify(response))
-    return response.data
+    //let res = await response.json()
+    console.log(response.data)
+    //console.log('response json',res)
+    //console.log(JSON.stringify(response))
+    return response
   }catch(error){
       console.log(error)
       return error
@@ -161,7 +161,7 @@ async function shipCalc(senderCEP,receiverCEP,quant){
 
 async function shipCartReq(info){
     
-    checkTokenExp()
+    //checkTokenExp()
   
     try{
       console.log(info)
@@ -171,6 +171,7 @@ async function shipCartReq(info){
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Authorization", `Bearer ${me.bearer.access_token}`);
       myHeaders.append("User-Agent", me.user_agent);
+      myHeaders.append("Access-Control-Allow-Origin","*")
 
       var requestOptions = {
         method: 'POST',
@@ -179,9 +180,9 @@ async function shipCartReq(info){
         redirect: 'follow'
       };
       
-      let res = fetch(`${me.sandboxUrl}/api/v2/me/cart`, requestOptions)
+      let res = await fetch(`${me.sandboxUrl}/api/v2/me/cart`, requestOptions)
       console.log(res) 
-      const respo = shipCheckout(res.data.id)
+      const respo = await shipCheckout(res.id)
       return {'respocheckout':respo,'resCart':res} 
     }catch(error){
       
@@ -216,7 +217,7 @@ async function shipCartReq(info){
     try {
       
       const respo = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/checkout`, config)
-      console.log('RESPOTA SHIPCHECKOUT'+respo)
+      console.log('RESPOTA SHIPCHECKOUT',respo)
       return respo
   
     }catch(error){
@@ -257,4 +258,5 @@ async function appInfo(){
 
 }
 
-  export {appInfo,shipCalc,shipCartReq,menvShipCheckout,refreshToken}
+
+export {appInfo,shipCalc,shipCartReq,menvShipCheckout,refreshToken}
