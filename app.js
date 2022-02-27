@@ -398,7 +398,7 @@ app.post('/pagamento', auth, async (req,res) => {
         console.log('reqOptions'+reqOptions)
 
         //!COLOCAR O TOKEN DE PRODUCAO E EMAIL TABMÉM
-        var code = await axios('https://ws.sandbox.pagseguro.uol.com.br/v2/checkout?email=matheuscabralu1990@gmail.com&token=444628ad-3cc3-4716-8e6f-6016d2eb25a759820efe445d91de7417fc0bafab0c8b376e-9f2d-4c65-b797-de9a338e2742',reqOptions)
+        var code = await axios('https://ws.pagseguro.uol.com.br/v2/checkout?email=matheuscabralu1990@gmail.com&token=444628ad-3cc3-4716-8e6f-6016d2eb25a759820efe445d91de7417fc0bafab0c8b376e-9f2d-4c65-b797-de9a338e2742',reqOptions)
 
     
        var codigo = JSON.stringify(code.data)
