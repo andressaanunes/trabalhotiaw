@@ -241,7 +241,7 @@ async function shipValues(){
 
 //document.addEventListener('DOMContentLoaded',shipCalc('03683000','30662523',1))
 
-document.getElementById('shipCartBtn').addEventListener('click',shipCart)
+//document.getElementById('shipCartBtn').addEventListener('click',shipCart)
 
 async function buildPayload(){
 
