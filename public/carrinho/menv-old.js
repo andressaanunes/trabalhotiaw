@@ -25,6 +25,40 @@ async function buscaToken(){
 
 }
 
+async function checkTokenExp(){    
+ 
+  /* let tokenObj = await apiTokens.findAll({
+    where: {
+        api: "menv"
+        }
+    }).then(res => {
+      console.log('res',res)
+      return res[0]
+    })
+ */
+   let tokenObj = buscaToken()
+  //console.log('TOKENOBJ  ='+ tokenObj)    
+  let date = dayjs().format('YYYY-MM-DD')
+  let isSame = date === tokenObj.expDate ? true : false
+  //console.log(date)
+  //console.log(tokenObj.expDate)
+  console.log(isSame)
+
+  if (isSame) {
+
+    await refreshToken()
+    
+  }else{
+
+    return isSame // false
+
+  }
+
+
+}
+
+
+
 async function getToken(code){
   //https://sandbox.melhorenvio.com.br/oauth/authorize?client_id=2382&redirect_uri=https://www.crialuth.com/shiptoken&response_type=code&scope=cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write
   var myHeaders = new Headers();
@@ -85,6 +119,8 @@ async function refreshToken(){
         console.log('tokenRefreshed'+JSON.stringify(tokenRefreshed))
      
         await buscaToken()
+        return true
+
     }catch (error) {
   
       console.log(error)
@@ -95,7 +131,7 @@ async function refreshToken(){
   }
 
 async function shipCalc(senderCEP,receiverCEP,quant){
-    
+  checkTokenExp()
   try{ 
     var peso = parseFloat(quant * 0.5)
     console.log('peso: '+peso)
@@ -145,7 +181,17 @@ async function shipCalc(senderCEP,receiverCEP,quant){
       };
       
     var response = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/calculate`, requestOptions)
-    //let res = await response.json()
+    let res = await response.json()
+    console.log('res: ', res)
+
+    if(res.message  == 'Unauthenticated'){
+
+      checkTokenExp()
+
+      response = await shipCalc(senderCEP,receiverCEP,quant)
+
+    }
+
     console.log(response.data)
     //console.log('response json',res)
     //console.log(JSON.stringify(response))
@@ -161,7 +207,7 @@ async function shipCalc(senderCEP,receiverCEP,quant){
 
 async function shipCartReq(info){
     
-    //checkTokenExp()
+    checkTokenExp()
   
     try{
       console.log(info)
@@ -182,6 +228,15 @@ async function shipCartReq(info){
       
       let res = await fetch(`${me.sandboxUrl}/api/v2/me/cart`, requestOptions)
       console.log(res) 
+      
+      if(res.message  == 'Unauthenticated'){
+
+        checkTokenExp()
+  
+        res = await shipCartReq(info)
+  
+      }
+
       const respo = await shipCheckout(res.id)
       return {'respocheckout':respo,'resCart':res} 
     }catch(error){
@@ -193,6 +248,8 @@ async function shipCartReq(info){
   }
   
   async function shipCheckout(id){
+
+    checkTokenExp()
     
     var data = {
       "orders": [
@@ -216,7 +273,13 @@ async function shipCartReq(info){
   
     try {
       
-      const respo = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/checkout`, config)
+      let respo = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/checkout`, config)
+
+      if(respo.message  == 'Unauthenticated'){
+        checkTokenExp()
+        respo = await shipCheckout(id)
+      }
+
       console.log('RESPOTA SHIPCHECKOUT',respo)
       return respo
   
@@ -228,6 +291,7 @@ async function shipCartReq(info){
   }
   
   async function menvShipCheckout(id){
+
     var data = {
       "orders": [
         id 

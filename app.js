@@ -345,7 +345,7 @@ app.post('/refreshshiptoken', async (req,res)=>{
         console.log('refreshShipToken'+req.body)
         const refreshToken = await shipping.refreshToken(req.body)
         console.log(refreshToken)
-        res.send('')
+        res.send(refreshToken)
     }catch(err) { 
         res.error(err)
     }
