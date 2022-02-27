@@ -210,7 +210,7 @@ async function shipValues(){
         for(var item of json ){
             
 
-            if(json[item].id == shipId){
+            if(item.id == shipId){
                 sessionStorage.setItem('shipInfo',JSON.stringify(json[item]))
                 
             }
