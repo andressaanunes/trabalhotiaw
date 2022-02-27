@@ -207,7 +207,7 @@ async function shipValues(){
         var shipTotal = document.getElementById('shiptotal')
         var shipId = parseInt(form.shipValue.value)
 
-        for(item of json ){
+        for(var item of json ){
             
 
             if(json[item].id == shipId){
