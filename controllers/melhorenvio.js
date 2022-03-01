@@ -275,9 +275,9 @@ async function refreshToken(tokenRefresh) {
      */
      var newToken = {
                     "api":"menv",
-                    "token":tokenRefresh.dataValues.access_token,
-                    "refreshToken":tokenRefresh.dataValues.refresh_token,
-                    "expDate": dayjs().add(tokenRefresh.dataValues.expires_in,'seconds').format()
+                    "token":tokenRefresh.access_token,
+                    "refreshToken":tokenRefresh.refresh_token,
+                    "expDate": dayjs().add(tokenRefresh.expires_in,'seconds').format()
      }
     apiTokens.destroy({where:{api:'menv'}})
 
