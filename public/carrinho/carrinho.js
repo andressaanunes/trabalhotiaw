@@ -220,7 +220,7 @@ async function shipValues(){
             
 
             if(item.id == shipId){
-                sessionStorage.setItem('shipInfo',JSON.stringify(json[item]))
+                sessionStorage.setItem('shipInfo',JSON.stringify(item))
                 
             }
 

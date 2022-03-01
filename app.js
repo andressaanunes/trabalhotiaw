@@ -409,10 +409,8 @@ app.post('/pagamento', auth, async (req,res) => {
     }catch(err){
 
         console.log(err)
-
-            }            
-        },
-    )
+    }            
+})
 
 
 module.exports = app	
