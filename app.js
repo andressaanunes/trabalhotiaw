@@ -338,6 +338,7 @@ app.get('/getToken', async (req,res)=>{
         console.log("🚀 ~ file: app.js ~ line 286 ~ app.get ~ shipToken", shipToken)
         return res.send(shipToken)
     }catch (error) {
+        console.log("🚀 ~ file: app.js ~ line 286 ~ app.get ~ shipToken", error)
         return res.status(401).send(error)
     }
 

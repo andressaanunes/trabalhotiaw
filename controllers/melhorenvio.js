@@ -443,6 +443,7 @@ testeReq()
 
 module.exports = {
   //shipToken: shipToken,
+  pegaToken: pegaToken,
   appInfo: appInfo,
   shipTokenReq: shipTokenReq,  
   authenticate: authenticate,
