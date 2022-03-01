@@ -317,6 +317,8 @@ app.get('/shiptoken/', async (req,res)=>{
 
     console.log(req.query.code)
     console.log("CHEGOU AQUI SHIPTOKEN-CODE")
+    res.send(req.query.code)
+    
     //console.log("parametros " + JSON.stringify(req.params.code))
    
     /* let code = req.query.code

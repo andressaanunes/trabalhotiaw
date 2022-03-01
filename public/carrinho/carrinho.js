@@ -1,6 +1,7 @@
 //FUNCAO DE BUSCA
 
-import * as menvjs from '/carrinho/menv.js'
+import * as menvjs from '/carrinho/menv-old.js'
+console.log('import * as menvjs from "/carrinho/menv-old.js"')
 document.addEventListener('DOMContentLoaded',listProds)
 
 
