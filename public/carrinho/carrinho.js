@@ -4,6 +4,7 @@ import * as menvjs from '/carrinho/menv-old.js'
 console.log('import * as menvjs from "/carrinho/menv-old.js"')
 document.addEventListener('DOMContentLoaded',listProds)
 
+menvjs.buscaToken()
 
 var cepCalc = document.getElementById('cepCalc')
 cepCalc.addEventListener('click',shipValues)

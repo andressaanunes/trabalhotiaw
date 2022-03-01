@@ -14,8 +14,13 @@ const me = {
 
 async function buscaToken(){
 
-  const token = await fetch('https://www.crialuth.com/getToken');
-  console.log(token)
+  const myHeaders = new Headers();
+  myHeaders.append("Access-Control-Allow-Origin","*")
+  let options = {
+    headers : myHeaders
+  }
+  const token = await fetch('https://www.crialuth.com/getToken',options);
+  console.log('token',token)
   me.bearer = token   
 
 }
@@ -263,4 +268,4 @@ fetch(`${me.sandboxUrl}/api/v2/me/shipment/app-settings`, requestOptions)
 }
 
 
-export {appInfo,shipCalc,shipCartReq,menvShipCheckout,getToken,refreshToken}
+export {appInfo,shipCalc,shipCartReq,menvShipCheckout,getToken,refreshToken,buscaToken}

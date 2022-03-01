@@ -50,7 +50,7 @@ async function pegaToken(){
       return res[0]
     })
   
-  //console.log('TOKEN = '+ token)
+  console.log('TOKEN = ', token)
   await checkTokenExp()
   //console.log(token)
   //console.log(token.dataValues.expDate)
