@@ -19,7 +19,8 @@ async function buscaToken(){
   let options = {
     headers : myHeaders
   }
-  const token = await fetch('https://www.crialuth.com/getToken',options);
+  let token = await fetch('https://www.crialuth.com/getToken',options);
+  token = await token.json()
   console.log('token',token)
   me.bearer = token   
 
