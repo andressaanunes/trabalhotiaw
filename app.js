@@ -335,6 +335,7 @@ app.get('/getToken', async (req,res)=>{
 
     try{
         const shipToken = await shipping.pegaToken()
+        console.log("🚀 ~ file: app.js ~ line 286 ~ app.get ~ shipToken", shipToken)
         return res.send(shipToken)
     }catch (error) {
         return res.status(401).send(error)

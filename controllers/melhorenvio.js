@@ -67,13 +67,13 @@ async function checkTokenExp(){
           api: "menv"
           }
       }).then(res => {
-        console.log('res',res)
+        console.log('res',res[0])
         return res[0]
       })
 
     //console.log('TOKENOBJ  ='+ tokenObj)    
     let date = dayjs().format('YYYY-MM-DD')
-    let isSame = date === tokenObj.expDate ? true : false
+    let isSame = date === tokenObj.dataValues.expDate ? true : false
     //console.log(date)
     //console.log(tokenObj.expDate)
     console.log(isSame)
