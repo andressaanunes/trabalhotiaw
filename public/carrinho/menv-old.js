@@ -69,7 +69,7 @@ async function refreshToken(){
 
       const formdata = new FormData();
       formdata.append("grant_type", "refresh_token");
-      formdata.append("refresh_token", me.bearer.refresh_token);
+      formdata.append("refresh_token", me.bearer.refreshToken);
       formdata.append("client_id", me.sandboxClient_id);
       formdata.append("client_secret", me.sandboxClient_secret);
 
@@ -143,7 +143,7 @@ var payload = {
   const myHeaders = new Headers();
   myHeaders.append("Accept", "application/json");
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", `Bearer ${me.bearer.access_token}`);
+  myHeaders.append("Authorization", `Bearer ${me.bearer.token}`);
   myHeaders.append("User-Agent", me.user_agent);
   myHeaders.append("Access-Control-Allow-Origin","*")
 
@@ -181,7 +181,7 @@ async function shipCartReq(info){
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${me.bearer.access_token}`);
+    myHeaders.append("Authorization", `Bearer ${me.bearer.token}`);
     myHeaders.append("User-Agent", me.user_agent);
     myHeaders.append("Access-Control-Allow-Origin","*")
 
@@ -219,7 +219,7 @@ async function shipCheckout(id){
     headers: { 
       'Accept': 'application/json', 
       'Content-Type': 'application/json', 
-      'Authorization': 'Bearer '+me.bearer.access_token, 
+      'Authorization': 'Bearer '+me.bearer.token, 
       'User-Agent': me.user_agent
     },
     data : data
@@ -254,7 +254,7 @@ async function menvShipCheckout(id){
 async function appInfo(){
 let myHeaders = new Headers();
 myHeaders.append("Accept", "application/json");
-myHeaders.append("Authorization", `Bearer ${me.bearer.access_token}`);
+myHeaders.append("Authorization", `Bearer ${me.bearer.token}`);
 myHeaders.append("User-Agent", me.user_agent);
 
 let requestOptions = {
