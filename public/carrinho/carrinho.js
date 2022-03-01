@@ -96,6 +96,15 @@ async function excluirProduto(btn){
 
 }
 
+async function getToken(){
+    await menvjs.getToken()
+}
+document.getElementById('btnGetToken').addEventListener('click',getToken)
+
+async function refreshToken(){
+    await menvjs.refreshToken()
+}
+document.getElementById('refreshTokenBtn').addEventListener('click',refreshToken)
 
 function changeItensInCart(){
     let newQuantity = 0
