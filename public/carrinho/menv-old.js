@@ -155,9 +155,9 @@ var payload = {
     };
     
   var response = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/calculate`, requestOptions)
-  let res = await response.json()
+  /* let res = await response.json()
   console.log('res',res)
-  console.log('res.message',res.message)
+  console.log('res.message',res.message) */
   console.log(response.data)
   //console.log('response json',res)
   //console.log(JSON.stringify(response))
