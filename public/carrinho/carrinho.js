@@ -210,49 +210,57 @@ async function shipValues(){
     <button style="margin:5px;" id="btn-salvar" class="btn btn-primary" type="button">Selecionar Frete</button>
     <p id = "shiptotal">Valor do Frete:</p>`
     var totalPrice = 0
-    var shipSelect = document.getElementById('btn-salvar')
-
-    shipSelect.addEventListener('click',(event)=>{
-        event.preventDefault()
-        
-        var form = document.getElementById('shippingForm')
-        var shipTotal = document.getElementById('shiptotal')
-        var shipId = parseInt(form.shipValue.value)
-
-        for(var item of json ){
-            
-
-            if(item.id == shipId){
-                sessionStorage.removeItem('shipInfo')
-                sessionStorage.setItem('shipInfo',JSON.stringify(item))
-                
-            }
-
-        }
-        
-        var shipValue = JSON.parse(sessionStorage.getItem('shipInfo'))
-        shipTotal.innerHTML += ` R$${formatter.format(shipValue.price)}`
-        totalPrice += parseFloat(shipValue.price)
-
-
-        var subTotal =  document.querySelector('#subTotal').innerHTML
-        subTotal = subTotal.replace('R$&nbsp;','')
-        subTotal = subTotal.replace(',','.')
-        console.log(totalPrice)
-        var conta = parseFloat(subTotal)+totalPrice
-        console.log(conta)
-        tabela.innerHTML +=
-    `<div>
-        <div>
-            <p class="text-end"><strong>Total:  </strong><strong>${formatter.format(conta)}</strong></p>
-        </div>
-     </div>   `
-        }
-    )
 
 }
 
 //document.addEventListener('DOMContentLoaded',shipCalc('03683000','30662523',1))
+
+var shipSelect = document.getElementById('btn-salvar')
+
+shipSelect.addEventListener('click',(event)=>{
+    event.preventDefault()
+    
+    var form = document.getElementById('shippingForm')
+    var shipTotal = document.getElementById('shiptotal')
+    var shipId = parseInt(form.shipValue.value)
+
+    for(var item of json ){
+        
+
+        if(item.id == shipId){
+            sessionStorage.removeItem('shipInfo')
+            sessionStorage.setItem('shipInfo',JSON.stringify(item))
+            
+        }
+
+    }
+    
+    var shipValue = JSON.parse(sessionStorage.getItem('shipInfo'))
+    shipTotal.innerHTML += ` R$${formatter.format(shipValue.price)}`
+    totalPrice += parseFloat(shipValue.price)
+
+
+    var subTotal =  document.querySelector('#subTotal').innerHTML
+    subTotal = subTotal.replace('R$&nbsp;','')
+    subTotal = subTotal.replace(',','.')
+    console.log(totalPrice)
+    var conta = parseFloat(subTotal)+totalPrice
+    console.log(conta)
+    tabela.innerHTML +=
+    `<div>
+        <div>
+            <p class="text-end"><strong>Total:  </strong><strong>${formatter.format(conta)}</strong></p>
+        </div>
+    </div>   `
+        }
+)
+
+
+
+
+
+
+
 
 document.getElementById('shipCartBtn').addEventListener('click',shipCart)
 
