@@ -1,7 +1,8 @@
 //FUNCAO DE BUSCA
 
-import * as menvjs from '/carrinho/menv-old.js'
-console.log('import * as menvjs from "/carrinho/menv-old.js"')
+import * as menvjs from '/carrinho/menv.js'
+console.log('import * as menvjs from "/carrinho/menv.js"')
+
 document.addEventListener('DOMContentLoaded',listProds)
 
 menvjs.buscaToken()
