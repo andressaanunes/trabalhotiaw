@@ -1,9 +1,9 @@
 const me = {
-  client_id: '6627',
+  Client_id: '6627',
   sandboxClient_id: '2382',
-  client_secret: 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK',
+  Client_secret: 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK',
   sandboxClient_secret: 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps',
-  url : 'https://www.melhorenvio.com.br',
+  Url : 'https://www.melhorenvio.com.br',
   sandboxUrl : 'https://sandbox.melhorenvio.com.br',
   user_agent : 'CriaLuth kayrodanyell@gmail.com',
   sandbox: false,
@@ -37,8 +37,8 @@ async function getToken(){
 
   var formdata = new FormData();
   formdata.append("grant_type", "authorization_code");
-  formdata.append("client_id", me.sandboxClient_id);
-  formdata.append("client_secret", me.sandboxClient_secret);
+  formdata.append("client_id", me.Client_id);
+  formdata.append("client_secret", me.Client_secret);
   formdata.append("redirect_uri", me.redirect_uri);
   formdata.append("code", code);
 
@@ -49,7 +49,7 @@ async function getToken(){
     redirect: 'follow'
   };
 
-  let tokenRes = await fetch(`${me.sandboxUrl}/oauth/token`, requestOptions)
+  let tokenRes = await fetch(`${me.Url}/oauth/token`, requestOptions)
   tokenRes = await tokenRes.json()
   console.log(tokenRes)
   me.bearer = tokenRes
@@ -70,8 +70,8 @@ async function refreshToken(){
       const formdata = new FormData();
       formdata.append("grant_type", "refresh_token");
       formdata.append("refresh_token", me.bearer.refreshToken);
-      formdata.append("client_id", me.sandboxClient_id);
-      formdata.append("client_secret", me.sandboxClient_secret);
+      formdata.append("client_id", me.Client_id);
+      formdata.append("client_secret", me.Client_secret);
 
       var requestOptions = {
           method: 'POST',
@@ -80,7 +80,7 @@ async function refreshToken(){
           redirect: 'follow'
       };
 
-      var response = await fetch(`${me.sandboxUrl}/oauth/token`, requestOptions)
+      var response = await fetch(`${me.Url}/oauth/token`, requestOptions)
       response = await response.json()
       console.log('ResponseRefreshToken',response);
 
@@ -154,7 +154,7 @@ var payload = {
       redirect: 'follow'
     };
     
-  var response = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/calculate`, requestOptions)
+  var response = await fetch(`${me.Url}/api/v2/me/shipment/calculate`, requestOptions)
   /* let res = await response.json()
   console.log('res',res)
   console.log('res.message',res.message) */
@@ -192,7 +192,7 @@ async function shipCartReq(info){
       redirect: 'follow'
     };
     
-    let res = await fetch(`${me.sandboxUrl}/api/v2/me/cart`, requestOptions)
+    let res = await fetch(`${me.Url}/api/v2/me/cart`, requestOptions)
     console.log(res) 
     const respo = await shipCheckout(res.id)
     return {'respocheckout':respo,'resCart':res} 
@@ -215,7 +215,7 @@ async function shipCheckout(id){
   var config = {
 
     method: 'post',
-    url: `${me.sandboxUrl}/api/v2/me/shipment/checkout`,
+    url: `${me.Url}/api/v2/me/shipment/checkout`,
     headers: { 
       'Accept': 'application/json', 
       'Content-Type': 'application/json', 
@@ -228,7 +228,7 @@ async function shipCheckout(id){
 
   try {
     
-    const respo = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/checkout`, config)
+    const respo = await fetch(`${me.Url}/api/v2/me/shipment/checkout`, config)
     console.log('RESPOTA SHIPCHECKOUT',respo)
     return respo
 
@@ -263,7 +263,7 @@ let requestOptions = {
   redirect: 'follow'
 };
 
-fetch(`${me.sandboxUrl}/api/v2/me/shipment/app-settings`, requestOptions)
+fetch(`${me.Url}/api/v2/me/shipment/app-settings`, requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
