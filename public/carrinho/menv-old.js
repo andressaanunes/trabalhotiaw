@@ -3,12 +3,12 @@ const me = {
   sandboxClient_id: '2382',
   client_secret: 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK',
   sandboxClient_secret: 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps',
+  url : 'https://www.melhorenvio.com.br',
+  sandboxUrl : 'https://sandbox.melhorenvio.com.br',
   user_agent : 'CriaLuth kayrodanyell@gmail.com',
   sandbox: false,
   bearer:'',
   redirect_uri: 'https://www.crialuth.com/shiptoken',
-  url : 'https://www.melhorenvio.com.br',
-  sandboxUrl : 'https://sandbox.melhorenvio.com.br',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 }  
 
@@ -27,33 +27,33 @@ async function buscaToken(){
 }
 
 async function getToken(){
-//https://sandbox.melhorenvio.com.br/oauth/authorize?client_id=2382&redirect_uri=https://www.crialuth.com/shiptoken&response_type=code&scope=cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write
-var myHeaders = new Headers();
-myHeaders.append("Accept", "application/json");
-myHeaders.append("User-Agent", me.user_agent);
+  //https://sandbox.melhorenvio.com.br/oauth/authorize?client_id=2382&redirect_uri=https://www.crialuth.com/shiptoken&response_type=code&scope=cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write
+  var myHeaders = new Headers();
+  myHeaders.append("Accept", "application/json");
+  myHeaders.append("User-Agent", me.user_agent);
 
-let code = document.getElementById("inputGetToken").value
-console.log(code);
+  let code = document.getElementById("inputGetToken").value
+  console.log(code);
 
-var formdata = new FormData();
-formdata.append("grant_type", "authorization_code");
-formdata.append("client_id", me.sandboxClient_id);
-formdata.append("client_secret", me.sandboxClient_secret);
-formdata.append("redirect_uri", me.redirect_uri);
-formdata.append("code", code);
+  var formdata = new FormData();
+  formdata.append("grant_type", "authorization_code");
+  formdata.append("client_id", me.sandboxClient_id);
+  formdata.append("client_secret", me.sandboxClient_secret);
+  formdata.append("redirect_uri", me.redirect_uri);
+  formdata.append("code", code);
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: formdata,
-  redirect: 'follow'
-};
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: formdata,
+    redirect: 'follow'
+  };
 
-let tokenRes = await fetch(`${me.sandboxUrl}/oauth/token`, requestOptions)
-tokenRes = await tokenRes.json()
-console.log(tokenRes)
-me.bearer = tokenRes
-localStorage.setItem('tokenMenv',tokenRes) 
+  let tokenRes = await fetch(`${me.sandboxUrl}/oauth/token`, requestOptions)
+  tokenRes = await tokenRes.json()
+  console.log(tokenRes)
+  me.bearer = tokenRes
+  localStorage.setItem('tokenMenv',tokenRes) 
 
 }
 
