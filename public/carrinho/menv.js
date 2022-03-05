@@ -126,3 +126,5 @@ async function appInfo()
 	}
 	)
 }
+
+export {appInfo,shipCalc,shipCartReq,menvShipCheckout,getToken,refreshToken,buscaToken}
