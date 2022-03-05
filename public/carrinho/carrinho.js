@@ -223,6 +223,7 @@ async function shipValues(){
             
 
             if(item.id == shipId){
+                sessionStorage.removeItem('shipInfo')
                 sessionStorage.setItem('shipInfo',JSON.stringify(item))
                 
             }
