@@ -209,15 +209,17 @@ async function shipValues(){
     
     <button style="margin:5px;" id="btn-salvar" class="btn btn-primary" type="button">Selecionar Frete</button>
     <p id = "shiptotal">Valor do Frete:</p>`
+    var shipSelect = document.getElementById('btn-salvar')
+    shipSelect.addEventListener('click',setShipInfo)
     var totalPrice = 0
 
 }
 
 //document.addEventListener('DOMContentLoaded',shipCalc('03683000','30662523',1))
 
-var shipSelect = document.getElementById('btn-salvar')
 
-shipSelect.addEventListener('click',(event)=>{
+
+    async function setShipInfo(event){
     event.preventDefault()
     
     var form = document.getElementById('shippingForm')
