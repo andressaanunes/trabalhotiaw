@@ -255,7 +255,7 @@ async function shipValues(){
         </div>
     </div>   `
         }
-)
+
 
 
 
