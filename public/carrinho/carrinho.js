@@ -15,6 +15,7 @@ var formatter = new Intl.NumberFormat('pt-BR',{
 
 
 async function listProds(){
+
     var tabela = document.getElementById('prodList')
     var item = sessionStorage.getItem('cartItems')    
     item = JSON.parse(item)
@@ -161,7 +162,7 @@ function prodQuant(item,itemQuant,itemPrice,itemIndex,itemId,itemPrecoUnit){
 
 var trash = document.getElementById('excluiProd')
 
-
+var json;
 async function shipValues(){
 
     const clientCEP = document.getElementById('clientCEP').value
@@ -176,10 +177,10 @@ async function shipValues(){
              })
     } */
 
-    var shipValues = await menvjs.shipCalc("03683000",clientCEP,itensInCart)
+    shipValues = await menvjs.shipCalc("03683000",clientCEP,itensInCart)
     console.log("🚀 ~ file: carrinho.js ~ line 171 ~ shipValues ~ shipValues", shipValues)
     
-    var json = await shipValues.json()
+    json = await shipValues.json()
 
     
     var tabela = document.getElementById('shippings')
@@ -211,7 +212,9 @@ async function shipValues(){
     var totalPrice = 0
     var shipSelect = document.getElementById('btn-salvar')
 
-    shipSelect.addEventListener('click',(event)=>{
+}
+
+shipSelect.addEventListener('click',(event)=>{
         event.preventDefault()
         
         var form = document.getElementById('shippingForm')
@@ -239,16 +242,15 @@ async function shipValues(){
         console.log(totalPrice)
         var conta = parseFloat(subTotal)+totalPrice
         console.log(conta)
-        tabela.innerHTML +=
-    `<div>
-        <div>
-            <p class="text-end"><strong>Total:  </strong><strong>${formatter.format(conta)}</strong></p>
-        </div>
-     </div>   `
-        }
-    )
-
-}
+        let total = document.getElementById('total')
+        total.innerHTML +=
+        `<div>
+            <div>
+                <p class="text-end"><strong>Total:  </strong><strong>${formatter.format(conta)}</strong></p>
+            </div>
+        </div>   `
+    }
+)
 
 //document.addEventListener('DOMContentLoaded',shipCalc('03683000','30662523',1))
 
