@@ -174,7 +174,7 @@ async function shipCalc(senderCEP,receiverCEP,quant){
         redirect: 'follow'
       };
       
-    var response = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/calculate`, requestOptions)
+    var response = await fetch(`${me.Url}/api/v2/me/shipment/calculate`, requestOptions)
     //let res = await response.json()
     console.log(response.data)
     //console.log('response json',res)
