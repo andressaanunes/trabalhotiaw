@@ -1,14 +1,14 @@
 const me = {
-  client_id: '6627',
+  Client_id: '6627',
   sandboxClient_id: '2382',
-  client_secret: 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK',
+  Client_secret: 'YzXJzwPgW7qy2409KLRqNGPbjwjGnGsvWhkgJbJK',
   sandboxClient_secret: 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps',
+  Url : 'https://www.melhorenvio.com.br',
+  sandboxUrl : 'https://sandbox.melhorenvio.com.br',
   user_agent : 'CriaLuth kayrodanyell@gmail.com',
   sandbox: false,
   bearer:'',
   redirect_uri: 'https://www.crialuth.com/shiptoken',
-  url : 'https://www.melhorenvio.com.br',
-  sandboxUrl : 'https://sandbox.melhorenvio.com.br',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 }  
 
@@ -19,14 +19,16 @@ async function buscaToken(){
   let options = {
     headers : myHeaders
   }
-  const token = await fetch('https://www.crialuth.com/getToken',options);
+  let token = await fetch('https://www.crialuth.com/getToken',options);
+  token = await token.json()
   console.log('token',token)
   me.bearer = token   
 
 }
 
-  async function getToken(){
+async function getToken(){
   //https://sandbox.melhorenvio.com.br/oauth/authorize?client_id=2382&redirect_uri=https://www.crialuth.com/shiptoken&response_type=code&scope=cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write
+  //https://www.melhorenvio.com.br/oauth/authorize?client_id=6627&redirect_uri=https://www.crialuth.com/shiptoken&response_type=code&scope=cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write
   var myHeaders = new Headers();
   myHeaders.append("Accept", "application/json");
   myHeaders.append("User-Agent", me.user_agent);
@@ -36,8 +38,8 @@ async function buscaToken(){
 
   var formdata = new FormData();
   formdata.append("grant_type", "authorization_code");
-  formdata.append("client_id", me.sandboxClient_id);
-  formdata.append("client_secret", me.sandboxClient_secret);
+  formdata.append("client_id", me.Client_id);
+  formdata.append("client_secret", me.Client_secret);
   formdata.append("redirect_uri", me.redirect_uri);
   formdata.append("code", code);
 
@@ -48,11 +50,24 @@ async function buscaToken(){
     redirect: 'follow'
   };
 
-  let tokenRes = await fetch(`${me.sandboxUrl}/oauth/token`, requestOptions)
+  let tokenRes = await fetch(`${me.Url}/oauth/token`, requestOptions)
   tokenRes = await tokenRes.json()
   console.log(tokenRes)
   me.bearer = tokenRes
   localStorage.setItem('tokenMenv',tokenRes) 
+
+
+  let config = {
+    method: "POST",
+    headers: new Headers({'Content-Type' : 'application/json'}),
+    body:JSON.stringify(tokenRes)
+  }
+  let tokenRefreshed = await fetch('https://www.crialuth.com/refreshshiptoken', config)
+  tokenRefreshed = await tokenRefreshed.json()
+  console.log('tokenGuardado',tokenRefreshed)
+  console.log('tokenGuardado',JSON.stringify(tokenRefreshed))
+
+  await buscaToken()
 
 }
 
@@ -60,7 +75,6 @@ async function buscaToken(){
 async function refreshToken(){
   console.log('====================== chegou no refreshtoken =============================')
   try {
-
       console.log('me.bearer',me.bearer)
       const myHeaders = new Headers();
       myHeaders.append("Accept", "application/json");
@@ -69,9 +83,9 @@ async function refreshToken(){
 
       const formdata = new FormData();
       formdata.append("grant_type", "refresh_token");
-      formdata.append("refresh_token", me.bearer.refresh_token);
-      formdata.append("client_id", me.sandboxClient_id);
-      formdata.append("client_secret", me.sandboxClient_secret);
+      formdata.append("refresh_token", me.bearer.refreshToken);
+      formdata.append("client_id", me.Client_id);
+      formdata.append("client_secret", me.Client_secret);
 
       var requestOptions = {
           method: 'POST',
@@ -80,16 +94,21 @@ async function refreshToken(){
           redirect: 'follow'
       };
 
-      var response = await fetch(`${me.sandboxUrl}/oauth/token`, requestOptions)
+      var response = await fetch(`${me.Url}/oauth/token`, requestOptions)
       response = await response.json()
       console.log('ResponseRefreshToken',response);
 
+
+      
       let config = {
+
           method: "POST",
           headers: new Headers({'Content-Type' : 'application/json'}),
           body:JSON.stringify(response)
+
       }
-      var tokenRefreshed = await fetch('https://www.crialuth.com/refreshshiptoken', config)
+
+      let tokenRefreshed = await fetch('https://www.crialuth.com/refreshshiptoken', config)
       tokenRefreshed = await tokenRefreshed.json()
       console.log('tokenRefreshed',tokenRefreshed)
       console.log('tokenRefreshed',JSON.stringify(tokenRefreshed))
@@ -180,7 +199,7 @@ async function shipCartReq(info){
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${me.bearer.access_token}`);
+    myHeaders.append("Authorization", `Bearer ${me.bearer.token}`);
     myHeaders.append("User-Agent", me.user_agent);
     myHeaders.append("Access-Control-Allow-Origin","*")
 
@@ -191,7 +210,7 @@ async function shipCartReq(info){
       redirect: 'follow'
     };
     
-    let res = await fetch(`${me.sandboxUrl}/api/v2/me/cart`, requestOptions)
+    let res = await fetch(`${me.Url}/api/v2/me/cart`, requestOptions)
     console.log(res) 
     const respo = await shipCheckout(res.id)
     return {'respocheckout':respo,'resCart':res} 
@@ -214,11 +233,11 @@ async function shipCheckout(id){
   var config = {
 
     method: 'post',
-    url: `${me.sandboxUrl}/api/v2/me/shipment/checkout`,
+    url: `${me.Url}/api/v2/me/shipment/checkout`,
     headers: { 
       'Accept': 'application/json', 
       'Content-Type': 'application/json', 
-      'Authorization': 'Bearer '+me.bearer.access_token, 
+      'Authorization': 'Bearer '+me.bearer.token, 
       'User-Agent': me.user_agent
     },
     data : data
@@ -227,7 +246,7 @@ async function shipCheckout(id){
 
   try {
     
-    const respo = await fetch(`${me.sandboxUrl}/api/v2/me/shipment/checkout`, config)
+    const respo = await fetch(`${me.Url}/api/v2/me/shipment/checkout`, config)
     console.log('RESPOTA SHIPCHECKOUT',respo)
     return respo
 
@@ -253,7 +272,7 @@ async function menvShipCheckout(id){
 async function appInfo(){
 let myHeaders = new Headers();
 myHeaders.append("Accept", "application/json");
-myHeaders.append("Authorization", `Bearer ${me.bearer.access_token}`);
+myHeaders.append("Authorization", `Bearer ${me.bearer.token}`);
 myHeaders.append("User-Agent", me.user_agent);
 
 let requestOptions = {
@@ -262,7 +281,7 @@ let requestOptions = {
   redirect: 'follow'
 };
 
-fetch(`${me.sandboxUrl}/api/v2/me/shipment/app-settings`, requestOptions)
+fetch(`${me.Url}/api/v2/me/shipment/app-settings`, requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));

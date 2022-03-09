@@ -2,6 +2,7 @@
 
 import * as menvjs from '/carrinho/menv-old.js'
 console.log('import * as menvjs from "/carrinho/menv-old.js"')
+
 document.addEventListener('DOMContentLoaded',listProds)
 
 menvjs.buscaToken()
@@ -209,27 +210,33 @@ async function shipValues(){
     
     <button style="margin:5px;" id="btn-salvar" class="btn btn-primary" type="button">Selecionar Frete</button>
     <p id = "shiptotal">Valor do Frete:</p>`
-    var totalPrice = 0
     var shipSelect = document.getElementById('btn-salvar')
+    shipSelect.addEventListener('click',setShipInfo)
+    var totalPrice = 0
 
 }
+
+//document.addEventListener('DOMContentLoaded',shipCalc('03683000','30662523',1))
+
+
 
 shipSelect.addEventListener('click',(event)=>{
         event.preventDefault()
         
-        var form = document.getElementById('shippingForm')
-        var shipTotal = document.getElementById('shiptotal')
-        var shipId = parseInt(form.shipValue.value)
 
-        for(var item of json ){
+        if(item.id == shipId){
+            sessionStorage.removeItem('shipInfo')
+            sessionStorage.setItem('shipInfo',JSON.stringify(item))
             
-
-            if(item.id == shipId){
-                sessionStorage.setItem('shipInfo',JSON.stringify(item))
-                
-            }
-
         }
+
+    
+    
+    var shipValue = JSON.parse(sessionStorage.getItem('shipInfo'))
+    shipTotal.innerHTML += ` R$${formatter.format(shipValue.price)}`
+    totalPrice += parseFloat(shipValue.price)
+
+        
         
         var shipValue = JSON.parse(sessionStorage.getItem('shipInfo'))
         shipTotal.innerHTML += ` R$${formatter.format(shipValue.price)}`
@@ -252,7 +259,12 @@ shipSelect.addEventListener('click',(event)=>{
     }
 )
 
-//document.addEventListener('DOMContentLoaded',shipCalc('03683000','30662523',1))
+
+
+
+
+
+
 
 document.getElementById('shipCartBtn').addEventListener('click',shipCart)
 
