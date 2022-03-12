@@ -16,7 +16,6 @@ var formatter = new Intl.NumberFormat('pt-BR',{
 
 
 async function listProds(){
-
     var tabela = document.getElementById('prodList')
     var item = sessionStorage.getItem('cartItems')    
     item = JSON.parse(item)
@@ -178,7 +177,7 @@ async function shipValues(){
              })
     } */
 
-    shipValues = await menvjs.shipCalc("03683000",clientCEP,itensInCart)
+    var shipValues = await menvjs.shipCalc("03683000",clientCEP,itensInCart)
     console.log("🚀 ~ file: carrinho.js ~ line 171 ~ shipValues ~ shipValues", shipValues)
     
     json = await shipValues.json()
@@ -220,8 +219,14 @@ async function shipValues(){
 
 
 
-shipSelect.addEventListener('click',(event)=>{
-        event.preventDefault()
+    async function setShipInfo(event){
+    event.preventDefault()
+    
+    var form = document.getElementById('shippingForm')
+    var shipTotal = document.getElementById('shiptotal')
+    var shipId = parseInt(form.shipValue.value)
+
+    for(var item of json ){
         
 
         if(item.id == shipId){
@@ -230,34 +235,27 @@ shipSelect.addEventListener('click',(event)=>{
             
         }
 
-    
+    }
     
     var shipValue = JSON.parse(sessionStorage.getItem('shipInfo'))
     shipTotal.innerHTML += ` R$${formatter.format(shipValue.price)}`
     totalPrice += parseFloat(shipValue.price)
 
-        
-        
-        var shipValue = JSON.parse(sessionStorage.getItem('shipInfo'))
-        shipTotal.innerHTML += ` R$${formatter.format(shipValue.price)}`
-        totalPrice += parseFloat(shipValue.price)
 
+    var subTotal =  document.querySelector('#subTotal').innerHTML
+    subTotal = subTotal.replace('R$&nbsp;','')
+    subTotal = subTotal.replace(',','.')
+    console.log(totalPrice)
+    var conta = parseFloat(subTotal)+totalPrice
+    console.log(conta)
+    tabela.innerHTML +=
+    `<div>
+        <div>
+            <p class="text-end"><strong>Total:  </strong><strong>${formatter.format(conta)}</strong></p>
+        </div>
+    </div>   `
+        }
 
-        var subTotal =  document.querySelector('#subTotal').innerHTML
-        subTotal = subTotal.replace('R$&nbsp;','')
-        subTotal = subTotal.replace(',','.')
-        console.log(totalPrice)
-        var conta = parseFloat(subTotal)+totalPrice
-        console.log(conta)
-        let total = document.getElementById('total')
-        total.innerHTML +=
-        `<div>
-            <div>
-                <p class="text-end"><strong>Total:  </strong><strong>${formatter.format(conta)}</strong></p>
-            </div>
-        </div>   `
-    }
-)
 
 
 
