@@ -238,7 +238,7 @@ async function shipValues(){
     }
     
     var shipValue = JSON.parse(sessionStorage.getItem('shipInfo'))
-    shipTotal.innerHTML += ` R$${formatter.format(shipValue.price)}`
+    shipTotal.innerHTML = ` R$${formatter.format(shipValue.price)}`
     totalPrice += parseFloat(shipValue.price)
 
 
