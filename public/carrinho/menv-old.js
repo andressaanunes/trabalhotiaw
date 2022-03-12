@@ -21,7 +21,7 @@ async function buscaToken(){
   }
   let token = await fetch('https://www.crialuth.com/getToken',options);
   token = await token.json()
-  console.log('token',token)
+  //console.log('token',token)
   me.bearer = token   
 
 }
@@ -34,7 +34,7 @@ async function getToken(){
   myHeaders.append("User-Agent", me.user_agent);
 
   let code = document.getElementById("inputGetToken").value
-  console.log(code);
+  //console.log(code);
 
   var formdata = new FormData();
   formdata.append("grant_type", "authorization_code");
@@ -52,7 +52,7 @@ async function getToken(){
 
   let tokenRes = await fetch(`${me.Url}/oauth/token`, requestOptions)
   tokenRes = await tokenRes.json()
-  console.log(tokenRes)
+  //console.log(tokenRes)
   me.bearer = tokenRes
   localStorage.setItem('tokenMenv',tokenRes) 
 
@@ -64,8 +64,8 @@ async function getToken(){
   }
   let tokenRefreshed = await fetch('https://www.crialuth.com/refreshshiptoken', config)
   tokenRefreshed = await tokenRefreshed.json()
-  console.log('tokenGuardado',tokenRefreshed)
-  console.log('tokenGuardado',JSON.stringify(tokenRefreshed))
+  //onsole.log('tokenGuardado',tokenRefreshed)
+  //console.log('tokenGuardado',JSON.stringify(tokenRefreshed))
 
   await buscaToken()
 
@@ -96,7 +96,7 @@ async function refreshToken(){
 
       var response = await fetch(`${me.Url}/oauth/token`, requestOptions)
       response = await response.json()
-      console.log('ResponseRefreshToken',response);
+      //console.log('ResponseRefreshToken',response);
 
 
       
@@ -110,8 +110,8 @@ async function refreshToken(){
 
       let tokenRefreshed = await fetch('https://www.crialuth.com/refreshshiptoken', config)
       tokenRefreshed = await tokenRefreshed.json()
-      console.log('tokenRefreshed',tokenRefreshed)
-      console.log('tokenRefreshed',JSON.stringify(tokenRefreshed))
+      //console.log('tokenRefreshed',tokenRefreshed)
+      //console.log('tokenRefreshed',JSON.stringify(tokenRefreshed))
    
       await buscaToken()
 
@@ -159,7 +159,7 @@ async function shipCalc(senderCEP,receiverCEP,quant){
     },
     "package": boxDimens//! ADICIONAR CONFIGURAÇÂO PARA MAIS DE 1 CAIXA
   }
-    console.log("payload: ", JSON.stringify(payload))
+    //console.log("payload: ", JSON.stringify(payload))
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Content-Type", "application/json");
@@ -193,7 +193,7 @@ async function shipCartReq(info){
   //checkTokenExp()
 
   try{
-    console.log(info)
+    //console.log(info)
 
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
@@ -210,7 +210,7 @@ async function shipCartReq(info){
     };
     
     let res = await fetch(`${me.Url}/api/v2/me/cart`, requestOptions)
-    console.log(res) 
+    console.log('resposta Shipcart',res) 
     const respo = await shipCheckout(res.id)
     return {'respocheckout':respo,'resCart':res} 
   }catch(error){
@@ -269,23 +269,24 @@ async function menvShipCheckout(id){
 }
 
 async function appInfo(){
-let myHeaders = new Headers();
-myHeaders.append("Accept", "application/json");
-myHeaders.append("Authorization", `Bearer ${me.bearer.token}`);
-myHeaders.append("User-Agent", me.user_agent);
 
-let requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow'
-};
+  let myHeaders = new Headers();
+  myHeaders.append("Accept", "application/json");
+  myHeaders.append("Authorization", `Bearer ${me.bearer.token}`);
+  myHeaders.append("User-Agent", me.user_agent);
 
-fetch(`${me.Url}/api/v2/me/shipment/app-settings`, requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+  let requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  fetch(`${me.Url}/api/v2/me/shipment/app-settings`, requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 
 }
 
 
-export {appInfo,shipCalc,shipCartReq,menvShipCheckout,getToken,refreshToken,buscaToken}
+//export {appInfo,shipCalc,shipCartReq,menvShipCheckout,getToken,refreshToken,buscaToken}
