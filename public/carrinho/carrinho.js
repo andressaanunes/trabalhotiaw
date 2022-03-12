@@ -191,6 +191,9 @@ async function shipValues(){
         if (ships.id === 17) {
             return true
         }
+        if (ships.error) {
+            shippingForm.innerHTML +="<div class='alert alert-danger' role='alert'>CEP não encontrado!</div>" 
+        }
         shippingForm.innerHTML += 
         `
             <div id = "${ships.company.name}${ships.name}" class="col-12 form-check ">
