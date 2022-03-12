@@ -171,7 +171,6 @@ async function shipCalc(senderCEP,receiverCEP,quant){
         method: 'POST',
         headers: myHeaders,
         body: JSON.stringify(payload),
-        redirect: 'follow'
       };
       
     var response = await fetch(`${me.Url}/api/v2/me/shipment/calculate`, requestOptions)
