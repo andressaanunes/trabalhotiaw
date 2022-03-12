@@ -163,7 +163,7 @@ async function shipCalc(senderCEP,receiverCEP,quant){
     const myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", `Bearer ${me.bearer.access_token}`);
+    myHeaders.append("Authorization", `Bearer ${me.bearer.token}`);
     myHeaders.append("User-Agent", me.user_agent);
     myHeaders.append("Access-Control-Allow-Origin","*")
 
@@ -175,7 +175,7 @@ async function shipCalc(senderCEP,receiverCEP,quant){
       
     var response = await fetch(`${me.Url}/api/v2/me/shipment/calculate`, requestOptions)
     //let res = await response.json()
-    console.log(response.data)
+    console.log('response.data',response.data)
     //console.log('response json',res)
     //console.log(JSON.stringify(response))
     return response
