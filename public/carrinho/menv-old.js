@@ -128,7 +128,7 @@ async function shipCalc(senderCEP,receiverCEP,quant){
   
   try{ 
     var peso = parseFloat(quant * 0.5)
-    console.log('peso: '+peso)
+    console.log('peso: ',peso)
 
     if (quant <= 3 ){
 
@@ -211,7 +211,7 @@ async function shipCartReq(info){
     
     let res = await fetch(`${me.Url}/api/v2/me/cart`, requestOptions)
     console.log('resposta Shipcart',res) 
-    const respo = await shipCheckout(res.id)
+    //const respo = await shipCheckout(res.id)
     return {'respocheckout':respo,'resCart':res} 
   }catch(error){
     
@@ -221,7 +221,7 @@ async function shipCartReq(info){
   
 }
 
-async function shipCheckout(id){
+/* async function shipCheckout(id){
   
   var data = {
     "orders": [
@@ -266,7 +266,7 @@ async function menvShipCheckout(id){
   console.log("🚀 ~ file: melhorenvio.js ~ line 329 ~ menvShipCheckout ~ checkout", checkout)
   return checkout
   
-}
+} */
 
 async function appInfo(){
 

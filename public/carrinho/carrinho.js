@@ -15,6 +15,34 @@ var formatter = new Intl.NumberFormat('pt-BR',{
     style:"currency",currency:"BRL"})
 
 
+
+function prodQuant(item,itemQuant,itemPrice,itemIndex,itemId,itemPrecoUnit){
+
+    var formatter = new Intl.NumberFormat('pt-BR',{
+        style:"currency",currency:"BRL"})
+    
+    
+    var cartitems = JSON.parse(sessionStorage.getItem('cartItems'))
+    
+    let quant = parseInt(document.getElementById(itemIndex+'quantity').value) 
+    
+    cartitems[itemIndex].quantity = quant
+    
+    console.log(quant)
+    let newPrice = quant * itemPrecoUnit
+    console.log(newPrice)
+    document.getElementById(`${itemIndex}prodPrice`).innerHTML = ''
+    document.getElementById(`${itemIndex}prodPrice`).innerHTML = formatter.format(newPrice)
+    console.log(itemId)
+    //console.log(changePrice)
+    sessionStorage.setItem('cartItems',JSON.stringify(cartitems))
+        
+    changeItensInCart()
+    changeSubtotal()
+}
+
+
+
 async function listProds(){
     var tabela = document.getElementById('prodList')
     var item = sessionStorage.getItem('cartItems')    
@@ -135,30 +163,6 @@ function changeSubtotal(){
 }
 
 
-function prodQuant(item,itemQuant,itemPrice,itemIndex,itemId,itemPrecoUnit){
-
-    var formatter = new Intl.NumberFormat('pt-BR',{
-        style:"currency",currency:"BRL"})
-    
-    
-    var cartitems = JSON.parse(sessionStorage.getItem('cartItems'))
-   
-    let quant = parseInt(document.getElementById(itemIndex+'quantity').value) 
-    
-    cartitems[itemIndex].quantity = quant
-    
-    console.log(quant)
-    let newPrice = quant * itemPrecoUnit
-    console.log(newPrice)
-    document.getElementById(`${itemIndex}prodPrice`).innerHTML = ''
-    document.getElementById(`${itemIndex}prodPrice`).innerHTML = formatter.format(newPrice)
-    console.log(itemId)
-    //console.log(changePrice)
-    sessionStorage.setItem('cartItems',JSON.stringify(cartitems))
-      
-    changeItensInCart()
-    changeSubtotal()
-}
 
 var trash = document.getElementById('excluiProd')
 
@@ -302,9 +306,9 @@ async function buildPayload(){
         
     }
     let cartItems = JSON.parse(sessionStorage.getItem('cartItems'))
-    console.log('cartItems 2 '+cartItems)
+    console.log('cartItems 2 ',cartItems)
     userInfo = JSON.parse(userInfo)
-    console.log('userInfo '+userInfo)
+    console.log('userInfo ',userInfo)
 
     var dataPart1 = {
         "currency":"BRL"
@@ -327,7 +331,7 @@ async function buildPayload(){
         i=i+1
         var price = cartItems[key].preco
         dataPart1[`itemId`+i] =  cartItems[key].id
-        dataPart1[`itemDescription`+i] =  cartItems[key].nome + tipo + cor
+        dataPart1[`itemDescription`+i] =  cartItems[key].nome +'|', tipo +'|', cor
         dataPart1[`itemAmount`+i] =  price
         dataPart1[`itemQuantity`+i] =  cartItems[key].quantity
         dataPart1[`itemWeight`+i] =  (cartItems[key].quantity * (0.5*1000))        
@@ -362,7 +366,7 @@ async function buildPayload(){
         "paymentMethodGroup":"CREDIT_CARD,BALANCE,BOLETO,DEPOSIT,EFT" 
     }
     var data = {...dataPart1,...dataPart2}
-    console.log('data'+JSON.stringify(data))
+    console.log('data',JSON.stringify(data))
     return data
 
 }
@@ -624,7 +628,7 @@ async function apiPagseguro(){
           })
     }
     var pagSeguroBody = await buildPayload()
-    console.log('pagSeguroBody'+pagSeguroBody)
+    console.log('pagSeguroBody',pagSeguroBody)
     var sessionToken = sessionStorage.getItem('token')
     
     
@@ -643,7 +647,7 @@ async function apiPagseguro(){
     console.log("🚀 ~ file: carrinho.js ~ line 571 ~ apiPagseguro ~ codigo", codigo)
     console.log(JSON.stringify(codigo)) 
     let jsonCode = await codigo.json()
-    console.log("codigo:"+jsonCode)
+    console.log("codigo:",jsonCode)
     
     
 
@@ -664,7 +668,7 @@ async function apiPagseguro(){
  
     //Insira o código de checkout gerado no Passo 1    
     var code = xmlDoc.getElementsByTagName('code')[0].innerHTML;
-    console.log('code:'+jsonCode)
+    console.log('code:',jsonCode)
    
     var callback = {
         success : async function(transactionCode) {
