@@ -18,7 +18,7 @@ async function loginCheck() {
       showConfirmButton: false,
       timer: 2000
     }).then(() => {
-      window.location.replace(`https://www.crialuth.com/home`)
+      window.location.replace(`/home`)
     })          
 
           }
@@ -37,7 +37,7 @@ async function checkUser(){
       showConfirmButton: false,
       timer: 2000
     }).then(() => {
-      window.location.replace(`https://www.crialuth.com/home`)
+      window.location.replace(`/home`)
     })
   }
   
@@ -90,7 +90,7 @@ async function renderProds(){
     prods.forEach(quadro => {
         prodsList.innerHTML +=`
     <li class="list-group-item">
-        <div class="container">
+        <div class="container container-fluid">
             <div class="row">
               <div class="col">
                 
@@ -112,8 +112,8 @@ async function renderProds(){
             </div>
               <div class="col">
                 
-                <div> <strong>${quadro.maisvendido}</strong></div>
-                <div> <strong>${quadro.preco}</strong></div>
+                <div name="maisVend"> <strong>${quadro.maisvendido}</strong></div>
+                <div name="preco"> <strong>${quadro.preco}</strong></div>
 
               </div>
             </div>
@@ -149,6 +149,7 @@ async function sendQuadro(){
         imageBrancaPath,
         placaDecoPath
     }
+    
     arrayQuadros.push(quadroInfo)
     console.log(arrayQuadros)
     
@@ -158,14 +159,19 @@ async function sendQuadro(){
 async function adicionaQuadros(){
   
   console.log('arrayQuadro'+arrayQuadros)
+
   let options={
+
     method:'POST',
     headers:new Headers({'Content-Type': 'application/json'}),
     body:JSON.stringify(arrayQuadros)
+
   }
 
-  let result = await fetch('http://localhost:21090/newprod',options)
+  let result = await fetch('https://www.crialuth.com/newprod',options)
+
   console.log(result)
+
   if (result.ok) {
 
     arrayQuadros.length = 0
@@ -181,11 +187,16 @@ send.addEventListener('click',adicionaQuadros)
 
 
 async function delQuadros(){
+
   var delButton = document.querySelector('#delId').value
+
   console.log('arrayQuadro'+delButton)
+
   let options={
+
     method:'DELETE',
     headers:new Headers({'Content-Type': 'application/json'}),
+
   }
 
   let result = await fetch(`https://www.crialuth.com/delprod/${delButton}`,options)

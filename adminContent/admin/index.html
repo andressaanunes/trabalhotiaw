@@ -16,6 +16,7 @@
 <body>
     <h1>Admin</h1>  
     <div class="container my-1">
+        <h4>Inserir Quadro</h4>
         <div class="input-group">
             <span class="input-group-text">Nome:</span>
             <input id="quadroNome" type="text" class="form-control">
@@ -46,7 +47,41 @@
       </div>     
         <button id="submitButton" class="btn btn-outline-info" type="button">Inserir</button>
         <button id="sendButton" class="btn btn-outline-danger" type="button">Enviar</button>
-    </div>    
+    </div>
+    <br>
+    <div class="container my-1">
+      <h4>Atualizar Quadro</h4>
+      <div class="input-group">
+          <span class="input-group-text">Nome:</span>
+          <input id="quadroNomeUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+          <span class="input-group-text">URL da Imagem:</span>
+          <input id="quadroUrlUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">URL imagem Branca:</span>
+        <input id="quadroImagemBrancaUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">placaDecoPath:</span>
+        <input id="quadroPlacaUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+          <span class="input-group-text">Categoria:</span>
+          <input id="quadroCategUpdate" type="text" class="form-control">
+      </div>  
+      <div class="input-group">
+          <span class="input-group-text">Maisvendido(0:não/1:sim):</span>
+          <input id="quadroMaisvendUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Area:</span>
+        <input id="quadroAreaUpdate" type="text" class="form-control">
+    </div>     
+      <button id="submitUpdateButton" class="btn btn-outline-info" type="button">Inserir</button>
+      <button id="sendUpdateButton" class="btn btn-outline-danger" type="button">Enviar</button>
+  </div>    
     <br>
     <div class="container my-1">
         <h4>Deletar Quadro:</h4>
@@ -90,7 +125,7 @@ async function checkUser(){
             showConfirmButton: false,
             timer: 2000
           }).then(() => {
-            window.location.replace(`https://www.crialuth.com/home`)
+            window.location.replace(`/home`)
           })
           
       }else if( userResult.isAdmin !== 1 ){
@@ -101,7 +136,7 @@ async function checkUser(){
           showConfirmButton: false,
           timer: 2000
         }).then(() => {
-          window.location.replace(`https://www.crialuth.com/home`)
+          window.location.replace(`/home`)
         })
       } 
   }
@@ -132,7 +167,7 @@ async function renderProds(){
     prods.forEach(quadro => {
         prodsList.innerHTML +=`
     <li class="list-group-item">
-        <div class="container">
+        <div class="container container-fluid">
             <div class="row">
               <div class="col">
                 
@@ -157,8 +192,8 @@ async function renderProds(){
                 
                 <div> <strong>${quadro.maisvendido}</strong></div>
                 <div> <strong>${quadro.area}</strong></div>
-                <div> <strong>${quadro.imageBrancaPath}</strong></div>
-                <div> <strong>${quadro.placaDecoPath}</strong></div>
+                <div><strong>imgBranca:</strong> ${quadro.imageBrancaPath}</div>
+                <div><strong>placaDeco:</strong> ${quadro.placaDecoPath}</div>
 
               </div>
             </div>
@@ -168,23 +203,28 @@ async function renderProds(){
     });
 
 }
-
+/* INSERE QUADROS */
 var submit = document.querySelector('#submitButton')
 submit.addEventListener('click',sendQuadro)
 
 var arrayQuadros = new Array()
+var arrayQuadrosUpdate = new Array()
 
 async function sendQuadro(){
 
     let nome = document.querySelector('#quadroNome').value
     let categ = document.querySelector('#quadroCateg').value
     let url = document.querySelector('#quadroUrl').value
+    let urlPlacaDeco = document.querySelector('#quadroUrlPlaca').value
+    let urlPlacaBranca = document.querySelector('#quadroUrlBranca').value
     let maisvendido = document.querySelector('#quadroMaisvend').value
 
     let quadroInfo= {
         nome,
         categ,
         url,
+        urlPlacaDeco,
+        urlBranca,
         maisvendido
     }
     arrayQuadros.push(quadroInfo)
@@ -202,7 +242,7 @@ async function adicionaQuadros(){
     body:JSON.stringify(arrayQuadros)
   }
 
-  let result = await fetch('http://localhost:21090/newprod',options)
+  let result = await fetch('/newprod',options)
   console.log(result)
   if (result.ok) {
 
@@ -216,7 +256,59 @@ async function adicionaQuadros(){
 var send = document.querySelector('#sendButton')
 send.addEventListener('click',adicionaQuadros)
 
+/* FINALIZA INSERE QUADROS */
 
+/* UPDATE */
+
+async function sendQuadroUpdate(){
+
+  let nome = document.querySelector('#quadroNomeUpdate').value
+  let categ = document.querySelector('#quadroCategUpdate').value
+  let url = document.querySelector('#quadroUrlUpdate').value
+  let urlPlacaDeco = document.querySelector('#quadroUrlPlacaUpdate').value
+  let maisvendido = document.querySelector('#quadroMaisvendUpdate').value
+
+  let quadroInfoUpdate = {
+      nome,
+      categ,
+      url,
+      urlPlacaDeco,
+      urlBranca,
+      maisvendido
+  }
+
+  arrayQuadrosUpdate.push(quadroInfoUpdate)
+  console.log(arrayQuadrosUpdate)
+
+}
+var submitUpdate = document.querySelector('#submitButton')
+submitUpdate.addEventListener('click',sendQuadroUpdate)
+
+async function adicionaQuadrosUpdate(){
+  
+  console.log('arrayQuadro'+arrayQuadrosUpdate)
+  let options={
+    method:'POST',
+    headers:new Headers({'Content-Type': 'application/json'}),
+    body:JSON.stringify(arrayQuadrosUpdate)
+  }
+
+  let result = await fetch('/updateprod',options)
+  console.log(result)
+  if (result.ok) {
+
+    arrayQuadrosUpdate.length = 0
+  
+  }
+  return result
+
+}
+let sendUpdate = document.querySelector('#sendUpdateButton')
+sendUpdate.addEventListener('click',adicionaQuadrosUpdate)
+
+/* FECHA UPDATE */
+
+/* DELETE */
 
 async function delQuadros(){
   var delButton = document.querySelector('#delId').value
@@ -235,6 +327,7 @@ async function delQuadros(){
 
 var delButton = document.querySelector('#delButton')
 delButton.addEventListener('click',delQuadros)
+/* FECHA DELETE */
     </script>
     <script src="/admin.js"></script>
 </body>

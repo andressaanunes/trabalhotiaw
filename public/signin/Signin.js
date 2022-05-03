@@ -131,9 +131,9 @@ async function getAdmin(){
     console.log('getAdmin :'+ userId.id)
     
 
-    window.location.replace(`https://www.crialuth.com/admin/${userId.id}`)
+    //window.location.replace(`/admin/${userId.id}`)
 
-    window.location.replace(`https://www.crialuth.com/admin/${userId.id}/${userToken}`)
+    window.location.replace(`/admin/${userId.id}/${userToken}`)
 
 }
 
@@ -164,7 +164,7 @@ async function login(){
     }
     try {
         
-        await fetch('https://www.crialuth.com/login',config)
+        await fetch('/login',config)
         .then(async (response) => {
 
             if (response.status === 200){

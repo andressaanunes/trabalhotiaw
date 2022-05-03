@@ -70,7 +70,7 @@ app.get('/all', async function getall(req,res){
     res.status(200)
     res.send(produtos)
      
-        })
+})
 
 
 
@@ -99,7 +99,23 @@ app.post('/newprod',isAdm, async function (req,res){
         
     }
                  
-    })
+})
+app.post('/updateprod',isAdm, async function (req,res){
+
+    try {
+        let prods = req.body
+        console.log(JSON.stringify(prods))
+        produtos.updateProduct(prods)
+                
+        res.status(200).send(prods)
+
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+        
+    }
+                    
+})
 
 app.delete('/delprod/:id',isAdm, async function (req,res){
 

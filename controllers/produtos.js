@@ -97,6 +97,27 @@ async function newProduct(prods){
   }
 }
 
+async function updateProduct(id,prod){
+
+  let result = await produtos.update({
+
+    nome: prod.nome,
+    categoria:prod.categ,
+    preco: 44.99,
+    imagePath:prod.url,
+    maisvendido:prod.maisvendido,
+    imageBrancaPath:prod.urlBranca,
+    placaDecoPath:prod.urlPlacaDeco,
+    area:prod.area
+    
+  },{
+    where:{id:id}
+  })
+  console.log(result)
+  return result
+
+}
+
 async function delProduct(id){
 
   let result = await produtos.destroy({
