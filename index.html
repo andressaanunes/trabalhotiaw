@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Login</title>
+    <meta charset="utf-8" />
+    <script>
+      window.onload = () => {
+        nome.value = localStorage.getItem('username');
+
+        login.onsubmit = (evento) => {
+          localStorage.setItem('username', nome.value);
+          alert(`Usuário ${nome.value} logado.`);
+          evento.preventDefault();
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <form id="login" method="post" action="https://postman-echo.com/post">
+      <p>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" autocomplete="off" />
+      </p>
+      <p>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" />
+      </p>
+      <p><button type="submit">Confirmar</button></p>
+    </form>
+  </body>
+</html>
