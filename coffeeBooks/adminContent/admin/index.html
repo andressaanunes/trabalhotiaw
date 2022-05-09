@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Crialuth-Admins</title>
+</head>
+<body>
+    <h1>Admin</h1>  
+    <div class="container my-1">
+        <h4>Inserir Quadro</h4>
+        <div class="input-group">
+            <span class="input-group-text">Nome:</span>
+            <input id="quadroNome" type="text" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">URL da Imagem:</span>
+            <input id="quadroUrl" type="text" class="form-control">
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">URL imagem Branca:</span>
+          <input id="quadroImagemBranca" type="text" class="form-control">
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">placaDecoPath:</span>
+          <input id="quadroPlaca" type="text" class="form-control">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Categoria:</span>
+            <input id="quadroCateg" type="text" class="form-control">
+        </div>  
+        <div class="input-group">
+            <span class="input-group-text">Maisvendido(0:não/1:sim):</span>
+            <input id="quadroMaisvend" type="text" class="form-control">
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">Area:</span>
+          <input id="quadroArea" type="text" class="form-control">
+      </div>     
+        <button id="submitButton" class="btn btn-outline-info" type="button">Inserir</button>
+        <button id="sendButton" class="btn btn-outline-danger" type="button">Enviar</button>
+    </div>
+    <br>
+    <div class="container my-1">
+      <h4>Atualizar Quadro</h4>
+      <div class="input-group">
+          <span class="input-group-text">Nome:</span>
+          <input id="quadroNomeUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+          <span class="input-group-text">URL da Imagem:</span>
+          <input id="quadroUrlUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">URL imagem Branca:</span>
+        <input id="quadroImagemBrancaUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">placaDecoPath:</span>
+        <input id="quadroPlacaUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+          <span class="input-group-text">Categoria:</span>
+          <input id="quadroCategUpdate" type="text" class="form-control">
+      </div>  
+      <div class="input-group">
+          <span class="input-group-text">Maisvendido(0:não/1:sim):</span>
+          <input id="quadroMaisvendUpdate" type="text" class="form-control">
+      </div>
+      <div class="input-group">
+        <span class="input-group-text">Area:</span>
+        <input id="quadroAreaUpdate" type="text" class="form-control">
+    </div>     
+      <button id="submitUpdateButton" class="btn btn-outline-info" type="button">Inserir</button>
+      <button id="sendUpdateButton" class="btn btn-outline-danger" type="button">Enviar</button>
+  </div>    
+    <br>
+    <div class="container my-1">
+        <h4>Deletar Quadro:</h4>
+        <div class="input-group">
+            <span class="input-group-text">Id:</span>
+            <input id="delId" type="text" class="form-control">
+            <button id="delButton" class="btn btn-outline-danger" type="button">Enviar</button>
+        </div>
+    </div>
+    <ul id="prodsList" class="list-group-horizontal-xl">
+    
+    </ul>
+    <script>
+
+async function checkUser(){
+
+  var userId = localStorage.getItem('userInfo')
+  console.log('admin.js separado : userId'+JSON.stringify(userId))
+  if (!userId) {
+    Swal.fire({
+      title: 'Você não está logado!',
+      text: "Você precisa fazer login para continuar!",
+      icon: 'warning',
+      showConfirmButton: false,
+      timer: 2000
+    }).then(() => {
+      window.location.replace(`https://www.crialuth.com/home`)
+    })
+  }
+  
+  if (userId.id) {
+  
+      const userResult = await users.getUser(userId)
+      console.log('userResult'+userResult)
+  
+      if(userResult == undefined){
+          Swal.fire({
+            title: 'Você não está logado!',
+            text: "Você precisa fazer login para continuar!",
+            icon: 'warning',
+            showConfirmButton: false,
+            timer: 2000
+          }).then(() => {
+            window.location.replace(`/home`)
+          })
+          
+      }else if( userResult.isAdmin !== 1 ){
+        Swal.fire({
+          title: 'Você não está logado!',
+          text: "Você precisa fazer login para continuar!",
+          icon: 'warning',
+          showConfirmButton: false,
+          timer: 2000
+        }).then(() => {
+          window.location.replace(`/home`)
+        })
+      } 
+  }
+
+}
+checkUser()
+
+document.addEventListener('DOMContentLoaded',checkUser)
+document.addEventListener('DOMContentLoaded',renderProds)
+
+
+
+
+async function getProds(){
+        
+    var response = await fetch(`https://www.crialuth.com/all`)
+    let prods = await response.json()
+
+    return prods
+
+}              
+
+async function renderProds(){
+
+    var prods = await getProds()
+    console.log(prods)
+    var prodsList = document.querySelector('#prodsList')
+    prods.forEach(quadro => {
+        prodsList.innerHTML +=`
+    <li class="list-group-item">
+        <div class="container container-fluid">
+            <div class="row">
+              <div class="col">
+                
+                <div> <strong>ID:</strong> ${quadro.id}</div>
+                <div>  <h6>${quadro.nome}</h6></div>
+              
+            </div>
+              <div class="col">
+                
+                <div> <img class="img-thumbnail" src="${quadro.imagePath}" alt=""> </div>
+                <div> </div>
+              
+            </div>
+              <div class="col">
+                
+                <div>Maisvendido(0=não/1=sim):<br></div>
+                <div><strong> ${quadro.categoria}</strong></div>
+                <div> <strong>${quadro.preco}</strong></div>
+              
+            </div>
+              <div class="col">
+                
+                <div> <strong>${quadro.maisvendido}</strong></div>
+                <div> <strong>${quadro.area}</strong></div>
+                <div><strong>imgBranca:</strong> ${quadro.imageBrancaPath}</div>
+                <div><strong>placaDeco:</strong> ${quadro.placaDecoPath}</div>
+
+              </div>
+            </div>
+          </div>
+    </li>
+        `
+    });
+
+}
+/* INSERE QUADROS */
+var submit = document.querySelector('#submitButton')
+submit.addEventListener('click',sendQuadro)
+
+var arrayQuadros = new Array()
+var arrayQuadrosUpdate = new Array()
+
+async function sendQuadro(){
+
+    let nome = document.querySelector('#quadroNome').value
+    let categ = document.querySelector('#quadroCateg').value
+    let url = document.querySelector('#quadroUrl').value
+    let urlPlacaDeco = document.querySelector('#quadroUrlPlaca').value
+    let urlPlacaBranca = document.querySelector('#quadroUrlBranca').value
+    let maisvendido = document.querySelector('#quadroMaisvend').value
+
+    let quadroInfo= {
+        nome,
+        categ,
+        url,
+        urlPlacaDeco,
+        urlBranca,
+        maisvendido
+    }
+    arrayQuadros.push(quadroInfo)
+    console.log(arrayQuadros)
+    
+}
+
+
+async function adicionaQuadros(){
+  
+  console.log('arrayQuadro'+arrayQuadros)
+  let options={
+    method:'POST',
+    headers:new Headers({'Content-Type': 'application/json'}),
+    body:JSON.stringify(arrayQuadros)
+  }
+
+  let result = await fetch('/newprod',options)
+  console.log(result)
+  if (result.ok) {
+
+    arrayQuadros.length = 0
+  
+  }
+  return result
+
+}
+
+var send = document.querySelector('#sendButton')
+send.addEventListener('click',adicionaQuadros)
+
+/* FINALIZA INSERE QUADROS */
+
+/* UPDATE */
+
+async function sendQuadroUpdate(){
+
+  let nome = document.querySelector('#quadroNomeUpdate').value
+  let categ = document.querySelector('#quadroCategUpdate').value
+  let url = document.querySelector('#quadroUrlUpdate').value
+  let urlPlacaDeco = document.querySelector('#quadroUrlPlacaUpdate').value
+  let maisvendido = document.querySelector('#quadroMaisvendUpdate').value
+
+  let quadroInfoUpdate = {
+      nome,
+      categ,
+      url,
+      urlPlacaDeco,
+      urlBranca,
+      maisvendido
+  }
+
+  arrayQuadrosUpdate.push(quadroInfoUpdate)
+  console.log(arrayQuadrosUpdate)
+
+}
+var submitUpdate = document.querySelector('#submitButton')
+submitUpdate.addEventListener('click',sendQuadroUpdate)
+
+async function adicionaQuadrosUpdate(){
+  
+  console.log('arrayQuadro'+arrayQuadrosUpdate)
+  let options={
+    method:'POST',
+    headers:new Headers({'Content-Type': 'application/json'}),
+    body:JSON.stringify(arrayQuadrosUpdate)
+  }
+
+  let result = await fetch('/updateprod',options)
+  console.log(result)
+  if (result.ok) {
+
+    arrayQuadrosUpdate.length = 0
+  
+  }
+  return result
+
+}
+let sendUpdate = document.querySelector('#sendUpdateButton')
+sendUpdate.addEventListener('click',adicionaQuadrosUpdate)
+
+/* FECHA UPDATE */
+
+/* DELETE */
+
+async function delQuadros(){
+  var delButton = document.querySelector('#delId').value
+  console.log('arrayQuadro'+delButton)
+  let options={
+    method:'DELETE',
+    headers:new Headers({'Content-Type': 'application/json'}),
+  }
+
+  let result = await fetch(`https://www.crialuth.com/delprod/${delButton}`,options)
+  console.log(result)
+  
+  return result
+
+}
+
+var delButton = document.querySelector('#delButton')
+delButton.addEventListener('click',delQuadros)
+/* FECHA DELETE */
+    </script>
+    <script src="/admin.js"></script>
+</body>
+</html>
