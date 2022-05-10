@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
-const prods = require('./controllers/produtos')
+//const prods = require('./controllers/produtos')
 const auth = require('./middlewares/auth')
 const isAdm = require('./middlewares/admin')
 const users = require('./controllers/users')
@@ -47,7 +47,7 @@ app.listen(PORT,(error)=>{
 app.use(bodyParser.json())
 
 app.use(bodyParser.urlencoded({extended: false}))
-
+/* 
 app.post('/newprod',isAdm, async function (req,res){
 
     try {
@@ -88,7 +88,7 @@ app.delete('/delprod/:id',isAdm, async function (req,res){
             
     res.status(200).send(prods)
                     
-    })        
+    })         */
 
 app.get('/category/:category', async function getall(req,res){
     
@@ -117,21 +117,21 @@ app.get('/search/:search', async function getall(req,res){
 })
 
 
-app.get('/product',async(req,res)=>{
+/* app.get('/product',async(req,res)=>{
     console.log(req.query.id)
     const produtos = await prods.getProductById(req.query.id)
     res.status(200).json(produtos[0])
-})
+}) */
 
 
-app.get('/all', async function getall(req,res){
+/* app.get('/all', async function getall(req,res){
 
     const produtos = await prods.getAllProducts()
     
     res.status(200)
     res.send(produtos)
      
-        })
+        }) */
 
 app.post('/cadastro', async (req, res) => {
         
