@@ -59,7 +59,7 @@ function getProds() {
         
               
         quadro.prodInfo(prods)
-        console.log("🚀 ~ file: product.js ~ line 51 ~ fetch ~ prods", prods)
+        
         
         
         document.querySelector('#title').innerHTML = quadro.nome

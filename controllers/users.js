@@ -30,11 +30,11 @@ async function createUser(user){
                 try{
                         
                     await usuarios.create(user)
-                    console.log("🚀 ~ file: users.js ~ line 41 ~ createUser ~ return user", user)    
+                       
                     return user
 
                 }catch(err){
-                    console.log("🚀 ~ file: users.js ~ line 41 ~ createUser ~ error user", {"error":`Usuário (${user.nome}) não pode ser criado:${err}`})
+                    
 
                      return {"error":`Usuário (${user.nome}) não pode ser criado:${err}`}
                 }

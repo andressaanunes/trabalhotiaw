@@ -263,7 +263,7 @@ async function menvShipCheckout(id){
     ]    
   }
   var checkout = await me.shipment.checkout(data,me.bearer)
-  console.log("🚀 ~ file: melhorenvio.js ~ line 329 ~ menvShipCheckout ~ checkout", checkout)
+   ~ file: melhorenvio.js ~ line 329 ~ menvShipCheckout ~ checkout", checkout)
   return checkout
   
 } */

@@ -15,7 +15,7 @@ module.exports = function (req, res, next){
         jwt.verify(token, authCfg.secret,(err,decoded)=>{
             
             if(err){
-                console.log("🚀 ~ file: auth.js ~ line 15 ~ jwt.verify ~ err", err)
+                
                 
                 return res.send({error:'Token invalid'})
                 

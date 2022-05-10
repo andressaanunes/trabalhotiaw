@@ -67,7 +67,7 @@ async function saveUser(){
         var res = await fetch('https://www.crialuth.com/cadastro',options)
         
         var parsedRes = await res.json()
-        console.log("🚀 ~ file: signup.js ~ line 71 ~ saveUser ~ res", parsedRes)
+        
         
         console.log( "res:" + parsedRes)
         if(res.status == 400){
@@ -101,6 +101,6 @@ async function testeFetch(){
 
     var res = await fetch('https://www.crialuth.com/cadastro',options)
     var parsedRes = await res.json()
-    console.log("🚀 ~ file: signup.js ~ line 100 ~ testeFetch ~ res", parsedRes)
+    
     
 }

@@ -9,18 +9,17 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link type="text/css"rel="stylesheet" href="https://www.crialuth.com/signin/signin.css">
-    <link rel="stylesheet" href="https://www.crialuth.com/styles/geral.css">
-    <title>CriaLuth</title>
+    <link type="text/css"rel="stylesheet" href="./signin.css">
+    <link rel="stylesheet" href="../styles/geral.css">
+    <title>Login</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-md d-flex ">
         <div class="container">
             
-                <a href="https://www.crialuth.com/">
-                    <img id="Logo"src="https://www.crialuth.com/imagens/Logo.png" alt="logo aqui">
-                </a>
-            
+            <a href="/home">
+                <img id="Logo" src="../imagens/Logo.png" alt="logo aqui">
+            </a>
             
             <button class="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarhome" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -41,16 +40,16 @@
             <div class="d-flex input-group-sizing-sm justify-content-end">
 
                 <div class="input-group-append">
-                    <a class = "logged" type="button" id="button-addon2" href="https://www.crialuth.com/signin/index.html" >
-                        <img src="https://www.crialuth.com/imagens/login1.png" alt="">
+                    <a class = "logged" type="button" id="button-addon2" href="./index.html" >
+                        <img src="../imagens/login1.png" alt="">
                         <p id="logged"></p>
                     </a>
                     
                 </div>
                 
               </div>
-            <a class="mx-2 carrinho" href="https://www.crialuth.com/carrinho/index.html">
-                <img src="https://www.crialuth.com/imagens/carrinho1.png" alt="">
+            <a class="mx-2 carrinho" href="./carrinho/index.html">
+                <img src="../imagens/carrinho1.png" alt="">
                 <span class="badge badge-light"></span>
             </a>
         </div>
@@ -68,7 +67,7 @@
             </div>
             <input type="hidden" name="_csrf" value="{{csrfToken}}" class="input-sign">
       
-            <button id="login" type="button" value="Login" class="btn btn-outline-info">login</button>
+            <button id="login" type="button" value="Login" class="btn btn-outline-info">Login</button>
 
             <span id="error"></span>
 
@@ -83,11 +82,9 @@
           </div>
 
       </section>
-      <div class="imgdiv">
-          <img class="bottom-img" src="./logingif.gif" alt="">
-      </div>
+
       
 <script src="./Signin.js"></script>
-<script src="https://www.crialuth.com/scripts/scripts.js"></script>
+<script src="../scripts/scripts.js"></script>
 </body>
 </html>
