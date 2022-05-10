@@ -8,7 +8,7 @@ const isAdm = require('./middlewares/admin')
 const users = require('./controllers/users')
 const bcrypt = require('bcrypt')
 const cors = require('cors')
-const produtos = require('./controllers/produtos')
+//const produtos = require('./controllers/produtos')
 
 
 const PORT = process.env.PORT
