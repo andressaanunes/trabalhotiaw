@@ -7,7 +7,7 @@ function getProds() {
     
     var params = location.href.split('=',2)
 
-    fetch(`https://www.crialuth.com/category/${params[1]}`).then((res)=>{
+    fetch(`https://www."".com/category/${params[1]}`).then((res)=>{
 
         return res.json()
         
@@ -22,14 +22,14 @@ function getProds() {
             <div id= "columns" class="card h-100">
                 <img class=" cardimg card-img-top" src="${prod.imagePath}" alt="Card image cap">
                 <div class="card-body">
-                    <h4 class="card-title"><a class="text-decoration-none" href="https://www.crialuth.com/produto
+                    <h4 class="card-title"><a class="text-decoration-none" href="https://www."".com/produto
                     ?product=${prod.id}" title="View Product">${prod.nome}</a></h4>
                     <div class="align-text-bottom">
                         <span class="price"><strong>R$${prod.preco}</strong></span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a class="button" href="https://www.crialuth.com/produto?product=${prod.id}">Adicionar ao carrinho
+                    <a class="button" href="https://www."".com/produto?product=${prod.id}">Adicionar ao carrinho
                     </a>
                 </div> 
             </div>
@@ -51,7 +51,7 @@ function searchProds() {
     
     
    
-    const prods = fetch(`https://www.crialuth.com/search/${busca}`).then((res)=>{    
+    const prods = fetch(`https://www."".com/search/${busca}`).then((res)=>{    
         console.log(prods)
         console.log(res)
 

@@ -11,7 +11,7 @@
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <title>Crialuth-Admins</title>
+    <title>""-Admins</title>
 </head>
 <body>
     <h1>Admin</h1>  
@@ -108,7 +108,7 @@ async function checkUser(){
       showConfirmButton: false,
       timer: 2000
     }).then(() => {
-      window.location.replace(`https://www.crialuth.com/home`)
+      window.location.replace(`https://www."".com/home`)
     })
   }
   
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded',renderProds)
 
 async function getProds(){
         
-    var response = await fetch(`https://www.crialuth.com/all`)
+    var response = await fetch(`https://www."".com/all`)
     let prods = await response.json()
 
     return prods
@@ -318,7 +318,7 @@ async function delQuadros(){
     headers:new Headers({'Content-Type': 'application/json'}),
   }
 
-  let result = await fetch(`https://www.crialuth.com/delprod/${delButton}`,options)
+  let result = await fetch(`https://www."".com/delprod/${delButton}`,options)
   console.log(result)
   
   return result

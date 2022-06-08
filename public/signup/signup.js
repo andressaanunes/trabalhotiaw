@@ -28,8 +28,6 @@ async function takeAddress(){
 
 async function saveUser(){
 
-    
-
     var cpf = document.querySelector("#cpf").value
     cpf = cpf.replace(/[.-]/g,'')
     
@@ -64,7 +62,7 @@ async function saveUser(){
             body: JSON.stringify(userInfo)
         }
 
-        var res = await fetch('https://www.crialuth.com/cadastro',options)
+        var res = await fetch('https://www."".com/cadastro',options)
         
         var parsedRes = await res.json()
         
@@ -81,7 +79,7 @@ async function saveUser(){
                 icon: 'success',
                 timer:800
               }).then(()=>{
-                  location.replace("https://www.crialuth.com/home/")
+                  location.replace("https://www."".com/home/")
               })
         }
 
@@ -91,6 +89,11 @@ async function saveUser(){
     }
  
 }
+
+
+
+
+
 async function testeFetch(){
     console.log('disparou fecth') 
     var options = {
@@ -99,7 +102,7 @@ async function testeFetch(){
         body: JSON.stringify({teste:'teste!'})
     }
 
-    var res = await fetch('https://www.crialuth.com/cadastro',options)
+    var res = await fetch('https://www."".com/cadastro',options)
     var parsedRes = await res.json()
     
     

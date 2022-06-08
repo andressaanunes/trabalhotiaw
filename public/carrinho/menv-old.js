@@ -5,10 +5,10 @@ const me = {
   sandboxClient_secret: 'rntPjNCA2MKGirRsdDdtHXP1CEXgfEaRVmIcG8ps',
   Url : 'https://www.melhorenvio.com.br',
   sandboxUrl : 'https://sandbox.melhorenvio.com.br',
-  user_agent : 'CriaLuth kayrodanyell@gmail.com',
+  user_agent : '"" kayrodanyell@gmail.com',
   sandbox: false,
   bearer:'',
-  redirect_uri: 'https://www.crialuth.com/shiptoken',
+  redirect_uri: 'https://www."".com/shiptoken',
   scope:'cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write webhooks-read webhooks-write'
 }  
 
@@ -19,7 +19,7 @@ async function buscaToken(){
   let options = {
     headers : myHeaders
   }
-  let token = await fetch('https://www.crialuth.com/getToken',options);
+  let token = await fetch('https://www."".com/getToken',options);
   token = await token.json()
   //console.log('token',token)
   me.bearer = token   
@@ -27,8 +27,8 @@ async function buscaToken(){
 }
 
 async function getToken(){
-  //https://sandbox.melhorenvio.com.br/oauth/authorize?client_id=2382&redirect_uri=https://www.crialuth.com/shiptoken&response_type=code&scope=cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write
-  //https://www.melhorenvio.com.br/oauth/authorize?client_id=6627&redirect_uri=https://www.crialuth.com/shiptoken&response_type=code&scope=cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write
+  //https://sandbox.melhorenvio.com.br/oauth/authorize?client_id=2382&redirect_uri=https://www."".com/shiptoken&response_type=code&scope=cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write
+  //https://www.melhorenvio.com.br/oauth/authorize?client_id=6627&redirect_uri=https://www."".com/shiptoken&response_type=code&scope=cart-read cart-write companies-read companies-write coupons-read coupons-write notifications-read orders-read products-read products-write purchases-read shipping-calculate shipping-cancel shipping-checkout shipping-companies shipping-generate shipping-preview shipping-print shipping-share shipping-tracking ecommerce-shipping transactions-read users-read users-write
   var myHeaders = new Headers();
   myHeaders.append("Accept", "application/json");
   myHeaders.append("User-Agent", me.user_agent);
@@ -62,7 +62,7 @@ async function getToken(){
     headers: new Headers({'Content-Type' : 'application/json'}),
     body:JSON.stringify(tokenRes)
   }
-  let tokenRefreshed = await fetch('https://www.crialuth.com/refreshshiptoken', config)
+  let tokenRefreshed = await fetch('https://www."".com/refreshshiptoken', config)
   tokenRefreshed = await tokenRefreshed.json()
   //onsole.log('tokenGuardado',tokenRefreshed)
   //console.log('tokenGuardado',JSON.stringify(tokenRefreshed))
@@ -108,7 +108,7 @@ async function refreshToken(){
 
       }
 
-      let tokenRefreshed = await fetch('https://www.crialuth.com/refreshshiptoken', config)
+      let tokenRefreshed = await fetch('https://www."".com/refreshshiptoken', config)
       tokenRefreshed = await tokenRefreshed.json()
       //console.log('tokenRefreshed',tokenRefreshed)
       //console.log('tokenRefreshed',JSON.stringify(tokenRefreshed))

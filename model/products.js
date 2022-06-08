@@ -1,4 +1,4 @@
-const db = require('../model/Db')
+const db = require('./Db')
 
 db.sequelize.authenticate().then(()=>{
     console.log('conectado com sucesso (products)')
@@ -8,17 +8,24 @@ db.sequelize.authenticate().then(()=>{
 
 const products = db.sequelize.define('products',{
 
-    nome:{ type:db.Sequelize.STRING},
-    categoria:{ type: db.Sequelize.STRING},
-    preco:{type: db.Sequelize.INTEGER}, 
-    maisvendido:{type:db.Sequelize.SMALLINT},
-    imagePath:{type:db.Sequelize.STRING},
-    imageBrancaPath:{type:db.Sequelize.STRING},
-    placaDecoPath:{type:db.Sequelize.STRING}
+    cod_livro:{type:db.Sequelize.INTEGER},
+    quantidade:{ type: db.Sequelize.INTEGER},
+    nome_autor:{type:db.Sequelize.STRING(50)},
+    nome_livro:{ type:db.Sequelize.STRING(50)},
+    descricao:{type:db.Sequelize.STRING(50)},
+    valor:{type: db.Sequelize.INTEGER}, 
     
-})
+},{tableName:'products'})
 
-////////////////////////////////products.sync({alter:true})
+const prodTeste = setTimeout(()=>{products.build({nome_livro:"teste"})
+console.log(prodTeste instanceof products)
+console.log(prodTeste.nome_livro)},5000)
+
+/* try{
+    products.sync( {alter:true} )
+}catch(error){
+        console.log(error)
+    } */
 module.exports = products
 
 

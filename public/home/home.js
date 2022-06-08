@@ -52,10 +52,32 @@ $('.carouselslick').slick({
 
     async function getProds(){
         
-        var response = await fetch(`https://www.crialuth.com/all`)
+        var response = await fetch(`/all`)
+        
       let prods = await response.json()
-      
+      console.log(prods)
+      var gridProds = document.querySelector('#gridProds')
+      prods.forEach(prod => {
+        gridProds.innerHTML += `
+          <div class="col-md-3">
+          <div id= "columns" class="card h-100">
+              <img class="cardimg card-img-top" src="./${prod.cod_livro}.jpg" alt="Card image cap" >
+              <div class="card-body">
+                  <h4 class="card-title"><a class="text-decoration-none" href="/produto?product=${prod.id}" title="View Product">${prod.nome_livro}</a></h4>
+                  <div class="align-text-bottom">
+                      <span class="price"><strong>R$${prod.valor}</strong></span>
+                  </div>
+              </div>
+              <div class="card-footer">
+                  <a class="button" href="/produto?product=${prod.id}">
+                  Adicionar ao carrinho
+                  </a>
+              </div> 
+          </div>
+          </div>`
+      });
       return prods
 
-    }                                                             
-
+    } 
+    getProds()                        
+                               

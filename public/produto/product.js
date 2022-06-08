@@ -45,11 +45,79 @@ class Quadro{
 }
 var quadro = new Quadro()
 
+
+
+var addCart = document.querySelector("#addCart")
+addCart.addEventListener('click',cartIt)
+
+function cartIt(){
+     //Product:
+    var nome = document.querySelector('#title').innerHTML
+   
+    var img = document.querySelector('#image').getAttribute('src')
+    var preco = parseFloat(quadro.preco).toFixed(2)
+    
+    var id = document.querySelector('#id').innerHTML
+    var quantity = parseInt(document.querySelector('#quantity').value)
+
+    console.log(placaCheck.checked)
+    let type = placaCheck.checked == true ? 3 :  parseInt(select.options[select.selectedIndex].value)
+    console.log(type)
+
+    var select2 = document.querySelector('#molduraCor')
+    var cor =  parseInt(select2.options[select2.selectedIndex].value)
+    if (cor == 1) {
+        cor = 'preto'
+    }else if (cor ==2){
+        cor = 'branco'
+    
+    }
+    product = {
+        nome,
+        id,
+        cor,
+        img,
+        preco,
+        precoUnit:quadro.precoUnit,
+        quantity,
+        type,
+    }
+   
+    let cartItems = JSON.parse(sessionStorage.getItem('cartItems'))
+    let itensInCart = parseInt(sessionStorage.getItem('itensInCart'))
+    if (cartItems == null) {
+        
+        cartItems = new Array()
+        cartItems.push(product)
+        sessionStorage.setItem('itensInCart',parseInt(product.quantity))
+
+    } else if(cartItems != null) {
+        let equalProd = cartItems.filter(cartProd => cartProd.nome == product.nome && cartProd.type == product.type && cartProd.cor == product.cor )
+        
+        if (equalProd.length > 0) {
+            let eqProdIndex = cartItems.indexOf(equalProd[0])
+            cartItems[eqProdIndex].quantity += product.quantity
+            
+        }else{
+            cartItems.push(product)
+        }
+        sessionStorage.setItem('itensInCart',itensInCart + parseInt(product.quantity))
+    }
+    sessionStorage.setItem('cartItems', JSON.stringify(cartItems))
+    
+    Swal.fire({
+        title: 'Adicionado!',
+        icon: 'success',
+        timer:800,
+      })
+}
+
+
 function getProds() {
     
     var params = location.href.split('=',2)
     
-    fetch(`https://www.crialuth.com/product?id=${params[1]}`).then((res)=>{    
+    fetch(`https://www."".com/product?id=${params[1]}`).then((res)=>{    
         console.log(res)
         return res.json()
 
@@ -69,9 +137,10 @@ function getProds() {
         
         })
         
-    }
+}
 
 console.log(quadro.nome)
+
     $(document).ready(function(){
         var quantity = 1;
         $('.quantity-right-plus').click(function(e){
@@ -102,30 +171,26 @@ var select = document.querySelector('#revest')
     select.addEventListener('change', () =>{getNewPrice()})
 
 
-/*function alteraPreco(){
-    var preco =  document.querySelector('#preco')
+
+function getNewPrice(){
+
+    precoTipo()
+
+    let quantidadeAtual = document.querySelector('#quantity').value
+    console.log(quantidadeAtual)
     
-    let quantidade1 = document.querySelector('#quantity').value
-    console.log(quantidade1)
+    //let revestValue = (select.options[select.selectedIndex].value == 2) ? 10 : 0
 
-    let value = select.options[select.selectedIndex].value
-    console.log(value)
-    if (value == 2){
-        
-        let calculo = (quadro.preco + 10) * quantidade1
-        console.log(calculo)
-        quadro.preco = calculo
-        preco.innerHTML = formatter.format(calculo)
-        document.querySelector('#image').setAttribute('src', quadro.imageBranca)
-        
-    }else{
+    //console.log('Informações do quadro:',quantidadeAtual, revestValue)
+    
+    let newPrice = (quantidadeAtual * quadro.precoUnit) 
 
-        let calculo = quadro.preco * quantidade1
-        quadro.preco = calculo
-        preco.innerHTML = formatter.format(calculo)
-        document.querySelector('#image').setAttribute('src', quadro.imagePath)
-    }
-}*/
+    console.log('Preço final:',newPrice) 
+    
+    quadro.alteraPreco(newPrice)
+    console.log(quadro)
+
+}
 
 async function precoTipo(){
     var placaCheck = document.querySelector('#placaDeco')
@@ -149,26 +214,6 @@ async function precoTipo(){
 
     }
     console.log(quadro.preco)
-}
-
-function getNewPrice(){
-
-    precoTipo()
-
-    let quantidadeAtual = document.querySelector('#quantity').value
-    console.log(quantidadeAtual)
-    
-    //let revestValue = (select.options[select.selectedIndex].value == 2) ? 10 : 0
-
-    //console.log('Informações do quadro:',quantidadeAtual, revestValue)
-    
-    let newPrice = (quantidadeAtual * quadro.precoUnit) 
-
-    console.log('Preço final:',newPrice) 
-    
-    quadro.alteraPreco(newPrice)
-    console.log(quadro)
-
 }
 
 
@@ -210,92 +255,6 @@ async function placaDeco(){
 }
 
 
-var addCart = document.querySelector("#addCart")
-addCart.addEventListener('click',cartIt)
-
-function cartIt(){
-     //Product:
-    var nome = document.querySelector('#title').innerHTML
-   
-    var img = document.querySelector('#image').getAttribute('src')
-    var preco = parseFloat(quadro.preco).toFixed(2)
-    
-    var id = document.querySelector('#id').innerHTML
-    var quantity = parseInt(document.querySelector('#quantity').value)
-
-    
-    console.log(placaCheck.checked)
-    let type = placaCheck.checked == true ? 3 :  parseInt(select.options[select.selectedIndex].value)
-    console.log(type)
-
-
-    var select2 = document.querySelector('#molduraCor')
-    var cor =  parseInt(select2.options[select2.selectedIndex].value)
-    if (cor == 1) {
-        cor = 'preto'
-    
-    }else if (cor ==2){
-        cor = 'branco'
-    
-    }
-    
-    product = {
-        nome,
-        id,
-        cor,
-        img,
-        preco,
-        precoUnit:quadro.precoUnit,
-        quantity,
-        type,
-    }
-   
-    let cartItems = JSON.parse(sessionStorage.getItem('cartItems'))
-    let itensInCart = parseInt(sessionStorage.getItem('itensInCart'))
-   
-    if (cartItems == null) {
-        
-        cartItems = new Array()
-        cartItems.push(product)
-        sessionStorage.setItem('itensInCart',parseInt(product.quantity))
-
-    } else if(cartItems != null) {
-
-        //procura o item
-        
-        let equalProd = cartItems.filter(cartProd => cartProd.nome == product.nome && cartProd.type == product.type && cartProd.cor == product.cor )
-        
-        if (equalProd.length > 0) {
-            let eqProdIndex = cartItems.indexOf(equalProd[0])
-            cartItems[eqProdIndex].quantity += product.quantity
-            
-        }else{
-            cartItems.push(product)
-
-        }
-
-        sessionStorage.setItem('itensInCart',itensInCart + parseInt(product.quantity))
-
-        //checka igualdade do item
-
-        //se o item é igual adiciona quantidade
-
-        //se o item nao é igual adiciona novo item
-        
-    }
-
-
-
-    
-    
-    sessionStorage.setItem('cartItems', JSON.stringify(cartItems))
-    
-    Swal.fire({
-        title: 'Adicionado!',
-        icon: 'success',
-        timer:800,
-      })
-}
  /* 
     
     if(cartItems != null){

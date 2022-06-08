@@ -1,4 +1,4 @@
-const db = require('../model/Db')
+const db = require('./Db')
 
 db.sequelize.authenticate().then(()=>{
     console.log('conectado com sucesso (users)')
@@ -7,28 +7,28 @@ db.sequelize.authenticate().then(()=>{
 })
 
 const users = db.sequelize.define('users',{
-    nome:{ type:db.Sequelize.STRING,
+    nome:{ type:db.Sequelize.STRING(50),
         allowNull:false,
         validate:{
             notNull:true,
             notEmpty: true,
         }
     },
-    email:{ type: db.Sequelize.STRING,
+    email:{ type: db.Sequelize.STRING(50),
         allowNull:false,
         validate:{        
         isEmail: true,
         notNull:true,
         notEmpty: true,}
     },
-    tel:{type:db.Sequelize.STRING,
+    tel:{type:db.Sequelize.STRING(50),
         allowNull:false,
         validate:{        
             notNull:true,
             notEmpty: true,
         }
     },
-    cpf:{type:db.Sequelize.STRING,
+    cpf:{type:db.Sequelize.STRING(50),
         allowNull:false,
         unique:true,
         validate:{        
@@ -36,7 +36,7 @@ const users = db.sequelize.define('users',{
             notEmpty: true,
         }
     },
-    senha:{type:db.Sequelize.STRING,
+    senha:{type:db.Sequelize.STRING(50),
         allowNull:false,
         unique:true,
         validate:{        
@@ -51,28 +51,28 @@ const users = db.sequelize.define('users',{
             notEmpty: true,
         }
     },
-    estado:{type:db.Sequelize.STRING,
+    estado:{type:db.Sequelize.STRING(50),
         allowNull:false,
         validate:{      
             notNull:true,
             notEmpty: true,
         }
     },
-    cidade:{type:db.Sequelize.STRING,
+    cidade:{type:db.Sequelize.STRING(50),
         allowNull:false,
         validate:{        
             notNull:true,
             notEmpty: true,
             }
     },
-    bairro:{type:db.Sequelize.STRING,
+    bairro:{type:db.Sequelize.STRING(50),
         allowNull:false,
         validate:{        
             notNull:true,
             notEmpty: true,
         }
     },
-    rua:{type:db.Sequelize.STRING,
+    rua:{type:db.Sequelize.STRING(50),
         allowNull:false,
         validate:{        
             notNull:true,
@@ -86,7 +86,7 @@ const users = db.sequelize.define('users',{
             notEmpty: true,
         }
     },
-    complemento:{type:db.Sequelize.STRING,
+    complemento:{type:db.Sequelize.STRING(50),
         allowNull:true     
     },
     isAdmin:{type:db.Sequelize.INTEGER,
@@ -98,6 +98,6 @@ const users = db.sequelize.define('users',{
     }
     
 })
-//////////////////////users.sync({alter:true})
+//users.sync({alter:true})
 module.exports = users
 

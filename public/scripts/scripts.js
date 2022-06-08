@@ -27,10 +27,10 @@ search.addEventListener("keyup", function(event) {
     }
 });
 
-
+/* 
 const busca = document.querySelector('#busca')
 busca.addEventListener('click', redirect)
 
 function redirect(){
-    window.location.replace(`https://www.crialuth.com/search/?search=${search.value}`)
-}
+    window.location.replace(`https://www."".com/search/?search=${search.value}`)
+} */

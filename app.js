@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const path = require('path')
-//const prods = require('./controllers/produtos')
+const prods = require('./controllers/produtos')
 const auth = require('./middlewares/auth')
 const isAdm = require('./middlewares/admin')
 const users = require('./controllers/users')
@@ -31,9 +31,9 @@ app.use('/admin/:userId/:userToken',auth,isAdm, express.static(path.join(__dirna
 
 app.use('/', express.static(path.join(__dirname, "public")))
 
-/* app.get('/',(req, res) =>{
-    res.redirect("https://www.crialuth.com/home/")
-}) */
+app.get('/',(req, res) =>{
+    res.redirect("/home/")
+})
 
 
 
@@ -124,14 +124,14 @@ app.get('/search/:search', async function getall(req,res){
 }) */
 
 
-/* app.get('/all', async function getall(req,res){
+app.get('/all', async function getall(req,res){
 
     const produtos = await prods.getAllProducts()
     
     res.status(200)
     res.send(produtos)
      
-        }) */
+})
 
 app.post('/cadastro', async (req, res) => {
         

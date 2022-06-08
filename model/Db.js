@@ -11,7 +11,7 @@ sequelize.authenticate().then(()=>{
     console.log('falha ao se conectar:' +erro)
 })
 
-    
+/*     
 var apiTokens = sequelize.define('apiTokens',{
 
     api:{ type:Sequelize.STRING,
@@ -22,14 +22,14 @@ var apiTokens = sequelize.define('apiTokens',{
     refreshToken:{type: Sequelize.STRING(2500)}, 
     expDate:{type:Sequelize.DATEONLY},
     
-})
+}) */
 
 
-//apiTokens.sync()
+//sequelize.sync({alter:true})
 
 
 module.exports = { 
-    apiTokens:apiTokens,
+    //apiTokens:apiTokens,
     Sequelize: Sequelize,
     sequelize: sequelize
 }
