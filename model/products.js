@@ -15,11 +15,8 @@ const products = db.sequelize.define('products',{
     descricao:{type:db.Sequelize.STRING(50)},
     valor:{type: db.Sequelize.INTEGER}, 
     
-},{tableName:'products'})
+},{tableName:'products',timestamps: false,})
 
-const prodTeste = setTimeout(()=>{products.build({nome_livro:"teste"})
-console.log(prodTeste instanceof products)
-console.log(prodTeste.nome_livro)},5000)
 
 /* try{
     products.sync( {alter:true} )

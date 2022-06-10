@@ -54,7 +54,7 @@ async function checkUser(){
             showConfirmButton: false,
             timer: 2000
           }).then(() => {
-            window.location.replace(`https://www."".com/home`)
+            window.location.replace(`/home`)
           })
           
       }else if( userResult.isAdmin !== 1 ){
@@ -65,7 +65,7 @@ async function checkUser(){
           showConfirmButton: false,
           timer: 2000
         }).then(() => {
-          window.location.replace(`https://www."".com/home`)
+          window.location.replace(`/home`)
         })
       } 
   }
@@ -75,7 +75,7 @@ async function checkUser(){
 
 async function getProds(){
         
-    var response = await fetch(`https://www."".com/all`)
+    var response = await fetch(`/all`)
     let prods = await response.json()
 
     return prods
@@ -168,7 +168,7 @@ async function adicionaQuadros(){
 
   }
 
-  let result = await fetch('https://www."".com/newprod',options)
+  let result = await fetch('/newprod',options)
 
   console.log(result)
 
@@ -199,7 +199,7 @@ async function delQuadros(){
 
   }
 
-  let result = await fetch(`https://www."".com/delprod/${delButton}`,options)
+  let result = await fetch(`/delprod/${delButton}`,options)
   console.log(result)
   
   return result

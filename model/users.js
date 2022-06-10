@@ -97,7 +97,7 @@ const users = db.sequelize.define('users',{
         }
     }
     
-})
+},{tableName:'users',timestamps: false,})
 //users.sync({alter:true})
 module.exports = users
 

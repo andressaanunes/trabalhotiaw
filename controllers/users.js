@@ -26,6 +26,7 @@ async function createUser(user){
         }else{
                     
                 user.senha = await cripting(user.senha)
+                user.isAdmin = 0;
 
                 try{
                         
@@ -117,6 +118,7 @@ async function getUser(userId){
     }
     
 }
+getUser(1)
 
 module.exports = {
     generateToken:generateToken,

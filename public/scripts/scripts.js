@@ -32,5 +32,5 @@ const busca = document.querySelector('#busca')
 busca.addEventListener('click', redirect)
 
 function redirect(){
-    window.location.replace(`https://www."".com/search/?search=${search.value}`)
+    window.location.replace(`/search/?search=${search.value}`)
 } */

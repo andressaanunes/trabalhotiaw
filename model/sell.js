@@ -31,6 +31,7 @@ TableTest.init({
 console.log(TableTest === sequelize.models.TableTest); 
 
 async function findAll(){
+  
   var result = await TableTest.findAll()
   console.log(result)
 }

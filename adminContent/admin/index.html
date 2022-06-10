@@ -108,7 +108,7 @@ async function checkUser(){
       showConfirmButton: false,
       timer: 2000
     }).then(() => {
-      window.location.replace(`https://www."".com/home`)
+      window.location.replace(`/home`)
     })
   }
   
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded',renderProds)
 
 async function getProds(){
         
-    var response = await fetch(`https://www."".com/all`)
+    var response = await fetch(`/all`)
     let prods = await response.json()
 
     return prods
@@ -171,29 +171,28 @@ async function renderProds(){
             <div class="row">
               <div class="col">
                 
-                <div> <strong>ID:</strong> ${quadro.id}</div>
-                <div>  <h6>${quadro.nome}</h6></div>
+                <div> <strong>ID:</strong> ${quadro.cod_livro}</div>
+                <div>  <h6>${quadro.nome_livro}</h6></div>
               
             </div>
               <div class="col">
                 
-                <div> <img class="img-thumbnail" src="${quadro.imagePath}" alt=""> </div>
+                <div> <img class="img-thumbnail" src="../public/home/${quadro.cod_livro}.jpg" alt=""> </div>
                 <div> </div>
               
             </div>
               <div class="col">
                 
-                <div>Maisvendido(0=não/1=sim):<br></div>
-                <div><strong> ${quadro.categoria}</strong></div>
-                <div> <strong>${quadro.preco}</strong></div>
+                
+                <div><strong> ${quadro.nome_autor}</strong></div>
+                <div> <strong>${quadro.valor}</strong></div>
               
             </div>
               <div class="col">
+                <div> <strong>${quadro.quantidade}</strong></div> 
+                <div> ${quadro.descricao}</div>
+               
                 
-                <div> <strong>${quadro.maisvendido}</strong></div>
-                <div> <strong>${quadro.area}</strong></div>
-                <div><strong>imgBranca:</strong> ${quadro.imageBrancaPath}</div>
-                <div><strong>placaDeco:</strong> ${quadro.placaDecoPath}</div>
 
               </div>
             </div>
@@ -318,7 +317,7 @@ async function delQuadros(){
     headers:new Headers({'Content-Type': 'application/json'}),
   }
 
-  let result = await fetch(`https://www."".com/delprod/${delButton}`,options)
+  let result = await fetch(`/delprod/${delButton}`,options)
   console.log(result)
   
   return result

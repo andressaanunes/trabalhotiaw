@@ -117,7 +117,7 @@ function getProds() {
     
     var params = location.href.split('=',2)
     
-    fetch(`https://www."".com/product?id=${params[1]}`).then((res)=>{    
+    fetch(`/product?id=${params[1]}`).then((res)=>{    
         console.log(res)
         return res.json()
 

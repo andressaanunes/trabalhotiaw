@@ -18,6 +18,7 @@ async function takeAddress(){
     
     var res = await fetch(`https://viacep.com.br/ws/${search}/json/`,options)
     res = await res.json()
+    console.log(res)
    
     for(const campo in res){
         if(document.querySelector("#"+campo)){
@@ -62,7 +63,7 @@ async function saveUser(){
             body: JSON.stringify(userInfo)
         }
 
-        var res = await fetch('https://www."".com/cadastro',options)
+        var res = await fetch('/cadastro',options)
         
         var parsedRes = await res.json()
         
@@ -79,7 +80,7 @@ async function saveUser(){
                 icon: 'success',
                 timer:800
               }).then(()=>{
-                  location.replace("https://www."".com/home/")
+                  location.replace("/home/")
               })
         }
 
@@ -102,7 +103,7 @@ async function testeFetch(){
         body: JSON.stringify({teste:'teste!'})
     }
 
-    var res = await fetch('https://www."".com/cadastro',options)
+    var res = await fetch('/cadastro',options)
     var parsedRes = await res.json()
     
     
