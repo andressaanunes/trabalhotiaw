@@ -149,8 +149,6 @@ async function shipValues(){
 
 }
 
-
-
 async function setShipInfo(event){
     event.preventDefault()
     
