@@ -1,13 +1,3 @@
-document.addEventListener('DOMContentLoaded',()=>{
-   var fbComents = document.querySelector('.fb-comments')
-   var url = location.href
-
-   fbComents.setAttribute("data-href", url)
-
-})
-
-
-
 document.addEventListener('DOMContentLoaded',()=>{getProds()})
 
 
@@ -19,13 +9,11 @@ class Quadro{
     constructor(){}
 
     prodInfo(prod){
-        this.nome = prod.nome
+        this.nome = prod.nome_livro
         this.id = prod.id
-        this.precoUnit = parseFloat(prod.preco)
-        this.preco = parseFloat(prod.preco)
-        this.imagePath = prod.imagePath
-        this.imageBranca = prod.imageBranca
-        this.imagePlaca = parseFloat(prod.imagePlaca)
+        this.precoUnit = parseFloat(prod.valor)
+        this.preco = parseFloat(prod.valor)
+        this.imagePath = `../home/${prod.cod_livro}.jpg`
     }
     parsePrice(){
         return formatter.format(this.preco)
@@ -60,27 +48,14 @@ function cartIt(){
     var id = document.querySelector('#id').innerHTML
     var quantity = parseInt(document.querySelector('#quantity').value)
 
-    console.log(placaCheck.checked)
-    let type = placaCheck.checked == true ? 3 :  parseInt(select.options[select.selectedIndex].value)
-    console.log(type)
-
-    var select2 = document.querySelector('#molduraCor')
-    var cor =  parseInt(select2.options[select2.selectedIndex].value)
-    if (cor == 1) {
-        cor = 'preto'
-    }else if (cor ==2){
-        cor = 'branco'
-    
-    }
+   
     product = {
         nome,
         id,
-        cor,
         img,
         preco,
         precoUnit:quadro.precoUnit,
         quantity,
-        type,
     }
    
     let cartItems = JSON.parse(sessionStorage.getItem('cartItems'))
@@ -116,6 +91,7 @@ function cartIt(){
 function getProds() {
     
     var params = location.href.split('=',2)
+    console.log(params)
     
     fetch(`/product?id=${params[1]}`).then((res)=>{    
         console.log(res)
@@ -124,6 +100,7 @@ function getProds() {
     }).then((res) =>{
         
         prods = res
+        console.log('prods',prods)
         
               
         quadro.prodInfo(prods)
@@ -167,10 +144,10 @@ var quantidade1 = document.querySelector('#quantitydiv')
     quantidade1.addEventListener(`click`,() =>{getNewPrice()})
 
 
-var select = document.querySelector('#revest')
+/* var select = document.querySelector('#revest')
     select.addEventListener('change', () =>{getNewPrice()})
 
-
+ */
 
 function getNewPrice(){
 
@@ -217,9 +194,9 @@ async function precoTipo(){
 }
 
 
-
+/* 
 var placaCheck = document.querySelector('#placaDeco')
-placaCheck.addEventListener('change', placaDeco)
+placaCheck.addEventListener('change', placaDeco) */
 
 async function placaDeco(){
     console.log(placaCheck.checked)

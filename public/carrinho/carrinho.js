@@ -9,7 +9,7 @@ var formatter = new Intl.NumberFormat('pt-BR',{
 
 
 
-function prodQuant(item,itemQuant,itemPrice,itemIndex,itemId,itemPrecoUnit){
+async function prodQuant(item,itemQuant,itemPrice,itemIndex,itemId,itemPrecoUnit){
 
     var formatter = new Intl.NumberFormat('pt-BR',{
         style:"currency",currency:"BRL"})
@@ -55,31 +55,20 @@ async function listProds(){
     
     Object.values(item).map(itens => {    
         
-        if(itens.type === 1){    
-            var price = 44.99
-
-        }else if(itens.type === 2){ 
-            var price = 54.99
-
-        }else if(itens.type ===3){ 
-            var price = 19.99
-            
-        }
-        
        var index = item.indexOf(itens)
        console.log(index)
 
-        subTotal += parseFloat(price*itens.quantity)
-        let unformattedPrice = parseFloat(price*itens.quantity)
+        subTotal += parseFloat(itens.precoUnit*itens.quantity)
+        let unformattedPrice = parseFloat(itens.precoUnit*itens.quantity)
 
-        price = formatter.format(price*itens.quantity)
+        let price = formatter.format(itens.precoUnit*itens.quantity)
        console.log(itens)
         tabela.innerHTML += `
         <tr id="${itens.id}" class ="prodRow">                   
         <td><img id="prodImg" src="${itens.img}" /> </td>
         <td id="${index}">${itens.nome}</td>                         
 
-        <td><input id="${index}quantity" onchange="prodQuant('${itens.nome}',${itens.quantity},${unformattedPrice},${index},${itens.id},${itens.precoUnit})"  class="form-control prodQuantity" type="text" value="${itens.quantity}" /></td>
+        <td><input id="${index}quantity" onchange="prodQuant('${itens.nome}',${itens.quantity},${unformattedPrice},${index},${itens.id},${itens.precoUnit})" class="form-control prodQuantity" type="text" value="${itens.quantity}" /></td>
 
         <td id="${index}prodPrice" class="text-right ">${price}</td>
         <td class="text-right"><button onclick="excluirProduto(this)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button></td>
@@ -120,6 +109,7 @@ async function excluirProduto(btn){
 
 }
 
+
 function changeItensInCart(){
     let newQuantity = 0
 
@@ -159,11 +149,9 @@ async function shipValues(){
 
 }
 
-//document.addEventListener('DOMContentLoaded',shipCalc('03683000','30662523',1))
 
 
-
-    async function setShipInfo(event){
+async function setShipInfo(event){
     event.preventDefault()
     
     var form = document.getElementById('shippingForm')
@@ -198,47 +186,13 @@ async function shipValues(){
             <p class="text-end"><strong>Total:  </strong><strong>${formatter.format(conta)}</strong></p>
         </div>
     </div>   `
-        }
-
-
-
-
-
-
-
-
-
-document.getElementById('shipCartBtn').addEventListener('click',shipCart)
-
-async function shipCart(){
-    let shipInfo = sessionStorage.getItem('shipInfo')
-
-    //let shipInfo = SHIPINFO AQUI 
-
-    if(shipInfo.id ===3 || shipInfo.id ===4){
-        var menvBody = await buildMenvCorreiosPayload()
-    }else{
-        var menvBody = await buildMenvJadlogPayload()
-    }
-    
-   /*  var options = {
-        method:'POST',    
-        headers:new Headers({'Content-Type': 'application/json'}),
-        body:JSON.stringify(menvBody)
-    } */
-
-    var  result = await menvjs.shipCartReq(menvBody)
-    console.log('result: ',result)
-    console.log('result: ',JSON.stringify(result))
-    return result
 }
-// valor do frete
 
-
-async function apiPagseguro(){
-
+res.header ("Access-Control-Allow-Origin","*")
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     
 
-}
-var fechapedido = document.querySelector('#fechapedido')
-fechapedido.addEventListener('click',apiPagseguro)
+let teste = fetch('https://homologacao.ginfes.com.br/ServiceGinfesImpl?wsdl')
+console.log('teste',teste)
+let jsonteste = teste.json()
+console.log('json',jsonteste)

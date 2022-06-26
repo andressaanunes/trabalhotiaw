@@ -38,7 +38,7 @@ async function getProductById(Id){
       id: Id
     }
   })
-  let json = prods
+  let json = prods[0].dataValues
   console.log('productByid:',json)
   return json
 };

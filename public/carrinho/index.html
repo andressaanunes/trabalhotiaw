@@ -82,7 +82,7 @@
                     </tbody>
                 </table>
                 <div class="input-group mb-3" id="cep">
-                    <input id="clientCEP" type="text" class="form-control" placeholder="CEP" aria-label="Recipient's username" >
+                    <input id="clientCEP" class="form-control" placeholder="CEP" aria-label="Recipient's username" >
                     <button class="btn btn-outline-secondary" type="button" id="cepCalc">Calcular</button>
                 </div>
                 <div class="d-grid gap-3 float-end">
@@ -90,13 +90,7 @@
                         
                     </form>
                     
-                    <div id="shippings">
-
-
-                        <div id="total">
-
-                        </div>
-                    </div>
+                    
                 </div>
                 <br>
                 
@@ -112,13 +106,69 @@
                     </div>
                 <div class="col-sm-12 col-md-6 text-right align-items-center">
                     
-                    <button id="fechapedido" class="btn btn-lg btn-block btn-success text-uppercase">Fechar Pedido</button>
+                    <button id="fechapedido" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-lg btn-block btn-success text-uppercase">Fechar Pedido</button>
                     <p id="isLoged" class="text-right">Para finalizar o pedido você precisa estar logado!</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Pagamento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Será enviado para seu E-mail, um formulário onde você preencherá seus dados para completar sua compra!
+          Formulário:
+          <div class="my-2">
+            <form action="enviar-email.php" class="formulario" method="post"> 
+                <p> Preencha o campo abaixo para finalizar a compra:</p>
+                
+                <div class="field">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome*" required>
+                </div>
+                
+                <div class="field">
+                    <label for="bandeira">Bandeira:</label>
+                    <input type="text" id="bandeira name="bandeira" placeholder="Digite a bandeira">
+                </div>
+        
+                <div class="field">
+                    <label for="cartão">Nº Cartão</label>
+                    <input type="text" id="cartão" name="cartão" placeholder="Digite o nº do cartão">
+                </div>
+        
+                <div class="field">
+                    <label for="email">Seu E-Mail:</label>
+                    <input type="email" id="email" name="email" placeholder="Digite seu E-Mail*" required>
+                </div>        
+                <div class="field radiobox">
+                    <span>Deseja receber nossas novidades?</span>
+                    <input type="radio" name="novidades" id="sim" value="sim" checked><label for="sim">Sim</label>
+                    <input type="radio" name="novidades" id="nao" value="nao"><label for="nao">Não</label>
+                </div>
+                <div class="field">
+                    <label for="mensagem">Sua mensagem:</label>
+                    <textarea name="mensagem" id="mensagem" placeholder="Mensagem*" required></textarea>
+                </div>
+        
+                <input type="submit" name="acao" value="Enviar">
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Enviar!</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
  <!-- Footer -->
@@ -196,9 +246,11 @@
         </div>
     </div>
 </footer>
-<script src="/carrinho/carrinho.js" type="module"></script>
-<script src="/carrinho/menv.js" type="module" ></script>
+
+
+<script src="./carrinho.js"></script>
+<!-- <script src="/carrinho/menv.js" type="module" ></script> -->
 <!-- <script src="/scripts/scripts.js"></script> -->
-<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+<!-- <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script> -->
 </body>
 </html>

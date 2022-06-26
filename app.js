@@ -117,11 +117,11 @@ app.get('/search/:search', async function getall(req,res){
 })
 
 
-/* app.get('/product',async(req,res)=>{
+app.get('/product',async(req,res)=>{
     console.log(req.query.id)
     const produtos = await prods.getProductById(req.query.id)
-    res.status(200).json(produtos[0])
-}) */
+    res.status(200).json(produtos)
+})
 
 
 app.get('/all', async function getall(req,res){
